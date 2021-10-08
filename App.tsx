@@ -9,6 +9,8 @@
 import React, {useEffect} from 'react';
 import {SafeAreaView, Text} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
+import {NavigationContainer} from '@react-navigation/native';
+import Tabs from './src/Navigation/tabs';
 
 const App = () => {
   useEffect(() => {
@@ -18,9 +20,9 @@ const App = () => {
   }, []);
 
   return (
-    <SafeAreaView>
-      <Text>Hello OpenBar!!!</Text>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Tabs />
+    </NavigationContainer>
   );
 };
 
