@@ -7,7 +7,7 @@
  */
 
 import React, {useEffect} from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {SafeAreaView, Text, View} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
 import Tabs from './src/Navigation/tabs';
@@ -20,9 +20,12 @@ const App = () => {
   }, []);
 
   return (
+      <View style={{backgroundColor: "red", display: 'flex', flex: 1}}>
     <NavigationContainer>
+
       <Tabs />
     </NavigationContainer>
+      </View>
   );
 };
 
