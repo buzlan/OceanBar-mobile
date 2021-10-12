@@ -1,4 +1,4 @@
-const foodData = {
+export const foodData = {
   breakfast: [
     {
       id: 1,
@@ -315,7 +315,5 @@ const foodData = {
     },
   ],
 };
-
-export default foodData;
 
 // https://www.edimdoma.ru/jivem_doma/posts/22893-vysokaya-kuhnya-gotovim-blyuda-iz-ryby-i-moreproduktov

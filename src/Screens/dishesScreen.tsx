@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { ParamListBase } from '@react-navigation/routers';
-import getMenuButtons from '../Mocks/GetMenuBtns';
-import Header from '../Shared/header';
-import {Button} from 'react-native-elements'
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {ParamListBase} from '@react-navigation/routers';
+import {Button} from 'react-native-elements';
 
-interface Props extends BottomTabScreenProps<ParamListBase>  {
+import {getMenuButtons} from '../mocks/getMenuBtns';
+import {SearchBar} from '../components/shared/SearchBar';
 
-}
-const DishesScreen : React.FC<Props>= ({navigation}) => {
-  const [menuButtons, setMenuButtons] = useState<any[]>([])
+interface Props extends BottomTabScreenProps<ParamListBase> {}
+
+export const DishesScreen: React.FC<Props> = ({navigation}) => {
+  const [menuButtons, setMenuButtons] = useState<any[]>([]);
+
   useEffect(() => {
     (async () => {
       const data = await getMenuButtons();
@@ -19,38 +20,46 @@ const DishesScreen : React.FC<Props>= ({navigation}) => {
   }, []);
 
   return (
-    <View style={{flex:1, backgroundColor: "white"}}>
-      <Header />
-    <View  style = {{paddingTop: 60}}>
-      {menuButtons.map((button) => {
-        return <Button // Don't forget this!
-           type="clear" key={button.id} title={button.title} buttonStyle = {styles.buttons} onPress={() => navigation.navigate("MenuDetailsScreen", { menuName: button.alias, name: button.title })} />;
-      })}
-    </View>
+    <View style={{flex: 1}}>
+      <View style={{paddingTop: 60}}>
+        {menuButtons.map(button => {
+          return (
+            <Button // Don't forget this!
+              type="clear"
+              key={button.id}
+              title={button.title}
+              buttonStyle={styles.buttons}
+              onPress={() => {
+                navigation.navigate('MenuDetailsScreen', {
+                  menuName: button.alias,
+                  title: button.title,
+                });
+              }}
+            />
+          );
+        })}
+      </View>
     </View>
   );
 };
-
-export default DishesScreen;
 
 const styles = StyleSheet.create({
   buttons: {
     paddingLeft: 60,
     alignSelf: 'flex-start',
-    color: 'black'
-
+    color: 'black',
   },
   appButtonContainer: {
     elevation: 8,
     borderRadius: 10,
     paddingVertical: 10,
-    paddingHorizontal: 12
+    paddingHorizontal: 12,
   },
   appButtonText: {
     fontSize: 18,
-    color: "#fff",
-    fontWeight: "bold",
-    alignSelf: "center",
-    textTransform: "uppercase"
-  }
+    color: '#fff',
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    textTransform: 'uppercase',
+  },
 });

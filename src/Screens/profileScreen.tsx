@@ -1,12 +1,10 @@
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { ParamListBase } from '@react-navigation/native';
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {ParamListBase} from '@react-navigation/native';
 import React from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
-interface Props extends BottomTabScreenProps<ParamListBase>  {
+interface Props extends BottomTabScreenProps<ParamListBase> {}
 
-}
-
-const ProfileScreen: React.FC<Props> = ({navigation}) => {
+export const ProfileScreen: React.FC<Props> = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text> Profile Screen!</Text>
@@ -18,8 +16,6 @@ const ProfileScreen: React.FC<Props> = ({navigation}) => {
     </View>
   );
 };
-
-export default ProfileScreen;
 
 const styles = StyleSheet.create({
   container: {
