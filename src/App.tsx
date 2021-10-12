@@ -11,8 +11,8 @@ import {SafeAreaView, Text, View} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
 
-import {Tabs} from './navigation/tabs';
 import {ThemeProvider} from 'react-native-elements';
+import {Tabs} from './navigation/tabs';
 
 const theme = {
   Button: {

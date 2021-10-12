@@ -5,10 +5,11 @@ import MIcon from 'react-native-vector-icons/MaterialIcons';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import {MenuDetailsScreen} from '../screens/MenuScreens/MenuDetailsScreen';
-import {DishesScreen} from '../screens/DishesScreen';
-import {BasketScreen} from '../screens/BasketScreen';
-import {ProfileScreen} from '../screens/ProfileScreen';
+
 import {SearchBar} from '../components/shared/SearchBar';
+import {DishesScreen} from '../screens/dishesScreen';
+import {BasketScreen} from '../screens/basketScreen';
+import {ProfileScreen} from '../screens/profileScreen';
 
 // Stack Navigator
 const Stack = createStackNavigator();
