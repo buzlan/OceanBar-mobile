@@ -7,12 +7,13 @@
  */
 
 import React, {useEffect} from 'react';
-import {SafeAreaView, Text, View} from 'react-native';
+import {View} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
 
 import {ThemeProvider} from 'react-native-elements';
 import {Tabs} from './navigation/tabs';
+import {stylesApp} from './styles/appStyle';
 
 const theme = {
   Button: {
@@ -31,7 +32,7 @@ export const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <View style={{backgroundColor: 'red', display: 'flex', flex: 1}}>
+      <View style={stylesApp.container}>
         <NavigationContainer>
           <Tabs />
         </NavigationContainer>
