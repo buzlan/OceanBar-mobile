@@ -1,17 +1,22 @@
 import { Formik } from "formik";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Button, Text, View } from "react-native";
 import { TextInput } from "react-native-paper";
 import { stylesRegForm } from "../../../styles/regFormStyle";
-import { registerValidationSchema } from "../registerValidSchema";
+import PhoneInput from "react-native-phone-number-input";
 
-export const SecondStepScreen = () => {
+const phoneRegex = /^[0-9]{9}$/;
+
+export const SecondStepScreen = (props) => {
+  const [value, setValue] = useState("");
+  const [formattedValue, setFormattedValue] = useState("");
+  const [valid, setValid] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
+  const phoneInput = useRef<PhoneInput>(null);
   return (
     <Formik
-      initialValues={{ firstname: "", lastname: "", email: "" }}
-      validateOnMount={true}
+      initialValues={{ phoneNumber: "" }}
       onSubmit={(values) => console.log(JSON.stringify(values))}
-      validationSchema={registerValidationSchema}
     >
       {({
         handleChange,
@@ -21,34 +26,36 @@ export const SecondStepScreen = () => {
         touched,
         errors,
         isValid,
+        dirty,
       }) => (
         <View>
           <View>
             <TextInput
-              placeholder="Email"
-              onChangeText={handleChange("email")}
-              onBlur={handleBlur("email")}
-              value={values.email}
-              right={
-                !errors.email ? (
-                  <TextInput.Icon name={"check"} color={"green"} />
-                ) : null
-              }
+              placeholder="Номер телефона"
+              onChangeText={handleChange("phoneNumber")}
+              onBlur={handleBlur("phoneNumber")}
+              value={values.phoneNumber}
             />
           </View>
-          {errors.email && touched.email && (
-            <Text style={stylesRegForm.errors}>{errors.email}</Text>
-          )}
+          {/* {errors.phoneNumber && touched.phoneNumber && (
+          <Text style={stylesRegForm.errors}>{errors.phoneNumber}</Text>
+        )} */}
+          {props.renderButton({
+            isValid,
+            dirty,
+            handleSubmit,
+            title: "Продолжить",
+          })}
 
-          <Button
-            disabled={
-              !isValid ||
-              (Object.keys(touched).length === 0 &&
-                touched.constructor === Object)
-            }
-            onPress={handleSubmit}
-            title="Регистрация"
-          />
+          {/* <Button
+          disabled={
+            !isValid ||
+            (Object.keys(touched).length === 0 &&
+              touched.constructor === Object)
+          }
+          onPress={handleSubmit}
+          title="Регистрация"
+        /> */}
         </View>
       )}
     </Formik>
