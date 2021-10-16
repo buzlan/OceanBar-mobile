@@ -19,24 +19,3 @@ export const RegistrationForm = ({ navigation }) => {
     </TouchableWithoutFeedback>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    borderWidth: 1,
-    width: 200,
-    marginTop: 20,
-    backgroundColor: "transparent",
-    padding: 15,
-    borderRadius: 20,
-    alignItems: "center",
-  },
-  btnText: {
-    color: "black",
-    fontSize: 20,
-    justifyContent: "center",
-    textAlign: "center",
-  },
-  disabledButton: {
-    color: "green",
-  },
-});
