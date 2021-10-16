@@ -1,17 +1,17 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from "react-native";
 
 export const stylesDishPage = StyleSheet.create({
   container: {
     flex: 1,
-    alignContent: 'flex-end',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: 'white',
+    alignContent: "flex-end",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    backgroundColor: "white",
   },
   dishDescription: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingVertical: 5,
   },
   composition: {
@@ -19,6 +19,10 @@ export const stylesDishPage = StyleSheet.create({
   },
   button: {
     paddingTop: 60,
-    color: 'black',
+    color: "black",
+  },
+  image: {
+    width: 200,
+    height: 200,
   },
 });

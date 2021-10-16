@@ -1,9 +1,9 @@
-import React from 'react';
-import {View, Text, Image} from 'react-native';
-import {Button} from 'react-native-elements';
-import {stylesDishPage} from '../../styles/dishPageStyle';
+import React from "react";
+import { View, Text, Image } from "react-native";
+import { Button } from "react-native-elements";
+import { stylesDishPage } from "../../styles/dishPageStyle";
 
-export const DishPage = ({route}) => {
+export const DishPage = ({ route }) => {
   const item = route.params.dishDetails;
   return (
     <View style={stylesDishPage.container}>
@@ -11,7 +11,7 @@ export const DishPage = ({route}) => {
         source={{
           uri: item.image,
         }}
-        style={{width: 200, height: 200}}
+        style={stylesDishPage.image}
       />
       <View style={stylesDishPage.dishDescription}>
         <Text>Цена : {item.prise}</Text>
