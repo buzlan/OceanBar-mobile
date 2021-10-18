@@ -16,7 +16,7 @@ export const RegistrationForm = ({ navigation, route }) => {
   }
   const showAlert = () =>
     Alert.alert(
-      "Alert Title",
+      "Активация профиля",
       "Для активации вашего профиля, пожалуйста, перейдите по ссылке из письма, которое было выслано на указанную электронную почту.",
       [
         {
