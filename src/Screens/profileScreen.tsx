@@ -1,12 +1,13 @@
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {ParamListBase} from '@react-navigation/native';
 import React from 'react';
-import {View, Text, Button, StyleSheet} from 'react-native';
+import {View, Text, Button} from 'react-native';
+import {stylesProfile} from '../styles/profileStyle';
 interface Props extends BottomTabScreenProps<ParamListBase> {}
 
 export const ProfileScreen: React.FC<Props> = ({navigation}) => {
   return (
-    <View style={styles.container}>
+    <View style={stylesProfile.container}>
       <Text> Profile Screen!</Text>
       <Button
         title="Click me"
@@ -16,12 +17,3 @@ export const ProfileScreen: React.FC<Props> = ({navigation}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#8fcbbc',
-  },
-});
