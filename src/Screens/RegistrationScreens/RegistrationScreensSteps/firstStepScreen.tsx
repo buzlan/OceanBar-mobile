@@ -1,6 +1,6 @@
 import { Formik } from "formik";
 import React from "react";
-import { Button, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { TextInput } from "react-native-paper";
 import { stylesRegForm } from "../../../styles/regFormStyle";
 import { registerValidationSchema } from "../registerValidSchema";
@@ -26,7 +26,6 @@ export const FirstStepScreen = (props) => {
         dirty,
       }) => (
         <View>
-          {console.log(errors)}
           <View>
             <TextInput
               placeholder="Имя"
@@ -78,12 +77,12 @@ export const FirstStepScreen = (props) => {
           {errors.email && touched.email && (
             <Text style={stylesRegForm.errors}>{errors.email}</Text>
           )}
-
-          <Button
-            disabled={!(isValid && dirty)}
-            onPress={handleSubmit}
-            title="Продолжить"
-          />
+          {props.renderButton({
+            isValid,
+            dirty,
+            handleSubmit,
+            title: "Продолжить",
+          })}
         </View>
       )}
     </Formik>

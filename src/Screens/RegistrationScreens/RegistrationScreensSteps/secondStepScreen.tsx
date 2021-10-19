@@ -1,54 +1,54 @@
 import { Formik } from "formik";
-import React from "react";
-import { Button, Text, View } from "react-native";
-import { TextInput } from "react-native-paper";
-import { stylesRegForm } from "../../../styles/regFormStyle";
-import { registerValidationSchema } from "../registerValidSchema";
+import React, { useRef, useState } from "react";
+import { Text, View } from "react-native";
 
-export const SecondStepScreen = () => {
+import { stylesRegForm } from "../../../styles/regFormStyle";
+import PhoneInput from "react-native-phone-number-input";
+import { registerValidationPhoneSchema } from "../registerValidPhoneSchema";
+
+export const SecondStepScreen = (props) => {
+  const [value, setValue] = useState("");
+
+  const phoneInput = useRef<PhoneInput>(null);
+
   return (
     <Formik
-      initialValues={{ firstname: "", lastname: "", email: "" }}
-      validateOnMount={true}
-      onSubmit={(values) => console.log(JSON.stringify(values))}
-      validationSchema={registerValidationSchema}
+      initialValues={{ phoneNumber: "" }}
+      onSubmit={(values) => {
+        props.sendStep();
+        console.log(JSON.stringify(values));
+      }}
+      validationSchema={registerValidationPhoneSchema}
     >
       {({
         handleChange,
         handleBlur,
         handleSubmit,
         values,
-        touched,
         errors,
         isValid,
+        dirty,
       }) => (
         <View>
-          <View>
-            <TextInput
-              placeholder="Email"
-              onChangeText={handleChange("email")}
-              onBlur={handleBlur("email")}
-              value={values.email}
-              right={
-                !errors.email ? (
-                  <TextInput.Icon name={"check"} color={"green"} />
-                ) : null
-              }
-            />
-          </View>
-          {errors.email && touched.email && (
-            <Text style={stylesRegForm.errors}>{errors.email}</Text>
-          )}
-
-          <Button
-            disabled={
-              !isValid ||
-              (Object.keys(touched).length === 0 &&
-                touched.constructor === Object)
-            }
-            onPress={handleSubmit}
-            title="Регистрация"
+          <PhoneInput
+            ref={phoneInput}
+            defaultValue={value}
+            defaultCode="BY"
+            layout="first"
+            placeholder="XX XXX XX XX"
+            onChangeText={handleChange("phoneNumber")}
+            value={values.phoneNumber}
+            withDarkTheme
           />
+          {!isValid && (
+            <Text style={stylesRegForm.errors}>{errors.phoneNumber}</Text>
+          )}
+          {props.renderButton({
+            isValid,
+            dirty,
+            handleSubmit,
+            title: "Продолжить",
+          })}
         </View>
       )}
     </Formik>
