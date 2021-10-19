@@ -1,14 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  SafeAreaView,
-  StyleSheet,
-} from 'react-native';
+import {View, Text, Image, ScrollView, StyleSheet} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 import {getMenuDetails} from '../../mocks/getMenuDetails';
+import {stylesMenuDetail} from '../../styles/menuDetailsScreenStyle';
 
 export const MenuDetailsScreen = ({navigation, route}) => {
   const [menuDetails, setMenuDetails] = useState([]);
@@ -22,48 +17,30 @@ export const MenuDetailsScreen = ({navigation, route}) => {
 
   return (
     <ScrollView>
-      <View style={styles.container}>
+      <View style={stylesMenuDetail.container}>
         {menuDetails.map(el => {
           return (
-            <SafeAreaView style={styles.dishItem}>
-              <Text style={styles.dishTitle}>{el.name}</Text>
+            <TouchableOpacity
+              key={el.name}
+              style={stylesMenuDetail.dishItem}
+              onPress={() => {
+                navigation.navigate('DishScreen', {dishDetails: el});
+              }}>
+              <Text style={stylesMenuDetail.dishTitle}>{el.name}</Text>
               <Image
                 source={{
                   uri: el.image,
                 }}
                 style={{width: 200, height: 200}}
               />
-              <View style={styles.dishDescription}>
+              <View style={stylesMenuDetail.dishDescription}>
                 <Text>Цена : {el.prise}</Text>
                 <Text>Вес : {el.weight}</Text>
               </View>
-            </SafeAreaView>
+            </TouchableOpacity>
           );
         })}
       </View>
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-  },
-  dishItem: {
-    padding: 10,
-  },
-  dishTitle: {
-    fontWeight: '900',
-    fontSize: 20,
-    textAlign: 'center',
-    padding: 5,
-  },
-  dishDescription: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 5,
-  },
-});

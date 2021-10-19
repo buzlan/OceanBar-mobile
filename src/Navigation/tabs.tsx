@@ -10,6 +10,7 @@ import {SearchBar} from '../components/shared/SearchBar';
 import {DishesScreen} from '../screens/dishesScreen';
 import {BasketScreen} from '../screens/basketScreen';
 import {ProfileScreen} from '../screens/profileScreen';
+import {DishPage} from '../screens/DishScreen/DishPage';
 
 // Stack Navigator
 const Stack = createStackNavigator();
@@ -33,6 +34,21 @@ const MenuScreenNavigator = () => {
           title: route?.params?.title,
           headerTitleAlign: 'center',
           headerRight: () => <SearchBar />,
+          headerLeftContainerStyle: {
+            alignItems: 'flex-end',
+          },
+        })}
+      />
+      <Stack.Screen
+        name="DishScreen"
+        component={DishPage}
+        options={({route}) => ({
+          title: route?.params?.dishDetails?.name,
+          headerTitleAlign: 'center',
+          headerRight: () => <SearchBar />,
+          headerLeftContainerStyle: {
+            alignItems: 'flex-end',
+          },
         })}
       />
     </Stack.Navigator>
@@ -62,7 +78,33 @@ const tabs = [
     tabComponent: ProfileScreen,
   },
 ];
-
+const setTabBarIcon = (focused, color, size, route) => {
+  let rn = route.name as ScreenNames;
+  const iconNames: KeyObjValue<ScreenNames, () => React.ReactElement> = {
+    [ScreenNames.Dishes]: () => (
+      <MIcon
+        name={focused ? 'fastfood' : 'fastfood'}
+        size={size}
+        color={color}
+      />
+    ),
+    [ScreenNames.Profile]: () => (
+      <FAIcon
+        name={focused ? 'user-circle' : 'user-circle'}
+        size={size}
+        color={color}
+      />
+    ),
+    [ScreenNames.Basket]: () => (
+      <FAIcon
+        name={focused ? 'shopping-basket' : 'shopping-basket'}
+        size={size}
+        color={color}
+      />
+    ),
+  };
+  return iconNames[rn]();
+};
 type KeyObjValue<T extends string, K> = {
   [key in T]: K;
 };
@@ -72,38 +114,13 @@ export const Tabs = () => {
     <Tab.Navigator
       initialRouteName={ScreenNames.Dishes}
       screenOptions={({route}) => ({
-        tabBarIcon: ({focused, color, size}) => {
-          let rn = route.name as ScreenNames;
-          const iconNames: KeyObjValue<ScreenNames, () => React.ReactElement> =
-            {
-              [ScreenNames.Dishes]: () => (
-                <MIcon
-                  name={focused ? 'fastfood' : 'fastfood'}
-                  size={size}
-                  color={color}
-                />
-              ),
-              [ScreenNames.Profile]: () => (
-                <FAIcon
-                  name={focused ? 'user-circle' : 'user-circle'}
-                  size={size}
-                  color={color}
-                />
-              ),
-              [ScreenNames.Basket]: () => (
-                <FAIcon
-                  name={focused ? 'shopping-basket' : 'shopping-basket'}
-                  size={size}
-                  color={color}
-                />
-              ),
-            };
-          return iconNames[rn]();
-        },
+        tabBarIcon: ({focused, color, size}) =>
+          setTabBarIcon(focused, color, size, route),
         headerShown: false,
       })}>
       {tabs.map(tab => (
         <Tab.Screen
+          key={tab.tabName}
           name={tab.tabName}
           component={tab.tabComponent}></Tab.Screen>
       ))}
