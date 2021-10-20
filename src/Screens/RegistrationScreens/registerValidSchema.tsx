@@ -2,16 +2,19 @@ import * as yup from "yup";
 
 export const registerValidationSchema = yup.object().shape({
   firstname: yup
+
     .string()
+    .required("Поле обязательно для заполнения")
     .min(2, ({ min }) => `Минимальное количество символов ${min} `)
     .max(30, ({ max }) => `Максимальное количество символов ${max} `)
-    .required("Поле обязательно для заполнения")
+
     .matches(/^[a-zA-Z-]{2,30}$/, "Разрешён ввод букв"),
   lastname: yup
     .string()
+    .required("Поле обязательно для заполнения")
     .min(3, ({ min }) => `Минимальное количество символов ${min} `)
     .max(30, ({ max }) => `Максимальное количество символов ${max} `)
-    .required("Поле обязательно для заполнения")
+
     .matches(/^[a-zA-Z-]{3,30}$/, "Разрешён ввод букв"),
   email: yup
     .string()

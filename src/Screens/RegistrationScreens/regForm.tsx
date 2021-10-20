@@ -10,7 +10,17 @@ import { ThirdStepScreen } from "./RegistrationScreensSteps/thirdStepScreen";
 export const RegistrationForm = ({ navigation, route }) => {
   const [step, setStep] = useState(1);
   const backListener = useRef();
-  console.log(backListener);
+
+  const [initialValues, setInitialValues] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+  });
+
+  const [initialPhoneNumber, setInitialPhoneNumber] = useState({
+    phoneNumber: "",
+  });
+
   function changeState(newStep) {
     setStep(newStep);
   }
@@ -27,16 +37,18 @@ export const RegistrationForm = ({ navigation, route }) => {
       ]
     );
 
-  const renderButton = ({ isValid, dirty, handleSubmit, title }) => (
-    <>
-      <StepIndicatorComponent sendStep={step} />
-      <Button
-        disabled={!(isValid && dirty)}
-        onPress={handleSubmit}
-        title={title}
-      />
-    </>
-  );
+  const renderButton = ({ isValid, dirty, handleSubmit, title }) => {
+    return (
+      <>
+        <StepIndicatorComponent sendStep={step} />
+        <Button
+          disabled={!isValid ? true : false}
+          onPress={handleSubmit}
+          title={title}
+        />
+      </>
+    );
+  };
   React.useEffect(() => {
     if (backListener.current) {
       navigation.removeListener("beforeRemove", backListener.current);
@@ -58,6 +70,8 @@ export const RegistrationForm = ({ navigation, route }) => {
         <>
           <View>
             <FirstStepScreen
+              initialValues={initialValues}
+              onChange={setInitialValues}
               sendStep={() => changeState(2)}
               renderButton={renderButton}
             />
@@ -68,6 +82,8 @@ export const RegistrationForm = ({ navigation, route }) => {
       {step === 2 && (
         <View>
           <SecondStepScreen
+            initialPhoneNumber={initialPhoneNumber}
+            onChange={setInitialPhoneNumber}
             sendStep={() => changeState(3)}
             renderButton={renderButton}
           />

@@ -1,6 +1,13 @@
 import * as yup from "yup";
 
-export const registerValidationPasswordSchema = yup.object().shape({
+export const loginScreenValidSchema = yup.object().shape({
+  email: yup
+    .string()
+    .required("Поле обязательно для заполнения")
+    .matches(
+      /^([a-zA-Z0-9]{3,64})@([a-zA-Z0-9.-]{3,253})\.(com|org|net|ru)$/,
+      "Электронная почта должна быть в формате xxx@yyy.zzz"
+    ),
   password: yup
     .string()
     .min(8, "Пароль не может содержать менее 8 символов")

@@ -1,25 +1,37 @@
 import { Formik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, View } from "react-native";
 import { TextInput } from "react-native-paper";
+
 import { stylesRegForm } from "../../../styles/regFormStyle";
 import { registerValidationSchema } from "../registerValidSchema";
+
 export const FirstStepScreen = (props) => {
   return (
     <Formik
-      initialValues={{ firstname: "", lastname: "", email: "" }}
+      initialValues={props.initialValues}
+      validateOnMount={true}
+      initialErrors={{
+        firstname: "initialError",
+        lastname: "initialError",
+        email: "initialError",
+      }}
       onSubmit={(values) => {
         props.sendStep();
         console.log(JSON.stringify(values));
+        props.onChange((prevValues) => ({
+          ...prevValues,
+          ...values,
+        }));
       }}
       validationSchema={registerValidationSchema}
     >
       {({
-        initialValues,
         handleChange,
         handleBlur,
         handleSubmit,
         values,
+        isValidating,
         touched,
         errors,
         isValid,
@@ -33,8 +45,7 @@ export const FirstStepScreen = (props) => {
               onBlur={handleBlur("firstname")}
               value={values.firstname}
               right={
-                !errors.firstname &&
-                values.firstname !== initialValues.firstname && (
+                !errors.firstname && (
                   <TextInput.Icon name={"check"} color={"green"} />
                 )
               }
@@ -50,8 +61,7 @@ export const FirstStepScreen = (props) => {
               onBlur={handleBlur("lastname")}
               value={values.lastname}
               right={
-                !errors.lastname &&
-                values.firstname !== initialValues.firstname && (
+                !errors.lastname && (
                   <TextInput.Icon name={"check"} color={"green"} />
                 )
               }
@@ -67,8 +77,7 @@ export const FirstStepScreen = (props) => {
               onBlur={handleBlur("email")}
               value={values.email}
               right={
-                !errors.email &&
-                values.firstname !== initialValues.firstname && (
+                !errors.email && (
                   <TextInput.Icon name={"check"} color={"green"} />
                 )
               }
@@ -78,6 +87,7 @@ export const FirstStepScreen = (props) => {
             <Text style={stylesRegForm.errors}>{errors.email}</Text>
           )}
           {props.renderButton({
+            isValidating,
             isValid,
             dirty,
             handleSubmit,
