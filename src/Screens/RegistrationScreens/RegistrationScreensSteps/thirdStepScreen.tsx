@@ -11,6 +11,7 @@ export const ThirdStepScreen = (props, navigation) => {
   return (
     <Formik
       initialValues={{ password: "" }}
+      initialErrors={{ password: "" }}
       onSubmit={(values) => {
         props.sendStep();
         props.showAlert();
@@ -18,17 +19,7 @@ export const ThirdStepScreen = (props, navigation) => {
       }}
       validationSchema={registerValidationPasswordSchema}
     >
-      {({
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        initialValues,
-        values,
-        touched,
-        errors,
-        isValid,
-        dirty,
-      }) => (
+      {({ handleChange, handleSubmit, values, errors, isValid, dirty }) => (
         <View>
           <TextInput
             placeholder="Пароль"

@@ -13,10 +13,15 @@ export const SecondStepScreen = (props) => {
 
   return (
     <Formik
-      initialValues={{ phoneNumber: "" }}
+      initialValues={props.initialPhoneNumber}
+      validateOnMount={true}
       onSubmit={(values) => {
         props.sendStep();
         console.log(JSON.stringify(values));
+        props.onChange((prevValues) => ({
+          ...prevValues,
+          ...values,
+        }));
       }}
       validationSchema={registerValidationPhoneSchema}
     >
@@ -40,7 +45,7 @@ export const SecondStepScreen = (props) => {
             value={values.phoneNumber}
             withDarkTheme
           />
-          {!isValid && (
+          {errors.phoneNumber && dirty && (
             <Text style={stylesRegForm.errors}>{errors.phoneNumber}</Text>
           )}
           {props.renderButton({
