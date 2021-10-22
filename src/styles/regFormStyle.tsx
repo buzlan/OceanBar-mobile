@@ -1,11 +1,19 @@
 import { StyleSheet } from "react-native";
 
 export const stylesRegForm = StyleSheet.create({
+  errors: {
+    fontFamily: "Roboto",
+    fontSize: 12,
+    color: "red",
+    fontWeight: "bold",
+    marginTop: 5,
+    marginHorizontal: 20,
+  },
   regForm: {
     flex: 1,
-    alignSelf: "stretch",
+    //alignSelf: "stretch",
     backgroundColor: "white",
-    alignItems: "center",
+    //alignItems: "flex-start",
   },
   header: {
     fontSize: 20,
@@ -14,12 +22,74 @@ export const stylesRegForm = StyleSheet.create({
   textInput: {
     alignSelf: "stretch",
     height: 40,
-    margin: 10,
   },
-  errors: {
-    fontSize: 14,
-    color: "red",
+  textLogo: {
+    fontFamily: "Roboto",
+    fontSize: 20,
     fontWeight: "bold",
-    marginTop: 5,
+    color: "#000000",
+    paddingLeft: 20,
+  },
+  wrapperInput: {
+    backgroundColor: "white",
+    paddingHorizontal: 20,
+    paddingTop: 30,
+  },
+  emailInput: {
+    backgroundColor: "white",
+    borderColor: "black",
+  },
+  passwordWrapper: {
+    backgroundColor: "white",
+    paddingHorizontal: 20,
+    paddingTop: 15,
+  },
+  passwordInput: {
+    backgroundColor: "white",
+    borderColor: "black",
+  },
+  forgotWrapper: {
+    alignItems: "flex-end",
+    paddingRight: 20,
+    paddingBottom: 20,
+  },
+  titleForgotBtn: {
+    fontFamily: "Roboto",
+    fontSize: 14,
+    color: "#FF4D00",
+  },
+  forgotBtn: {
+    width: 120,
+    backgroundColor: "transparent",
+  },
+  inputButton: {
+    backgroundColor: "#FF4D00",
+    margin: 20,
+    height: 50,
+  },
+  titleInputBtn: {
+    color: "white",
+    fontFamily: "Roboto",
+    fontSize: 14,
+  },
+  registerButton: {
+    backgroundColor: "transparent",
+    borderWidth: 1,
+    borderColor: "#FF4D00",
+    marginHorizontal: 20,
+    height: 50,
+  },
+  titleRegisterBtn: {
+    backgroundColor: "transparent",
+    color: "#FF4D00",
+    fontFamily: "Roboto",
+    fontSize: 14,
+  },
+  continueBtn: {
+    backgroundColor: "transparent",
+    borderWidth: 1,
+    borderColor: "#FF4D00",
+    marginHorizontal: 20,
+    height: 50,
   },
 });

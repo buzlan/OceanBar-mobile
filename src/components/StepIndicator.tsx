@@ -1,4 +1,5 @@
 import React from "react";
+import { View } from "react-native";
 import StepIndicator from "react-native-step-indicator";
 
 const customStyles = {
@@ -27,10 +28,12 @@ const customStyles = {
 
 export const StepIndicatorComponent = (props) => {
   return (
-    <StepIndicator
-      stepCount={3}
-      customStyles={customStyles}
-      currentPosition={props.sendStep - 1}
-    />
+    <View>
+      <StepIndicator
+        stepCount={3}
+        customStyles={customStyles}
+        currentPosition={props.sendStep - 1}
+      />
+    </View>
   );
 };

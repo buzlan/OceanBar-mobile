@@ -28,6 +28,8 @@
 		3DE2F6641FBF4C8DAD428598 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CA50A7F35DB34BA1962B286A /* Octicons.ttf */; };
 		EA72E14CADB74606BEBA24CA /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11380C066BFA4213872547A6 /* SimpleLineIcons.ttf */; };
 		F005F117F23B4A2A9A3E13EB /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB68B3626CCB4AC0AE3D7652 /* Zocial.ttf */; };
+		409BCC8D18D5488EB12760E3 /* RegattiaStencil-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA156CDA29FF4C0AA090AF5B /* RegattiaStencil-Bold.otf */; };
+		136914C73E5F4130ABDCA061 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD12312E69284E4B88FB467D /* Ionicons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,8 @@
 		CA50A7F35DB34BA1962B286A /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		11380C066BFA4213872547A6 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		EB68B3626CCB4AC0AE3D7652 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EA156CDA29FF4C0AA090AF5B /* RegattiaStencil-Bold.otf */ = {isa = PBXFileReference; name = "RegattiaStencil-Bold.otf"; path = "../src/assets/fonts/RegattiaStencil-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FD12312E69284E4B88FB467D /* Ionicons.ttf */ = {isa = PBXFileReference; name = "Ionicons.ttf"; path = "../node_modules/react-native-ionicons/fonts/Ionicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +180,8 @@
 				CA50A7F35DB34BA1962B286A /* Octicons.ttf */,
 				11380C066BFA4213872547A6 /* SimpleLineIcons.ttf */,
 				EB68B3626CCB4AC0AE3D7652 /* Zocial.ttf */,
+				EA156CDA29FF4C0AA090AF5B /* RegattiaStencil-Bold.otf */,
+				FD12312E69284E4B88FB467D /* Ionicons.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -287,6 +293,8 @@
 				3DE2F6641FBF4C8DAD428598 /* Octicons.ttf in Resources */,
 				EA72E14CADB74606BEBA24CA /* SimpleLineIcons.ttf in Resources */,
 				F005F117F23B4A2A9A3E13EB /* Zocial.ttf in Resources */,
+				409BCC8D18D5488EB12760E3 /* RegattiaStencil-Bold.otf in Resources */,
+				136914C73E5F4130ABDCA061 /* Ionicons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

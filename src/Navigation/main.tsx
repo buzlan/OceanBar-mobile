@@ -1,7 +1,7 @@
-import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import {AuthScreenNavigator} from './auth';
-import {Tabs} from './tabs';
+import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import { AuthScreenNavigator } from "./auth";
+import { Tabs } from "./tabs";
 
 const Stack = createStackNavigator();
 
@@ -11,12 +11,12 @@ export const MainNavigator = () => {
       <Stack.Screen
         name="auth"
         component={AuthScreenNavigator}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="tabs"
         component={Tabs}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
