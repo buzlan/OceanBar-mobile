@@ -7,13 +7,15 @@
  */
 
 import React, { useEffect } from "react";
-import { View } from "react-native";
+import { StatusBar, View } from "react-native";
 import SplashScreen from "react-native-splash-screen";
 import { NavigationContainer } from "@react-navigation/native";
 
 import { ThemeProvider } from "react-native-elements";
 import { stylesApp } from "./styles/appStyle";
 import { MainNavigator } from "./navigation/main";
+import { AppLoader } from "./components/AppLoader";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const theme = {
   Button: {
@@ -32,11 +34,11 @@ export const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <View style={stylesApp.container}>
-        <NavigationContainer>
+      <NavigationContainer>
+        <SafeAreaView style={stylesApp.container}>
           <MainNavigator />
-        </NavigationContainer>
-      </View>
+        </SafeAreaView>
+      </NavigationContainer>
     </ThemeProvider>
   );
 };

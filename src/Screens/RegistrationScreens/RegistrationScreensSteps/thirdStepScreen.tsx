@@ -2,49 +2,59 @@ import { Formik } from "formik";
 import React, { useState } from "react";
 import { Text, View } from "react-native";
 import { TextInput } from "react-native-paper";
+import { stylesLoginForm } from "../../../styles/loginFormStyle";
 import { stylesRegForm } from "../../../styles/regFormStyle";
+import { formStyles } from "../../../styles/stylesForm";
 import { registerValidationPasswordSchema } from "../registerValidPasswordSchema";
 
 export const ThirdStepScreen = (props, navigation) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <Formik
-      initialValues={{ password: "" }}
-      initialErrors={{ password: "" }}
-      onSubmit={(values) => {
-        props.sendStep();
-        props.showAlert();
-        console.log(JSON.stringify(values));
-      }}
-      validationSchema={registerValidationPasswordSchema}
-    >
-      {({ handleChange, handleSubmit, values, errors, isValid, dirty }) => (
-        <View>
-          <TextInput
-            placeholder="Пароль"
-            onChangeText={handleChange("password")}
-            value={values.password}
-            secureTextEntry={!showPassword}
-            right={
-              <TextInput.Icon
-                name={showPassword ? "eye-off" : "eye"}
-                onPress={() => setShowPassword(!showPassword)}
+    <View style={formStyles.flex}>
+      <Formik
+        initialValues={{ password: "" }}
+        initialErrors={{ password: "" }}
+        onSubmit={(values) => {
+          props.sendStep();
+          props.showAlert();
+          console.log(JSON.stringify(values));
+        }}
+        validationSchema={registerValidationPasswordSchema}
+      >
+        {({ handleChange, handleSubmit, values, errors, isValid, dirty }) => (
+          <View style={formStyles.flex}>
+            <View style={stylesRegForm.passwordWrapper}>
+              <TextInput
+                mode="outlined"
+                theme={{ colors: { primary: "grey" } }}
+                placeholder="Пароль"
+                onChangeText={handleChange("password")}
+                value={values.password}
+                secureTextEntry={!showPassword}
+                selectionColor="black"
+                outlineColor="grey"
+                style={stylesRegForm.passwordInput}
+                right={
+                  <TextInput.Icon
+                    name={showPassword ? "eye-off" : "eye"}
+                    onPress={() => setShowPassword(!showPassword)}
+                  />
+                }
               />
-            }
-          />
-
-          {!isValid && (
-            <Text style={stylesRegForm.errors}>{errors.password}</Text>
-          )}
-          {props.renderButton({
-            isValid,
-            dirty,
-            handleSubmit,
-            title: "Зарегестрироваться",
-          })}
-        </View>
-      )}
-    </Formik>
+              {!isValid && (
+                <Text style={stylesRegForm.errors}>{errors.password}</Text>
+              )}
+            </View>
+            {props.renderButton({
+              isValid,
+              dirty,
+              handleSubmit,
+              title: "Зарегестрироваться",
+            })}
+          </View>
+        )}
+      </Formik>
+    </View>
   );
 };

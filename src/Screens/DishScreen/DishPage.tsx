@@ -5,19 +5,21 @@ import { stylesDishPage } from "../../styles/dishPageStyle";
 
 export const DishPage = ({ route }) => {
   const item = route.params.dishDetails;
+  console.log("ITEM", item);
+
   return (
     <View style={stylesDishPage.container}>
       <Image
         source={{
-          uri: item.image,
+          uri: item.imageURL,
         }}
         style={stylesDishPage.image}
       />
       <View style={stylesDishPage.dishDescription}>
-        <Text>Цена : {item.prise}</Text>
+        <Text>Цена : {item.price}</Text>
         <Text style={stylesDishPage.composition}>Состав:</Text>
         <View>
-          {item.ingredients.map((ing, index) => {
+          {item.ingredients.split(";").map((ing, index) => {
             return <Text key={index}> {ing}</Text>;
           })}
         </View>

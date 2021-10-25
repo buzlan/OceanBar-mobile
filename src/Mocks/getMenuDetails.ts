@@ -1,9 +1,12 @@
-import {foodData} from './data/foodData';
+import axios from "axios";
 
-export const getMenuDetails = menuName => {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(foodData[menuName]);
-    }, 2000);
-  });
+export const getMenuDetails = async (menuName: string) => {
+  try {
+    const response = await axios.get(
+      `http://172.17.110.33:3001/api/menu/?category=${menuName}`
+    );
+    return response.data.data.dishes;
+  } catch (err) {
+    console.log(err);
+  }
 };

@@ -5,7 +5,7 @@ export const loginScreenValidSchema = yup.object().shape({
     .string()
     .required("Поле обязательно для заполнения")
     .matches(
-      /^([a-zA-Z0-9]{3,64})@([a-zA-Z0-9.-]{3,253})\.(com|org|net|ru)$/,
+      /^([a-zA-Z0-9]{3,64})@([a-zA-Z0-9.-]{3,253})\.(com|org|net|ru|in)$/,
       "Электронная почта должна быть в формате xxx@yyy.zzz"
     ),
   password: yup

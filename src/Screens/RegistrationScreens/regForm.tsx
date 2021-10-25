@@ -1,11 +1,14 @@
 import React, { useRef, useState } from "react";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { Button, Keyboard, View, Alert } from "react-native";
+import { View, Alert } from "react-native";
 
 import { SecondStepScreen } from "./RegistrationScreensSteps/secondStepScreen";
 import { FirstStepScreen } from "./RegistrationScreensSteps/firstStepScreen";
 import { StepIndicatorComponent } from "../../components/StepIndicator";
 import { ThirdStepScreen } from "./RegistrationScreensSteps/thirdStepScreen";
+import { Button } from "react-native-elements";
+import { stylesLoginForm } from "../../styles/loginFormStyle";
+import { renderBtnStyles } from "../../styles/renderButtonStyle";
+import { formStyles } from "../../styles/stylesForm";
 
 export const RegistrationForm = ({ navigation, route }) => {
   const [step, setStep] = useState(1);
@@ -37,16 +40,17 @@ export const RegistrationForm = ({ navigation, route }) => {
       ]
     );
 
-  const renderButton = ({ isValid, dirty, handleSubmit, title }) => {
+  const renderButton = ({ isValid, handleSubmit, title }) => {
     return (
-      <>
-        <StepIndicatorComponent sendStep={step} />
+      <View style={renderBtnStyles.button}>
         <Button
           disabled={!isValid ? true : false}
           onPress={handleSubmit}
           title={title}
+          buttonStyle={stylesLoginForm.registerButton}
+          titleStyle={stylesLoginForm.titleRegisterBtn}
         />
-      </>
+      </View>
     );
   };
   React.useEffect(() => {
@@ -65,22 +69,21 @@ export const RegistrationForm = ({ navigation, route }) => {
     });
   }, [navigation, step]);
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <View style={formStyles.wrapper}>
+      <StepIndicatorComponent sendStep={step} />
       {step === 1 && (
-        <>
-          <View>
-            <FirstStepScreen
-              initialValues={initialValues}
-              onChange={setInitialValues}
-              sendStep={() => changeState(2)}
-              renderButton={renderButton}
-            />
-          </View>
-        </>
+        <View style={formStyles.flex}>
+          <FirstStepScreen
+            initialValues={initialValues}
+            onChange={setInitialValues}
+            sendStep={() => changeState(2)}
+            renderButton={renderButton}
+          />
+        </View>
       )}
 
       {step === 2 && (
-        <View>
+        <View style={formStyles.flex}>
           <SecondStepScreen
             initialPhoneNumber={initialPhoneNumber}
             onChange={setInitialPhoneNumber}
@@ -90,7 +93,7 @@ export const RegistrationForm = ({ navigation, route }) => {
         </View>
       )}
       {step === 3 && (
-        <View>
+        <View style={formStyles.flex}>
           <ThirdStepScreen
             showAlert={() => showAlert()}
             sendStep={() => changeState(4)}
@@ -98,6 +101,6 @@ export const RegistrationForm = ({ navigation, route }) => {
           />
         </View>
       )}
-    </TouchableWithoutFeedback>
+    </View>
   );
 };
