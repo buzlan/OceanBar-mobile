@@ -2,7 +2,7 @@ import { Formik } from "formik";
 import React, { useState } from "react";
 import { Text, View } from "react-native";
 import { TextInput } from "react-native-paper";
-import { stylesLoginForm } from "../../../styles/loginFormStyle";
+
 import { stylesRegForm } from "../../../styles/regFormStyle";
 import { formStyles } from "../../../styles/stylesForm";
 import { registerValidationPasswordSchema } from "../registerValidPasswordSchema";
@@ -13,12 +13,14 @@ export const ThirdStepScreen = (props, navigation) => {
   return (
     <View style={formStyles.flex}>
       <Formik
-        initialValues={{ password: "" }}
+        initialValues={props.formValues}
         initialErrors={{ password: "" }}
         onSubmit={(values) => {
+          props.onChange((prevValues) => ({
+            ...prevValues,
+            password: values.password,
+          }));
           props.sendStep();
-          props.showAlert();
-          console.log(JSON.stringify(values));
         }}
         validationSchema={registerValidationPasswordSchema}
       >

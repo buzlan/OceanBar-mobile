@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { View, Alert } from "react-native";
 
 import { SecondStepScreen } from "./RegistrationScreensSteps/secondStepScreen";
@@ -9,24 +9,82 @@ import { Button } from "react-native-elements";
 import { stylesLoginForm } from "../../styles/loginFormStyle";
 import { renderBtnStyles } from "../../styles/renderButtonStyle";
 import { formStyles } from "../../styles/stylesForm";
+import { AuthService } from "../../services/AuthService";
+import { stylesRegForm } from "../../styles/regFormStyle";
 
-export const RegistrationForm = ({ navigation, route }) => {
+export type FormValues = {
+  firstname: string;
+  lastname: string;
+  email: string;
+  phoneNumber: string;
+  password: string;
+};
+
+export const RegistrationForm = ({ navigation }) => {
   const [step, setStep] = useState(1);
   const backListener = useRef();
+  const [regError, setRegError] = useState<string | undefined>(undefined);
 
-  const [initialValues, setInitialValues] = useState({
+  const [formValues, setFormValues] = useState<FormValues>({
     firstname: "",
     lastname: "",
     email: "",
-  });
-
-  const [initialPhoneNumber, setInitialPhoneNumber] = useState({
     phoneNumber: "",
+    password: "",
   });
 
-  function changeState(newStep) {
+  useEffect(() => {
+    if (backListener.current) {
+      navigation.removeListener("beforeRemove", backListener.current);
+    }
+
+    backListener.current = navigation.addListener("beforeRemove", (e) => {
+      console.log(step, "step");
+      if (step === 1 || step === 4) {
+        return;
+      }
+      // Prevent default behavior of leaving the screen
+      e.preventDefault();
+      setStep((prev) => (prev > 1 ? prev - 1 : prev));
+    });
+  }, [navigation, step]);
+
+  useEffect(() => {
+    (async () => {
+      if (Object.values(formValues).every(Boolean)) {
+        try {
+          const response = await AuthService.register(
+            formValues.firstname,
+            formValues.lastname,
+            formValues.email,
+            formValues.phoneNumber,
+            formValues.password
+          );
+          setRegError(undefined);
+          setFormValues({
+            firstname: "",
+            lastname: "",
+            email: "",
+            phoneNumber: "",
+            password: "",
+          });
+          showAlert();
+        } catch (err) {
+          setRegError("User with such email already exists");
+          setFormValues((prevValues) => ({
+            ...prevValues,
+            password: "",
+          }));
+          setStep(1);
+        }
+      }
+    })();
+  }, [formValues]);
+
+  function changeState(newStep: number) {
     setStep(newStep);
   }
+
   const showAlert = () =>
     Alert.alert(
       "Активация профиля",
@@ -46,36 +104,25 @@ export const RegistrationForm = ({ navigation, route }) => {
         <Button
           disabled={!isValid ? true : false}
           onPress={handleSubmit}
+          disabledStyle={stylesRegForm.registerButton}
+          disabledTitleStyle={stylesRegForm.titleRegisterBtn}
           title={title}
-          buttonStyle={stylesLoginForm.registerButton}
-          titleStyle={stylesLoginForm.titleRegisterBtn}
+          buttonStyle={stylesRegForm.inputButton}
+          titleStyle={stylesRegForm.titleInputBtn}
         />
       </View>
     );
   };
-  React.useEffect(() => {
-    if (backListener.current) {
-      navigation.removeListener("beforeRemove", backListener.current);
-    }
 
-    backListener.current = navigation.addListener("beforeRemove", (e) => {
-      console.log(step, "step");
-      if (step === 1 || step === 4) {
-        return;
-      }
-      // Prevent default behavior of leaving the screen
-      e.preventDefault();
-      setStep((prev) => (prev > 1 ? prev - 1 : prev));
-    });
-  }, [navigation, step]);
   return (
     <View style={formStyles.wrapper}>
       <StepIndicatorComponent sendStep={step} />
       {step === 1 && (
         <View style={formStyles.flex}>
           <FirstStepScreen
-            initialValues={initialValues}
-            onChange={setInitialValues}
+            regError={regError}
+            formValues={formValues}
+            onChange={setFormValues}
             sendStep={() => changeState(2)}
             renderButton={renderButton}
           />
@@ -85,8 +132,8 @@ export const RegistrationForm = ({ navigation, route }) => {
       {step === 2 && (
         <View style={formStyles.flex}>
           <SecondStepScreen
-            initialPhoneNumber={initialPhoneNumber}
-            onChange={setInitialPhoneNumber}
+            formValues={formValues}
+            onChange={setFormValues}
             sendStep={() => changeState(3)}
             renderButton={renderButton}
           />
@@ -95,7 +142,8 @@ export const RegistrationForm = ({ navigation, route }) => {
       {step === 3 && (
         <View style={formStyles.flex}>
           <ThirdStepScreen
-            showAlert={() => showAlert()}
+            formValues={formValues}
+            onChange={setFormValues}
             sendStep={() => changeState(4)}
             renderButton={renderButton}
           />

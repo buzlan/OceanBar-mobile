@@ -1,30 +1,26 @@
 import { Formik } from "formik";
-import React, { useRef, useState } from "react";
+import React from "react";
 import { Text, View } from "react-native";
 
 import { stylesRegForm } from "../../../styles/regFormStyle";
-import PhoneInput from "react-native-phone-number-input";
+
 import { registerValidationPhoneSchema } from "../registerValidPhoneSchema";
 import { TextInput } from "react-native-paper";
-import { stylesLoginForm } from "../../../styles/loginFormStyle";
+
 import { formStyles } from "../../../styles/stylesForm";
 
 export const SecondStepScreen = (props) => {
-  const [value, setValue] = useState("");
-
-  const phoneInput = useRef<PhoneInput>(null);
-
   return (
     <View style={formStyles.flex}>
       <Formik
-        initialValues={props.initialPhoneNumber}
+        initialValues={props.formValues}
         validateOnMount={true}
         onSubmit={(values) => {
           props.sendStep();
           console.log(JSON.stringify(values));
           props.onChange((prevValues) => ({
             ...prevValues,
-            ...values,
+            phoneNumber: values.phoneNumber,
           }));
         }}
         validationSchema={registerValidationPhoneSchema}
@@ -34,7 +30,6 @@ export const SecondStepScreen = (props) => {
           handleBlur,
           handleSubmit,
           values,
-          touched,
           errors,
           isValid,
           dirty,

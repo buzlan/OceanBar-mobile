@@ -1,20 +1,35 @@
 import { Formik } from "formik";
-import React, { useEffect } from "react";
+import React, { Dispatch } from "react";
 import { Text, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+
 import { TextInput } from "react-native-paper";
-import { StepIndicatorComponent } from "../../../components/StepIndicator";
-import { stylesLoginForm } from "../../../styles/loginFormStyle";
 
 import { stylesRegForm } from "../../../styles/regFormStyle";
 import { formStyles } from "../../../styles/stylesForm";
+import { FormValues } from "../regForm";
 import { registerValidationSchema } from "../registerValidSchema";
 
-export const FirstStepScreen = (props) => {
+type FirstStepScreenProps = {
+  onChange: Dispatch<React.SetStateAction<FormValues>>;
+  formValues: FormValues;
+  sendStep: () => void;
+  regError: string | undefined;
+  renderButton: ({
+    isValid,
+    handleSubmit,
+    title,
+  }: {
+    isValid: boolean;
+    handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
+    title: string;
+  }) => JSX.Element;
+};
+
+export const FirstStepScreen = (props: FirstStepScreenProps) => {
   return (
     <View style={formStyles.flex}>
       <Formik
-        initialValues={props.initialValues}
+        initialValues={props.formValues}
         validateOnMount={true}
         initialErrors={{
           firstname: "initialError",
@@ -23,10 +38,11 @@ export const FirstStepScreen = (props) => {
         }}
         onSubmit={(values) => {
           props.sendStep();
-          console.log(JSON.stringify(values));
           props.onChange((prevValues) => ({
             ...prevValues,
-            ...values,
+            firstname: values.firstname,
+            lastname: values.lastname,
+            email: values.email,
           }));
         }}
         validationSchema={registerValidationSchema}
@@ -36,11 +52,9 @@ export const FirstStepScreen = (props) => {
           handleBlur,
           handleSubmit,
           values,
-          isValidating,
           touched,
           errors,
           isValid,
-          dirty,
         }) => (
           <View style={formStyles.flex}>
             <View style={stylesRegForm.wrapperInput}>
@@ -106,11 +120,12 @@ export const FirstStepScreen = (props) => {
               {errors.email && touched.email && (
                 <Text style={stylesRegForm.errors}>{errors.email}</Text>
               )}
+              {props.regError && (
+                <Text style={stylesRegForm.errors}>{props.regError}</Text>
+              )}
             </View>
             {props.renderButton({
-              isValidating,
               isValid,
-              dirty,
               handleSubmit,
               title: "Продолжить",
             })}

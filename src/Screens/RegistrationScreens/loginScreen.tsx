@@ -5,37 +5,39 @@ import { TextInput } from "react-native-paper";
 import { Button } from "react-native-elements";
 import { loginScreenValidSchema } from "./loginScreenValidSchema";
 import { stylesRegForm } from "../../styles/regFormStyle";
-import axios from "axios";
+
 import { stylesLoginForm } from "../../styles/loginFormStyle";
 import { formStyles } from "../../styles/stylesForm";
 
+import { AuthService } from "../../services/AuthService";
+import AsyncStorage from "@react-native-community/async-storage";
+
 export const LoginScreen = ({ props, navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const callApi = (values) => {
-    axios
-      .post("https://reqres.in/api/register", {
-        email: values.email,
-        password: values.password,
-      })
-      .then(function (response) {
-        if (response.status === 200) {
-          console.log(JSON.stringify(response.data));
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+
   return (
     <>
       <View style={formStyles.wrapper}>
         <Text style={stylesLoginForm.textLogo}>Вход</Text>
         <Formik
           initialValues={{ email: "", password: "" }}
-          onSubmit={(values) => {
+          onSubmit={async (values, { setErrors, resetForm }) => {
             console.log(JSON.stringify(values));
-            callApi(values);
-            navigation.navigate("tabs", { screen: "Меню" });
+            try {
+              const response = await AuthService.login(
+                values.email,
+                values.password
+              );
+              await AsyncStorage.setItem("token", response.data.token);
+              navigation.navigate("tabs", { screen: "Меню" });
+              resetForm({});
+            } catch (err) {
+              console.log("Username or Password is incorrect");
+              setErrors({
+                email: "Username or Password is incorrect",
+                password: "Username or Password is incorrect",
+              });
+            }
           }}
           validationSchema={loginScreenValidSchema}
         >
@@ -100,7 +102,9 @@ export const LoginScreen = ({ props, navigation }) => {
               <View style={{ paddingBottom: 20 }}>
                 <Button
                   disabled={false}
-                  onPress={handleSubmit}
+                  onPress={() => {
+                    handleSubmit();
+                  }}
                   title="ВXОД"
                   titleStyle={stylesLoginForm.titleInputBtn}
                   buttonStyle={stylesLoginForm.inputButton}

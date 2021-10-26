@@ -65,6 +65,20 @@ export const stylesLoginForm = StyleSheet.create({
     fontFamily: "Roboto",
     fontSize: 14,
   },
+  continueBtn: {
+    alignContent: "center",
+    backgroundColor: "FF4D00",
+    borderWidth: 1,
+    borderColor: "#FF4D00",
+    marginHorizontal: 20,
+    height: 50,
+  },
+  titleContinueBtn: {
+    backgroundColor: "FF4D00",
+    color: "white",
+    fontFamily: "Roboto",
+    fontSize: 14,
+  },
   registerButton: {
     alignContent: "center",
     backgroundColor: "transparent",
@@ -78,12 +92,5 @@ export const stylesLoginForm = StyleSheet.create({
     color: "#FF4D00",
     fontFamily: "Roboto",
     fontSize: 14,
-  },
-  continueBtn: {
-    backgroundColor: "transparent",
-    borderWidth: 1,
-    borderColor: "#FF4D00",
-    marginHorizontal: 20,
-    height: 50,
   },
 });
