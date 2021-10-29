@@ -1,10 +1,11 @@
 import React from "react";
 import { Dimensions, Text, View } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import FAIcon from "react-native-vector-icons/FontAwesome";
+import uuid from "react-native-uuid";
 
 import { cartItemStyle } from "../styles/cartItemStyle";
 import { OneItem } from "./OneItem";
-import uuid from "react-native-uuid";
 
 export const deviceWidth = Dimensions.get("window").width;
 
@@ -21,24 +22,28 @@ export const CartItems = (props) => {
   };
   return (
     <View style={cartItemStyle.mainContainer}>
+      <View style={cartItemStyle.trashIcon}>
+        <FAIcon name={"trash"} size={30} color={"black"} />
+      </View>
       <View style={cartItemStyle.height20} />
       <Text style={cartItemStyle.title}>Заказ</Text>
-      <View style={cartItemStyle.height10} />
-      <View style={cartItemStyle.itemContainerBtn}>
-        <ScrollView>
-          {props.cartItems.map((item) => (
-            <OneItem item={item} key={uuid.v4()} />
-          ))}
-        </ScrollView>
+      <View style={cartItemStyle.height20} />
+      <ScrollView style={cartItemStyle.itemsContainer}>
+        {props.cartItems.map((item) => (
+          <OneItem item={item} key={uuid.v4()} />
+        ))}
+      </ScrollView>
+      <View style={cartItemStyle.height20} />
+      <View style={cartItemStyle.mainBottomWrapper}>
+        <View style={cartItemStyle.bottomPanelWrapper}>
+          <View style={cartItemStyle.bottomPanelItemsWrapper}>
+            <Text>Итоговая сумма: {totalSum()} BYN </Text>
+            <TouchableOpacity style={cartItemStyle.nextBtnContainer}>
+              <Text style={cartItemStyle.nextBtn}>Далее</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
-      <View style={{ height: 20 }} />
-
-      <Text>Итоговая сумма: {totalSum()} BYN </Text>
-      <TouchableOpacity style={cartItemStyle.nextBtnContainer}>
-        <Text style={cartItemStyle.nextBtn}>Далее</Text>
-      </TouchableOpacity>
-
-      <View style={{ height: 10 }} />
     </View>
   );
 };

@@ -29,7 +29,11 @@ export const OneItem = (props) => {
       <View style={cartItemStyle.textItemsContainer}>
         <View>
           <Text style={cartItemStyle.itemTitle}>{props.item.name}</Text>
-          <Text>Description</Text>
+          <TouchableOpacity>
+            <Text style={cartItemStyle.changeIngredientsText}>
+              Изменить состав
+            </Text>
+          </TouchableOpacity>
         </View>
         <View style={cartItemStyle.priceAndIconsContainer}>
           <Text style={cartItemStyle.priceItem}>
