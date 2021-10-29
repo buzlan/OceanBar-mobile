@@ -9,7 +9,7 @@ import { stylesRegForm } from "../../styles/regFormStyle";
 import { stylesLoginForm } from "../../styles/loginFormStyle";
 import { formStyles } from "../../styles/stylesForm";
 
-import { AuthService } from "../../services/AuthService";
+import { AuthService } from "../../services/http/AuthService";
 import AsyncStorage from "@react-native-community/async-storage";
 
 export const LoginScreen = ({ props, navigation }) => {
@@ -20,7 +20,7 @@ export const LoginScreen = ({ props, navigation }) => {
       <View style={formStyles.wrapper}>
         <Text style={stylesLoginForm.textLogo}>Вход</Text>
         <Formik
-          initialValues={{ email: "", password: "" }}
+          initialValues={{ email: "test@mail.com", password: "qwe2Fqwe" }}
           onSubmit={async (values, { setErrors, resetForm }) => {
             console.log(JSON.stringify(values));
             try {

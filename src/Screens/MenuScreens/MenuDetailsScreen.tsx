@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image, ScrollView, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-import { MenuService } from "../../services/MenuService";
+import { MenuService } from "../../services/http/MenuService";
 import { stylesMenuDetail } from "../../styles/menuDetailsScreenStyle";
 
 export const MenuDetailsScreen = ({ navigation, route }) => {
@@ -11,15 +11,15 @@ export const MenuDetailsScreen = ({ navigation, route }) => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await MenuService.getMenuDetails(
-          route.params.menuName
-        );
+        const response = await MenuService.getMenuDetails({
+          category: route.params.menuName,
+        });
         setMenuDetails(response.data.data.dishes);
       } catch (error) {
         navigation.navigate("auth", { screen: "LoginScreen" });
       }
     })();
-  }, [route.params.menuName]);
+  }, [route.params.category]);
 
   return (
     <ScrollView>

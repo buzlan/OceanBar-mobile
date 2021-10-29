@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FAIcon from "react-native-vector-icons/FontAwesome";
 import MIcon from "react-native-vector-icons/MaterialIcons";
@@ -6,18 +6,25 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import { MenuDetailsScreen } from "../screens/MenuScreens/MenuDetailsScreen";
 
-import { SearchBar } from "../components/shared/SearchBar";
-import { DishesScreen } from "../screens/dishesScreen";
-import { BasketScreen } from "../screens/basketScreen";
-import { ProfileScreen } from "../screens/profileScreen";
-import { DishPage } from "../screens/DishScreen/DishPage";
+import { ProfileScreen } from "../screens/TabsScreens/profileScreen";
+import DishPage from "../screens/DishScreen/DishPage";
+import { connect } from "react-redux";
+import { Image } from "react-native";
+import { stylesSearchBar } from "../styles/searchBarStyle";
+import { SearchScreen } from "../screens/SearchScreen/SearchScreen";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { DishesScreen } from "../screens/TabsScreens/dishesScreen";
+import BasketScreen from "../screens/TabsScreens/basketScreen";
 
 //import {DishIcon} from "../assets/img/icon.svg";
 
 // Stack Navigator
 const Stack = createStackNavigator();
 
-const MenuScreenNavigator = () => {
+const _onChangeText = (text) => console.log("texttexttext", text);
+const MenuScreenNavigator = (props) => {
+  const [search, setSearch] = useState("");
+
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -26,7 +33,19 @@ const MenuScreenNavigator = () => {
         options={{
           title: "Меню",
           headerStyle: { height: 70, backgroundColor: "transparent" },
-          headerRight: () => <SearchBar />,
+          headerRight: () => {
+            return (
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate("SearchScreen")}
+              >
+                <Image
+                  source={require("../assets/img/akar-icons_search.png")}
+                  style={stylesSearchBar.headerIcon}
+                />
+              </TouchableOpacity>
+            );
+          },
+          headerLeft: () => null,
           headerRightContainerStyle: {},
           headerTitleAlign: "left",
           headerTitleStyle: {
@@ -42,7 +61,18 @@ const MenuScreenNavigator = () => {
         options={({ route }) => ({
           title: route?.params?.title,
           headerTitleAlign: "center",
-          headerRight: () => <SearchBar />,
+          headerRight: () => {
+            return (
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate("SearchScreen")}
+              >
+                <Image
+                  source={require("../assets/img/akar-icons_search.png")}
+                  style={stylesSearchBar.headerIcon}
+                />
+              </TouchableOpacity>
+            );
+          },
           headerLeftContainerStyle: {
             alignItems: "flex-end",
           },
@@ -54,15 +84,45 @@ const MenuScreenNavigator = () => {
         options={({ route }) => ({
           title: route?.params?.dishDetails?.name,
           headerTitleAlign: "center",
-          headerRight: () => <SearchBar />,
+          headerRight: () => {
+            return (
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate("SearchScreen")}
+              >
+                <Image
+                  source={require("../assets/img/akar-icons_search.png")}
+                  style={stylesSearchBar.headerIcon}
+                />
+              </TouchableOpacity>
+            );
+          },
           headerLeftContainerStyle: {
             alignItems: "flex-end",
           },
         })}
       />
+      <Stack.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    filterMenuItems: (searchValue) =>
+      dispatch({ type: "SEARCH_MENU_ITEMS", payload: searchValue }),
+  };
+};
+
+const WrappedMenuScreenNavigator = connect(
+  null,
+  mapDispatchToProps
+)(MenuScreenNavigator);
 
 // Tab navigation
 const Tab = createBottomTabNavigator();
@@ -76,7 +136,7 @@ enum ScreenNames {
 const tabs = [
   {
     tabName: ScreenNames.Dishes,
-    tabComponent: MenuScreenNavigator,
+    tabComponent: WrappedMenuScreenNavigator,
   },
   {
     tabName: ScreenNames.Basket,
