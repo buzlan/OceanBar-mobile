@@ -28,6 +28,11 @@ export const DishesScreen: React.FC<Props> = ({ navigation }) => {
             key={button.id}
             title={button.title}
             buttonStyle={stylesDishes.buttons}
+            titleStyle={{
+              fontFamily: "Roboto",
+              fontSize: 20,
+              fontWeight: "bold",
+            }}
             onPress={() => {
               navigation.navigate("MenuDetailsScreen", {
                 menuName: button.title,

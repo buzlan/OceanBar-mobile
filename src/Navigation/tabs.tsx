@@ -12,6 +12,8 @@ import { BasketScreen } from "../screens/basketScreen";
 import { ProfileScreen } from "../screens/profileScreen";
 import { DishPage } from "../screens/DishScreen/DishPage";
 
+//import {DishIcon} from "../assets/img/icon.svg";
+
 // Stack Navigator
 const Stack = createStackNavigator();
 
@@ -23,8 +25,15 @@ const MenuScreenNavigator = () => {
         component={DishesScreen}
         options={{
           title: "Меню",
+          headerStyle: { height: 70, backgroundColor: "transparent" },
           headerRight: () => <SearchBar />,
-          headerTitleAlign: "center",
+          headerRightContainerStyle: {},
+          headerTitleAlign: "left",
+          headerTitleStyle: {
+            fontSize: 20,
+            fontFamily: "Roboto",
+            fontWeight: "bold",
+          },
         }}
       />
       <Stack.Screen
@@ -59,7 +68,7 @@ const MenuScreenNavigator = () => {
 const Tab = createBottomTabNavigator();
 
 enum ScreenNames {
-  Dishes = "Блюда",
+  Dishes = "Меню",
   Profile = "Профиль",
   Basket = "Корзина",
 }
@@ -82,6 +91,7 @@ const setTabBarIcon = (focused, color, size, route) => {
   let rn = route.name as ScreenNames;
   const iconNames: KeyObjValue<ScreenNames, () => React.ReactElement> = {
     [ScreenNames.Dishes]: () => (
+      // <DishIcon />
       <MIcon
         name={focused ? "fastfood" : "fastfood"}
         size={size}

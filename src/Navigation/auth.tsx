@@ -2,13 +2,11 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { RegistrationForm } from "../screens/RegistrationScreens/regForm";
 import { LoginScreen } from "../screens/RegistrationScreens/loginScreen";
-import { Button, Image } from "react-native";
-import FAIcon from "react-native-vector-icons/FontAwesome";
-import { ScreenStackHeaderBackButtonImage } from "react-native-screens";
+import { Image } from "react-native";
 
 const Stack = createStackNavigator();
 
-export const AuthScreenNavigator = (navigation) => {
+export const AuthScreenNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -42,7 +40,6 @@ export const AuthScreenNavigator = (navigation) => {
             fontFamily: "Roboto",
             fontWeight: "bold",
           },
-          // headerTitleAlign: "center",
         }}
       />
     </Stack.Navigator>

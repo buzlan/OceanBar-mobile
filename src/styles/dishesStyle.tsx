@@ -1,14 +1,16 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from "react-native";
 
 export const stylesDishes = StyleSheet.create({
   buttons: {
-    paddingLeft: 60,
-    alignSelf: 'flex-start',
-    color: 'black',
+    paddingLeft: 20,
+    alignSelf: "flex-start",
+    color: "black",
   },
   container: {
     flex: 1,
-    paddingTop: 60,
-    backgroundColor: 'white',
+    alignContent: "flex-start",
+    justifyContent: "flex-start",
+    paddingTop: 30,
+    backgroundColor: "white",
   },
 });
