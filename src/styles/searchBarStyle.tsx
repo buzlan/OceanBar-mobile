@@ -10,17 +10,17 @@ export const stylesSearchBar = StyleSheet.create({
     flexDirection: "row",
   },
   headerIcon: {
-    position: "absolute",
-    right: 10,
-    top: 10,
-    height: 22,
-    width: 22,
+    marginRight: 10,
+    height: 25,
+    width: 25,
+    resizeMode: "cover",
   },
   inputText: {
     borderWidth: 1,
     borderColor: "#777",
     padding: 8,
+    marginRight: 60,
     margin: 10,
-    width: 50,
+    width: 200,
   },
 });
