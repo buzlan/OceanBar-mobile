@@ -8,12 +8,15 @@ export const SearchScreen = (props) => {
   const [search, setSearch] = useState("");
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     (async () => {
       try {
+        setLoading(true);
         const response = await MenuService.getMenuDetails({});
         // setFilteredDataSource(response.data.data.dishes);
         setMasterDataSource(response.data.data.dishes);
+        setLoading(false);
       } catch (error) {
         console.log("errrrr", error);
       }
