@@ -15,6 +15,7 @@ import { SearchScreen } from "../screens/SearchScreen/SearchScreen";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { DishesScreen } from "../screens/TabsScreens/dishesScreen";
 import BasketScreen from "../screens/TabsScreens/basketScreen";
+import { SearchClick } from "../components/SearchClick";
 
 //import {DishIcon} from "../assets/img/icon.svg";
 
@@ -34,16 +35,7 @@ const MenuScreenNavigator = (props) => {
           title: "Меню",
           headerStyle: { height: 70, backgroundColor: "transparent" },
           headerRight: () => {
-            return (
-              <TouchableOpacity
-                onPress={() => props.navigation.navigate("SearchScreen")}
-              >
-                <Image
-                  source={require("../assets/img/akar-icons_search.png")}
-                  style={stylesSearchBar.headerIcon}
-                />
-              </TouchableOpacity>
-            );
+            return <SearchClick props={props} />;
           },
           headerLeft: () => null,
           headerRightContainerStyle: {},
@@ -62,16 +54,7 @@ const MenuScreenNavigator = (props) => {
           title: route?.params?.title,
           headerTitleAlign: "center",
           headerRight: () => {
-            return (
-              <TouchableOpacity
-                onPress={() => props.navigation.navigate("SearchScreen")}
-              >
-                <Image
-                  source={require("../assets/img/akar-icons_search.png")}
-                  style={stylesSearchBar.headerIcon}
-                />
-              </TouchableOpacity>
-            );
+            return <SearchClick props={props} />;
           },
           headerLeftContainerStyle: {
             alignItems: "flex-end",
@@ -85,16 +68,7 @@ const MenuScreenNavigator = (props) => {
           title: route?.params?.dishDetails?.name,
           headerTitleAlign: "center",
           headerRight: () => {
-            return (
-              <TouchableOpacity
-                onPress={() => props.navigation.navigate("SearchScreen")}
-              >
-                <Image
-                  source={require("../assets/img/akar-icons_search.png")}
-                  style={stylesSearchBar.headerIcon}
-                />
-              </TouchableOpacity>
-            );
+            return <SearchClick props={props} />;
           },
           headerLeftContainerStyle: {
             alignItems: "flex-end",

@@ -1,7 +1,6 @@
 export const cartItems = (state = [], action) => {
   switch (action.type) {
     case "ADD_TO_CART":
-      console.log("STATESTATESTATESTATESTATESTATE", state);
       return [...state, { ...action.payload, quantity: 1 }];
     case "REMOVE_FROM_CART":
       return state.filter((cartItem) => cartItem.id !== action.payload.id);

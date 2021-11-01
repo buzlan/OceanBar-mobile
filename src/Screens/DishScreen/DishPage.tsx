@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 const DishPage = ({ route, addItemToCart }) => {
   const item = route.params.dishDetails;
   console.log("ITEM", item);
-
   return (
     <View style={stylesDishPage.container}>
       <Image
@@ -32,26 +31,23 @@ const DishPage = ({ route, addItemToCart }) => {
           type="outline"
           title="Добавить в корзину"
           onPress={() => {
-            setTimeout(() => {
-              addItemToCart(item);
-              showMessage({
-                message: `${item.name} добавлено в корзину`,
-                style: {
-                  paddingLeft: 80,
-                },
-                titleStyle: {
-                  fontSize: 15,
-                  fontWeight: "bold",
-                  fontFamily: "Roboto",
-                },
-                icon: {
-                  icon: "success",
-                  position: "right",
-                },
-
-                type: "success",
-              });
-            }, 1000);
+            addItemToCart(item);
+            showMessage({
+              message: `${item.name} добавлено в корзину`,
+              style: {
+                paddingLeft: 80,
+              },
+              titleStyle: {
+                fontSize: 15,
+                fontWeight: "bold",
+                fontFamily: "Roboto",
+              },
+              icon: {
+                icon: "success",
+                position: "right",
+              },
+              type: "success",
+            });
           }}
         />
       </View>
