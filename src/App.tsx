@@ -6,16 +6,18 @@
  * @flow strict-local
  */
 
-import React, { useEffect } from "react";
-import { StatusBar, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View } from "react-native";
 import SplashScreen from "react-native-splash-screen";
 import { NavigationContainer } from "@react-navigation/native";
 
 import { ThemeProvider } from "react-native-elements";
 import { stylesApp } from "./styles/appStyle";
 import { MainNavigator } from "./navigation/main";
-import { AppLoader } from "./components/AppLoader";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Provider } from "react-redux";
+import { store } from "./services/store/store";
+import FlashMessage from "react-native-flash-message";
 
 const theme = {
   Button: {
@@ -33,12 +35,17 @@ export const App = () => {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <SafeAreaView style={stylesApp.container}>
-          <MainNavigator />
-        </SafeAreaView>
-      </NavigationContainer>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <NavigationContainer>
+          <SafeAreaView style={stylesApp.container}>
+            <View style={{ flex: 1 }}>
+              <MainNavigator />
+              <FlashMessage position="top" />
+            </View>
+          </SafeAreaView>
+        </NavigationContainer>
+      </ThemeProvider>
+    </Provider>
   );
 };

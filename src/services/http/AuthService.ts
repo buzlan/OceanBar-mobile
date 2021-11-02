@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { api } from "../http";
+import { api } from ".";
 
 export class AuthService {
   static async login(

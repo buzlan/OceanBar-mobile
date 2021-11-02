@@ -6,10 +6,9 @@ import { FirstStepScreen } from "./RegistrationScreensSteps/firstStepScreen";
 import { StepIndicatorComponent } from "../../components/StepIndicator";
 import { ThirdStepScreen } from "./RegistrationScreensSteps/thirdStepScreen";
 import { Button } from "react-native-elements";
-import { stylesLoginForm } from "../../styles/loginFormStyle";
 import { renderBtnStyles } from "../../styles/renderButtonStyle";
 import { formStyles } from "../../styles/stylesForm";
-import { AuthService } from "../../services/AuthService";
+import { AuthService } from "../../services/http/AuthService";
 import { stylesRegForm } from "../../styles/regFormStyle";
 
 export type FormValues = {

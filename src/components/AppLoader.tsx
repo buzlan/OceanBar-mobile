@@ -5,7 +5,13 @@ import { StyleSheet, View } from "react-native";
 export const AppLoader = () => {
   return (
     <View style={[StyleSheet.absoluteFillObject, styles.container]}>
-      <LottieView source={require("../assets/loading.json")} autoPlay loop />
+      <View style={{ width: 100, height: 100 }}>
+        <LottieView
+          source={require("../assets/circleLoader.json")}
+          autoPlay
+          loop
+        />
+      </View>
     </View>
   );
 };
@@ -14,7 +20,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.3)",
+    backgroundColor: "white",
     zIndex: 1,
   },
 });
