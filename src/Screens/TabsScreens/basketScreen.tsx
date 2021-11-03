@@ -3,16 +3,16 @@ import { ParamListBase } from "@react-navigation/routers";
 import React from "react";
 import { View } from "react-native";
 import { connect } from "react-redux";
-import { CartItems } from "../../components/CartItems";
+import CartItemsScreen from "../../components/CartItemsScreen";
 import { EmptyCart } from "../../components/EmptyCart";
 
 interface Props extends BottomTabScreenProps<ParamListBase> {}
 
-const BasketScreen: React.FC<Props> = ({ cartItems }) => {
+const BasketScreen: React.FC<Props> = ({ Cart, totalSum }) => {
   return (
     <View style={{ flex: 1 }}>
-      {cartItems.length > 0 ? (
-        <CartItems cartItems={cartItems} />
+      {Cart.length > 0 ? (
+        <CartItemsScreen cartItems={Cart} totalSum={totalSum} />
       ) : (
         <EmptyCart />
       )}
@@ -21,7 +21,8 @@ const BasketScreen: React.FC<Props> = ({ cartItems }) => {
 };
 const mapStateToProps = (state) => {
   return {
-    cartItems: state.cartItems,
+    Cart: state.Cart.cartItems,
+    totalSum: state.Cart.totalSum,
   };
 };
 
