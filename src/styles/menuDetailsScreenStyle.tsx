@@ -1,6 +1,34 @@
 import { StyleSheet } from "react-native";
 
 export const stylesMenuDetail = StyleSheet.create({
+  mainWrapper: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  elementsWrapper: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  touchableOpacityWrapper: {
+    width: "100%",
+    paddingHorizontal: 20,
+  },
+  imageStyle: {
+    width: "100%",
+    height: 200,
+    borderRadius: 5,
+  },
+  bynTextStyle: {
+    fontSize: 20,
+    fontWeight: "400",
+    fontFamily: "Roboto",
+    color: "black",
+  },
+  weightText: {
+    fontFamily: "Roboto",
+    fontWeight: "200",
+  },
   container: {
     flex: 1,
     justifyContent: "center",
