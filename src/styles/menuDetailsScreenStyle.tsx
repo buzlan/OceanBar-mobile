@@ -1,24 +1,30 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from "react-native";
 
 export const stylesMenuDetail = StyleSheet.create({
   container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "black",
   },
   dishItem: {
+    width: "100%",
     padding: 10,
+    alignItems: "center",
   },
   dishTitle: {
-    fontWeight: '900',
+    fontWeight: "500",
     fontSize: 20,
-    textAlign: 'center',
+    textAlign: "center",
     padding: 5,
+    color: "black",
+    fontFamily: "Roboto",
   },
   dishDescription: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    width: "100%",
+    flexDirection: "row",
+    alignContent: "center",
+    justifyContent: "space-between",
     paddingVertical: 5,
   },
 });

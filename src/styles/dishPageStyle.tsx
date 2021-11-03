@@ -3,10 +3,11 @@ import { StyleSheet } from "react-native";
 export const stylesDishPage = StyleSheet.create({
   container: {
     flex: 1,
-    alignContent: "flex-end",
-    justifyContent: "flex-start",
+    alignContent: "center",
+    justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
+    padding: 20,
   },
   dishDescription: {
     flexDirection: "column",
@@ -22,7 +23,8 @@ export const stylesDishPage = StyleSheet.create({
     color: "black",
   },
   image: {
-    width: 200,
-    height: 200,
+    width: "100%",
+    height: 265,
+    borderRadius: 5,
   },
 });

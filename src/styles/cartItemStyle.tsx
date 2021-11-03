@@ -1,45 +1,45 @@
 import { StyleSheet } from "react-native";
-import { deviceWidth } from "../components/CartItems";
+import { black } from "react-native-paper/lib/typescript/styles/colors";
+import { deviceWidth } from "../components/CartItemsScreen";
 
 export const cartItemStyle = StyleSheet.create({
   mainContainer: {
-    display: "flex",
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: "row",
+    paddingBottom: 40,
+    backgroundColor: "white",
     paddingHorizontal: 10,
-  },
-  height20: {
-    height: 20,
-  },
-  height10: {
-    height: 10,
+    paddingTop: 10,
   },
   title: {
     fontSize: 28,
+    fontWeight: "500",
     fontFamily: "Roboto",
-    fontWeight: "bold",
+    color: "black",
   },
-  itemContainerBtn: { backgroundColor: "transparent", flex: 1 },
-  items: {
-    flexDirection: "row",
-    borderBottomWidth: 2,
-    borderColor: "#FF4D00",
-    paddingBottom: 10,
-  },
+
   imageStyle: {
     width: deviceWidth / 3,
     height: deviceWidth / 3,
+    borderRadius: 100,
   },
   textItemsContainer: {
     backgroundColor: "transparent",
     flex: 1,
     justifyContent: "space-between",
+    paddingLeft: 10,
   },
   itemTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 18,
+    fontWeight: "500",
     fontFamily: "Roboto",
+    color: "black",
+  },
+  changeIngredientsBtnTitle: {
+    marginTop: 25,
+    fontSize: 15,
+    fontWeight: "400",
+    fontFamily: "Roboto",
+    color: "#FF4D00",
   },
   priceAndIconsContainer: {
     backgroundColor: "transparent",
@@ -47,60 +47,22 @@ export const cartItemStyle = StyleSheet.create({
     justifyContent: "space-between",
   },
   priceItem: {
-    fontWeight: "bold",
+    fontWeight: "400",
     fontSize: 20,
-    color: "#FF4D00",
+    color: "black",
   },
-  iconsContainer: { flexDirection: "row", alignItems: "center" },
-  countItems: {
-    fontWeight: "bold",
-    paddingHorizontal: 8,
-  },
-  nextBtnContainer: {
-    backgroundColor: "#FF4D00",
-    width: 100,
+  quantityContainer: {
+    flexDirection: "row",
     alignItems: "center",
-    padding: 10,
-    borderRadius: 5,
+  },
+
+  quantityItem: {
+    fontWeight: "400",
+    paddingHorizontal: 8,
+    color: "black",
   },
   nextBtn: {
-    fontSize: 18,
-    fontWeight: "bold",
-    fontFamily: "Roboto",
     color: "white",
-  },
-  changeIngredientsText: {
-    marginTop: 25,
-    fontSize: 20,
-    fontWeight: "bold",
-    fontFamily: "Roboto",
-  },
-  trashIcon: {
-    position: "absolute",
-    right: 10,
-    top: 10,
-  },
-  itemsContainer: {
-    height: 200,
-    width: "100%",
-  },
-  mainBottomWrapper: {
-    display: "flex",
-    width: "100%",
-  },
-  bottomPanelWrapper: {
-    height: 70,
-    borderWidth: 1,
-    borderColor: "black",
-    borderRadius: 5,
-    alignItems: "center",
-    paddingHorizontal: 30,
-  },
-  bottomPanelItemsWrapper: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
+    fontWeight: "500",
   },
 });
