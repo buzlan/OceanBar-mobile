@@ -38,7 +38,6 @@ export const RegistrationForm = ({ navigation }) => {
     }
 
     backListener.current = navigation.addListener("beforeRemove", (e) => {
-      console.log(step, "step");
       if (step === 1 || step === 4) {
         return;
       }

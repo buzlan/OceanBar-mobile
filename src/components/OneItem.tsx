@@ -1,28 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { Text, View } from "react-native";
 import IoIcon from "react-native-vector-icons/Ionicons";
 import Image from "react-native-elements/dist/image/Image";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { cartItemStyle } from "../styles/cartItemStyle";
-export const OneItem = (props) => {
-  const [count, setCount] = useState(1);
-  const onChangeQuat = (type) => {
-    if (type) {
-      setCount(count + 1);
-    } else {
-      if (count === 1) {
-        setCount(1);
-      } else {
-        setCount(count - 1);
-      }
-    }
-  };
+import { connect } from "react-redux";
+import { addQuantity, minusQuantity } from "../actions/cart";
+const OneItem = (props) => {
   return (
-    <View style={cartItemStyle.items}>
+    <View style={cartItemStyle.mainContainer}>
       <Image
         source={{
-          uri: "https://www.edimdoma.ru/system/images/contents/0000/6787/wide/AdobeStock_275611083_%D0%B8%D1%81%D0%BF%D1%80.jpg?1564142039",
+          uri: props.item.imageURL,
         }}
         style={cartItemStyle.imageStyle}
       />
@@ -30,19 +20,19 @@ export const OneItem = (props) => {
         <View>
           <Text style={cartItemStyle.itemTitle}>{props.item.name}</Text>
           <TouchableOpacity>
-            <Text style={cartItemStyle.changeIngredientsText}>
+            <Text style={cartItemStyle.changeIngredientsBtnTitle}>
               Изменить состав
             </Text>
           </TouchableOpacity>
         </View>
         <View style={cartItemStyle.priceAndIconsContainer}>
           <Text style={cartItemStyle.priceItem}>
-            {props.item.price * count} BYN
+            {props.item.price * props.item.quantity} BYN
           </Text>
-          <View style={cartItemStyle.iconsContainer}>
+          <View style={cartItemStyle.quantityContainer}>
             <TouchableOpacity
               onPress={() => {
-                onChangeQuat(false);
+                props.minusQuantityFromItem(props.item.id);
               }}
             >
               <IoIcon
@@ -51,10 +41,12 @@ export const OneItem = (props) => {
                 color={"#FF4D00"}
               />
             </TouchableOpacity>
-            <Text style={cartItemStyle.countItems}>{count}</Text>
+            <Text style={cartItemStyle.quantityItem}>
+              {props.item.quantity}
+            </Text>
             <TouchableOpacity
               onPress={() => {
-                onChangeQuat(true);
+                props.addQuantityToItem(props.item.id);
               }}
             >
               <IoIcon name="add-circle-outline" size={30} color={"#FF4D00"} />
@@ -65,3 +57,12 @@ export const OneItem = (props) => {
     </View>
   );
 };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // explicitly forwarding arguments
+    addQuantityToItem: (idItem) => dispatch(addQuantity(idItem)),
+    minusQuantityFromItem: (idItem) => dispatch(minusQuantity(idItem)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(OneItem);

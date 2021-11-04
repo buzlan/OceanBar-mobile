@@ -12,7 +12,7 @@ import { formStyles } from "../../styles/stylesForm";
 import { AuthService } from "../../services/http/AuthService";
 import AsyncStorage from "@react-native-community/async-storage";
 
-export const LoginScreen = ({ props, navigation }) => {
+export const LoginScreen = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -32,7 +32,6 @@ export const LoginScreen = ({ props, navigation }) => {
               navigation.navigate("tabs", { screen: "Меню" });
               resetForm({});
             } catch (err) {
-              console.log("Username or Password is incorrect");
               setErrors({
                 email: "Username or Password is incorrect",
                 password: "Username or Password is incorrect",

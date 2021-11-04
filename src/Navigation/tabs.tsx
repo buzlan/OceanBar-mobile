@@ -1,31 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FAIcon from "react-native-vector-icons/FontAwesome";
 import MIcon from "react-native-vector-icons/MaterialIcons";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import { MenuDetailsScreen } from "../screens/MenuScreens/MenuDetailsScreen";
-
 import { ProfileScreen } from "../screens/TabsScreens/profileScreen";
 import DishPage from "../screens/DishScreen/DishPage";
 import { connect } from "react-redux";
-import { Image } from "react-native";
-import { stylesSearchBar } from "../styles/searchBarStyle";
 import { SearchScreen } from "../screens/SearchScreen/SearchScreen";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { DishesScreen } from "../screens/TabsScreens/dishesScreen";
 import BasketScreen from "../screens/TabsScreens/basketScreen";
 import { SearchClick } from "../components/SearchClick";
 
-//import {DishIcon} from "../assets/img/icon.svg";
-
 // Stack Navigator
 const Stack = createStackNavigator();
 
-const _onChangeText = (text) => console.log("texttexttext", text);
 const MenuScreenNavigator = (props) => {
-  const [search, setSearch] = useState("");
-
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -52,12 +43,18 @@ const MenuScreenNavigator = (props) => {
         component={MenuDetailsScreen}
         options={({ route }) => ({
           title: route?.params?.title,
-          headerTitleAlign: "center",
+          headerTitleAlign: "left",
+          headerStyle: { height: 70, backgroundColor: "transparent" },
           headerRight: () => {
             return <SearchClick props={props} />;
           },
           headerLeftContainerStyle: {
             alignItems: "flex-end",
+          },
+          headerTitleStyle: {
+            fontSize: 20,
+            fontFamily: "Roboto",
+            fontWeight: "bold",
           },
         })}
       />
@@ -66,7 +63,8 @@ const MenuScreenNavigator = (props) => {
         component={DishPage}
         options={({ route }) => ({
           title: route?.params?.dishDetails?.name,
-          headerTitleAlign: "center",
+          headerTitleAlign: "left",
+          headerStyle: { height: 70, backgroundColor: "transparent" },
           headerRight: () => {
             return <SearchClick props={props} />;
           },
@@ -125,25 +123,24 @@ const setTabBarIcon = (focused, color, size, route) => {
   let rn = route.name as ScreenNames;
   const iconNames: KeyObjValue<ScreenNames, () => React.ReactElement> = {
     [ScreenNames.Dishes]: () => (
-      // <DishIcon />
       <MIcon
         name={focused ? "fastfood" : "fastfood"}
         size={size}
-        color={color}
+        color={focused ? "white" : "grey"}
       />
     ),
     [ScreenNames.Profile]: () => (
       <FAIcon
         name={focused ? "user-circle" : "user-circle"}
         size={size}
-        color={color}
+        color={focused ? "white" : "grey"}
       />
     ),
     [ScreenNames.Basket]: () => (
       <FAIcon
         name={focused ? "shopping-basket" : "shopping-basket"}
         size={size}
-        color={color}
+        color={focused ? "white" : "grey"}
       />
     ),
   };
@@ -161,6 +158,8 @@ export const Tabs = () => {
         tabBarIcon: ({ focused, color, size }) =>
           setTabBarIcon(focused, color, size, route),
         headerShown: false,
+        tabBarStyle: { backgroundColor: "black" },
+        tabBarLabelStyle: { color: "white" },
       })}
     >
       {tabs.map((tab) => (
