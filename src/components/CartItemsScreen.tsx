@@ -12,9 +12,6 @@ import { cartScreenStyle } from "../styles/cartScreenStyle";
 export const deviceWidth = Dimensions.get("window").width;
 
 const CartItemsScreen = ({ removeAllFromCart, cartItems, totalSum }) => {
-  console.log("CARTITEMSINSCREEN", cartItems);
-  console.log("TOTALSUM", totalSum);
-
   const renderItem = ({ item }) => <OneItem item={item} />;
   return (
     <View style={cartScreenStyle.mainContainer}>

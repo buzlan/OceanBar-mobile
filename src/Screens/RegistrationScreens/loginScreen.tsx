@@ -28,7 +28,6 @@ export const LoginScreen = ({ navigation }) => {
                 values.email,
                 values.password
               );
-              console.log(response.data, "login");
               await AsyncStorage.setItem("token", response.data.token);
               navigation.navigate("tabs", { screen: "Меню" });
               resetForm({});

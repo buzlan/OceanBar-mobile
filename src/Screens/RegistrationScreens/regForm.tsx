@@ -58,7 +58,6 @@ export const RegistrationForm = ({ navigation }) => {
             formValues.phoneNumber,
             formValues.password
           );
-          console.log(response, "resp reg");
           setRegError(undefined);
           setFormValues({
             firstname: "",
