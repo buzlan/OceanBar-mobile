@@ -3,6 +3,7 @@ import {
   ADD_TO_CART,
   MINUS_QUANTITY,
   REMOVE_ALL_FROM_CART,
+  UPDATE_ITEMS_FROM_CART,
 } from "./types";
 
 export const addToCart = (item) => ({
@@ -22,4 +23,8 @@ export const addQuantity = (idItem) => ({
 export const minusQuantity = (idItem) => ({
   type: MINUS_QUANTITY,
   id: idItem,
+});
+export const updateItemsFromCart = (dish) => ({
+  type: UPDATE_ITEMS_FROM_CART,
+  data: dish,
 });
