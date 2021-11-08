@@ -8,11 +8,11 @@ import { EmptyCart } from "../../components/EmptyCart";
 
 interface Props extends BottomTabScreenProps<ParamListBase> {}
 
-const BasketScreen: React.FC<Props> = ({ Cart, totalSum }) => {
+const BasketScreen: React.FC<Props> = ({ cart, totalSum }) => {
   return (
     <View style={{ flex: 1 }}>
-      {Cart.length > 0 ? (
-        <CartItemsScreen cartItems={Cart} totalSum={totalSum} />
+      {cart.length > 0 ? (
+        <CartItemsScreen cartItems={cart} totalSum={totalSum} />
       ) : (
         <EmptyCart />
       )}
@@ -21,7 +21,7 @@ const BasketScreen: React.FC<Props> = ({ Cart, totalSum }) => {
 };
 const mapStateToProps = (state) => {
   return {
-    Cart: state.Cart.cartItems,
+    cart: state.Cart.cartItems,
     totalSum: state.Cart.totalSum,
   };
 };
