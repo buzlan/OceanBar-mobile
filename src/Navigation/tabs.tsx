@@ -12,6 +12,7 @@ import { SearchScreen } from "../screens/SearchScreen/SearchScreen";
 import { DishesScreen } from "../screens/TabsScreens/dishesScreen";
 import BasketScreen from "../screens/TabsScreens/basketScreen";
 import { SearchClick } from "../components/SearchClick";
+import { CartNavigation } from "./order";
 
 // Stack Navigator
 const Stack = createStackNavigator();
@@ -112,7 +113,7 @@ const tabs = [
   },
   {
     tabName: ScreenNames.Basket,
-    tabComponent: BasketScreen,
+    tabComponent: CartNavigation,
   },
   {
     tabName: ScreenNames.Profile,
