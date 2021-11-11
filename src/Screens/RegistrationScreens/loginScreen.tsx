@@ -20,7 +20,10 @@ export const LoginScreen = ({ navigation }) => {
       <View style={formStyles.wrapper}>
         <Text style={stylesLoginForm.textLogo}>Вход</Text>
         <Formik
-          initialValues={{ email: "test@mail.com", password: "qwe2Fqwe" }}
+          initialValues={{
+            email: "igorbuzlanov44@gmail.com",
+            password: "qwe2Fqwe",
+          }}
           onSubmit={async (values, { setErrors, resetForm }) => {
             console.log(JSON.stringify(values));
             try {
