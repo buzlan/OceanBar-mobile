@@ -6,12 +6,19 @@ import FAIcon from "react-native-vector-icons/FontAwesome";
 import { cartItemStyle } from "../styles/cartItemStyle";
 import OneItem from "./OneItem";
 import { connect } from "react-redux";
-import { removeFromCart } from "../actions/cart";
 import { cartScreenStyle } from "../styles/cartScreenStyle";
+import { clearBasket } from "../services/store/cartStore/thunks/thunks";
 
 export const deviceWidth = Dimensions.get("window").width;
 
-const CartItemsScreen = ({ removeAllFromCart, cartItems, totalSum }) => {
+const CartItemsScreen = ({
+  removeAllFromCart,
+  cartItems,
+  totalSum,
+  navigation,
+}) => {
+  console.log("NAVIGATION", navigation);
+
   const renderItem = ({ item }) => <OneItem item={item} />;
   return (
     <View style={cartScreenStyle.mainContainer}>
@@ -35,7 +42,10 @@ const CartItemsScreen = ({ removeAllFromCart, cartItems, totalSum }) => {
             <Text style={cartScreenStyle.totalSumTitle}>
               Итоговая сумма: {totalSum} BYN{" "}
             </Text>
-            <TouchableOpacity style={cartScreenStyle.nextBtnContainer}>
+            <TouchableOpacity
+              style={cartScreenStyle.nextBtnContainer}
+              onPress={() => navigation.navigate("TypeOrder")}
+            >
               <Text style={cartItemStyle.nextBtn}>Далее</Text>
             </TouchableOpacity>
           </View>
@@ -47,7 +57,7 @@ const CartItemsScreen = ({ removeAllFromCart, cartItems, totalSum }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     // explicitly forwarding arguments
-    removeAllFromCart: () => dispatch(removeFromCart()),
+    removeAllFromCart: () => dispatch(clearBasket()),
   };
 };
 

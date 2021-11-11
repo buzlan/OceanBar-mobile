@@ -4,32 +4,43 @@ import { Button } from "react-native-elements";
 import Checkbox from "react-native-check-box";
 import { stylesModal } from "../styles/stylesModal";
 
-const convertIngredientsToChackboxes = (dish) => {
+const convertIngredientsToChackboxes = (item) => {
   const convertToCheckbox = (ing, isChecked) => ({
     title: ing,
     checked: isChecked,
   });
-  const includedIngsCheckboxes = dish.ingredients
-    .split(";")
-    .map((ing) => convertToCheckbox(ing, true));
+
   let excludedIngsCheckboxes = [];
 
-  if (dish.excludedIng) {
-    excludedIngsCheckboxes = dish.excludedIng.map((ing) =>
-      convertToCheckbox(ing, false)
+  if (item.dish) {
+    const selectedIngredients = item.ingredients.split(";");
+    const allIngredients = item.dish.ingredients.split(";");
+    const excludedIngredients = allIngredients.filter(
+      (ingredient) => !selectedIngredients.includes(ingredient)
     );
+
+    const includedIngsCheckboxes = selectedIngredients.map((ing) =>
+      convertToCheckbox(ing, true)
+    );
+
+    if (excludedIngredients.length > 0) {
+      excludedIngsCheckboxes = excludedIngredients.map((ing) =>
+        convertToCheckbox(ing, false)
+      );
+    }
+    return [...includedIngsCheckboxes, ...excludedIngsCheckboxes];
   }
-  return [...includedIngsCheckboxes, ...excludedIngsCheckboxes];
+  return item.ingredients.split(";").map((ing) => convertToCheckbox(ing, true));
 };
 
 export const ModalComponent = ({
   modalVisible,
-  items,
+  item,
   setModalVisible,
   sendNewData,
 }) => {
   const [checkboxesState, setCheckboxesState] = useState(() =>
-    convertIngredientsToChackboxes(items)
+    convertIngredientsToChackboxes(item)
   );
 
   const [inclued, setIncluded] = useState([]);
@@ -66,7 +77,7 @@ export const ModalComponent = ({
     <Modal visible={modalVisible} animationType="slide">
       <View style={stylesModal.mainContainer}>
         <View style={stylesModal.itemNameWrapper}>
-          <Text style={stylesModal.itemName}>{items.name}</Text>
+          <Text style={stylesModal.itemName}>{item.name}</Text>
         </View>
         <View style={stylesModal.compositionWrapper}>
           <Text style={stylesModal.compositionTitle}>Состав</Text>
@@ -112,7 +123,7 @@ export const ModalComponent = ({
             onPress={() => {
               setModalVisible(!modalVisible);
               const included = inclued.join(";");
-              sendNewData(included, excluded);
+              sendNewData({ id: item.id, ingredients: included });
             }}
             title="Готово"
             titleStyle={stylesModal.titleButton}

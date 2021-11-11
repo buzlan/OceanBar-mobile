@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import IoIcon from "react-native-vector-icons/Ionicons";
 import Image from "react-native-elements/dist/image/Image";
@@ -6,33 +6,51 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { cartItemStyle } from "../styles/cartItemStyle";
 import { connect } from "react-redux";
-import {
-  addQuantity,
-  minusQuantity,
-  updateItemsFromCart,
-} from "../actions/cart";
+import { updateItemsFromCart } from "../actions/cart";
 import { ModalComponent } from "./Modal";
+import {
+  deleteItem,
+  updateIngredientsItem,
+  updateQuantityItem,
+} from "../services/store/cartStore/thunks/thunks";
+
 const OneItem = (props) => {
+  console.log("One Item", props.item);
+
   const [modalVisible, setModalVisible] = useState(false);
-  const getNewIng = (newIng, excluded) => {
-    props.updateItemsFromCart({
-      ...props.item,
-      ingredients: newIng,
-      excludedIng: excluded,
-    });
+  const [excludedIngredients, setExcludedIngredients] = useState([]);
+  const handleChangeQuantity = (newQuantity) => {
+    if (newQuantity === 0) {
+      props.deleteItemFromCart(props.item.id);
+    } else {
+      props.updateQuantityItemCart({
+        id: props.item.id,
+        quantity: newQuantity,
+      });
+    }
   };
+
+  useEffect(() => {
+    const selectedIngredients = props.item.ingredients.split(";");
+    const allIngredients = props.item.dish.ingredients.split(";");
+    const excludedIngredients = allIngredients.filter(
+      (ingredient) => !selectedIngredients.includes(ingredient)
+    );
+    setExcludedIngredients(excludedIngredients);
+  }, [props.item]);
+
   return (
     <>
       <View style={cartItemStyle.mainContainer}>
         <Image
           source={{
-            uri: props.item.imageURL,
+            uri: props.item.dish.imageURL,
           }}
           style={cartItemStyle.imageStyle}
         />
         <View style={cartItemStyle.textItemsContainer}>
           <View>
-            <Text style={cartItemStyle.itemTitle}>{props.item.name}</Text>
+            <Text style={cartItemStyle.itemTitle}>{props.item.dish.name}</Text>
             <TouchableOpacity
               onPress={() => {
                 setModalVisible(!modalVisible);
@@ -45,13 +63,13 @@ const OneItem = (props) => {
           </View>
           <View style={cartItemStyle.priceAndIconsContainer}>
             <Text style={cartItemStyle.priceItem}>
-              {props.item.price * props.item.quantity} BYN
+              {props.item.dish.price * props.item.quantity} BYN
             </Text>
 
             <View style={cartItemStyle.quantityContainer}>
               <TouchableOpacity
                 onPress={() => {
-                  props.minusQuantityFromItem(props.item.id);
+                  handleChangeQuantity(props.item.quantity - 1);
                 }}
               >
                 <IoIcon
@@ -65,14 +83,14 @@ const OneItem = (props) => {
               </Text>
               <TouchableOpacity
                 onPress={() => {
-                  props.addQuantityToItem(props.item.id);
+                  handleChangeQuantity(props.item.quantity + 1);
                 }}
               >
                 <IoIcon name="add-circle-outline" size={30} color={"#FF4D00"} />
               </TouchableOpacity>
             </View>
           </View>
-          {props.item.excludedIng.length > 0 ? (
+          {excludedIngredients.length > 0 ? (
             <View
               style={{
                 flexDirection: "column",
@@ -96,9 +114,7 @@ const OneItem = (props) => {
                   fontFamily: "Roboto",
                 }}
               >
-                {props.item.excludedIng
-                  ? props.item.excludedIng.join(", ")
-                  : null}
+                {excludedIngredients.join(", ")}
               </Text>
             </View>
           ) : null}
@@ -106,9 +122,9 @@ const OneItem = (props) => {
       </View>
       <ModalComponent
         modalVisible={modalVisible}
-        items={props.item}
+        item={props.item}
         setModalVisible={setModalVisible}
-        sendNewData={getNewIng}
+        sendNewData={props.updateIngredientsFromCart}
       />
     </>
   );
@@ -116,9 +132,10 @@ const OneItem = (props) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     // explicitly forwarding arguments
-    addQuantityToItem: (idItem) => dispatch(addQuantity(idItem)),
-    minusQuantityFromItem: (idItem) => dispatch(minusQuantity(idItem)),
+    deleteItemFromCart: (id) => dispatch(deleteItem(id)),
+    updateQuantityItemCart: (item) => dispatch(updateQuantityItem(item)),
     updateItemsFromCart: (dish) => dispatch(updateItemsFromCart(dish)),
+    updateIngredientsFromCart: (item) => dispatch(updateIngredientsItem(item)),
   };
 };
 
