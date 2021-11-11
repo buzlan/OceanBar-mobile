@@ -10,6 +10,7 @@ import {
 export const getAllCartItems = () => {
   return async (dispatch, getState, { cartService }) => {
     // do request to API
+
     const response = await cartService.getCartItems();
     dispatch(addAllItemsToCart(response.data.cart));
   };

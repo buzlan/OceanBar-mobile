@@ -18,9 +18,6 @@ const checkIngEquality = (a, b) => {
 };
 
 const removeItem = (state, action) => {
-  console.log("STATEREMOVE", state);
-  console.log("ACTIONREMOVE", action);
-
   const index = state.cartItems.findIndex(({ id }) => id === action.id);
   let updatedCartItems = produce(state, (draft) => {
     draft.cartItems.splice(index, 1);
@@ -32,9 +29,6 @@ const removeItem = (state, action) => {
 };
 
 const changeQuantity = (state, action) => {
-  console.log("STATE", state);
-  console.log("ACTION", action);
-
   let copiedState = { ...state };
   const index = copiedState.cartItems.findIndex(
     ({ id }) => id === action.data.id
@@ -75,8 +69,6 @@ const InitialState = {
 };
 
 const addToCart = (state, action) => {
-  console.log("ACTIONA", action);
-
   let updatedCartItems = state;
   const itemIndex = state.cartItems.findIndex(
     (item) => item.id === action.data.id
@@ -101,7 +93,6 @@ const addToCart = (state, action) => {
 export const Cart = (state = InitialState, action) => {
   switch (action.type) {
     case ADD_ALL_ITEMS_TO_CART:
-      console.log(action, "ADD_ALL_ITEMS_TO_CART");
       return { cartItems: action.data, totalSum: totalSum(action.data) };
     case ADD_TO_CART:
       return addToCart(state, action);

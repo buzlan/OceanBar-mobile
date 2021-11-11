@@ -15,9 +15,6 @@ const DishPage = ({ route, addOneItemToCart }) => {
   const item = route.params.dishDetails;
   const [dish, setDish] = useState({ ...item, excludedIng: [] });
   const getNewIng = (newIng, excluded) => {
-    console.log("DISHING", dish.ingredients);
-    console.log("NEWING", newIng);
-
     setDish((prev) => ({
       ...prev,
       ingredients: newIng.ingredients,

@@ -15,8 +15,6 @@ import {
 } from "../services/store/cartStore/thunks/thunks";
 
 const OneItem = (props) => {
-  console.log("One Item", props.item);
-
   const [modalVisible, setModalVisible] = useState(false);
   const [excludedIngredients, setExcludedIngredients] = useState([]);
   const handleChangeQuantity = (newQuantity) => {

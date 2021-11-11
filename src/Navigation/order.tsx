@@ -9,6 +9,22 @@ import { confirmationScreen } from "../screens/ConfirmationScreen/confirmationPa
 
 const Stack = createStackNavigator();
 
+const setOptions = (title) => {
+  return {
+    title: title,
+    headerTitleAlign: "left",
+    headerStyle: { height: 70, backgroundColor: "transparent" },
+    headerLeftContainerStyle: {
+      alignItems: "flex-end",
+    },
+    headerTitleStyle: {
+      fontSize: 20,
+      fontFamily: "Roboto",
+      fontWeight: "600",
+    },
+  };
+};
+
 export const CartNavigation = () => {
   return (
     <Stack.Navigator>
@@ -22,53 +38,17 @@ export const CartNavigation = () => {
       <Stack.Screen
         name="TypeOrder"
         component={orderTypeScreen}
-        options={{
-          title: "Выберите тип заказа",
-          headerTitleAlign: "left",
-          headerStyle: { height: 70, backgroundColor: "transparent" },
-          headerLeftContainerStyle: {
-            alignItems: "flex-end",
-          },
-          headerTitleStyle: {
-            fontSize: 20,
-            fontFamily: "Roboto",
-            fontWeight: "600",
-          },
-        }}
+        options={() => setOptions("Выберете тип заказа")}
       />
       <Stack.Screen
         name="ReserveTable"
         component={reserveTableScreen}
-        options={{
-          title: "Бронирование стола",
-          headerTitleAlign: "left",
-          headerStyle: { height: 70, backgroundColor: "transparent" },
-          headerLeftContainerStyle: {
-            alignItems: "flex-end",
-          },
-          headerTitleStyle: {
-            fontSize: 20,
-            fontFamily: "Roboto",
-            fontWeight: "600",
-          },
-        }}
+        options={() => setOptions("Бронирование стола")}
       />
       <Stack.Screen
         name="Confirmation"
         component={confirmationScreen}
-        options={{
-          title: "Подтверждение заказа",
-          headerTitleAlign: "left",
-          headerStyle: { height: 70, backgroundColor: "transparent" },
-          headerLeftContainerStyle: {
-            alignItems: "flex-end",
-          },
-          headerTitleStyle: {
-            fontSize: 20,
-            fontFamily: "Roboto",
-            fontWeight: "600",
-          },
-        }}
+        options={() => setOptions("Подтверждение заказа")}
       />
     </Stack.Navigator>
   );

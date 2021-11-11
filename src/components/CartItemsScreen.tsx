@@ -17,8 +17,6 @@ const CartItemsScreen = ({
   totalSum,
   navigation,
 }) => {
-  console.log("NAVIGATION", navigation);
-
   const renderItem = ({ item }) => <OneItem item={item} />;
   return (
     <View style={cartScreenStyle.mainContainer}>

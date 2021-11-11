@@ -2,6 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { Text } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { OrderTypeBtn } from "../../components/orderTypeBtn";
 
 export const orderTypeScreen = ({ navigation }) => {
   return (
@@ -15,23 +16,21 @@ export const orderTypeScreen = ({ navigation }) => {
         paddingVertical: 130,
       }}
     >
-      <TouchableOpacity onPress={() => navigation.navigate("ReserveTable")}>
-        <Text style={{ fontSize: 25, fontFamily: "Roboto", fontWeight: "500" }}>
-          Бронирование стола
-        </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity>
-        <Text style={{ fontSize: 25, fontFamily: "Roboto", fontWeight: "500" }}>
-          Доставка заказа
-        </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity>
-        <Text style={{ fontSize: 25, fontFamily: "Roboto", fontWeight: "500" }}>
-          На вынос
-        </Text>
-      </TouchableOpacity>
+      <OrderTypeBtn
+        navigation={navigation}
+        title={"Бронирование стола"}
+        navigationScreen={"ReserveTable"}
+      />
+      <OrderTypeBtn
+        navigation={navigation}
+        title={"Доставка заказа"}
+        navigationScreen={"ReserveTable"}
+      />
+      <OrderTypeBtn
+        navigation={navigation}
+        title={"На вынос"}
+        navigationScreen={"ReserveTable"}
+      />
     </View>
   );
 };

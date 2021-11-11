@@ -16,7 +16,6 @@ const BasketScreen: React.FC<Props> = ({
   navigation,
   fetchAllCartItems,
 }) => {
-  console.log("NAVIGATIONBASKET", navigation);
   useEffect(() => {
     fetchAllCartItems();
   }, []);
@@ -35,7 +34,6 @@ const BasketScreen: React.FC<Props> = ({
   );
 };
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     cart: state.Cart.cartItems,
     totalSum: state.Cart.totalSum,
