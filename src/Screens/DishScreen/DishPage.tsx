@@ -6,19 +6,18 @@ import { connect } from "react-redux";
 import { ScrollView } from "react-native-gesture-handler";
 
 import { stylesDishPage } from "../../styles/dishPageStyle";
-import { showMessage } from "react-native-flash-message";
-import { addToCart, updateItemsFromCart } from "../../actions/cart";
 import { ModalComponent } from "../../components/Modal";
 import { Composition } from "../../components/Composition";
+import { addItemToCart } from "../../services/store/cartStore/thunks/thunks";
 
-const DishPage = ({ route, addItemToCart }) => {
+const DishPage = ({ route, addOneItemToCart }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const item = route.params.dishDetails;
   const [dish, setDish] = useState({ ...item, excludedIng: [] });
   const getNewIng = (newIng, excluded) => {
     setDish((prev) => ({
       ...prev,
-      ingredients: newIng,
+      ingredients: newIng.ingredients,
       excludedIng: excluded,
     }));
   };
@@ -63,23 +62,7 @@ const DishPage = ({ route, addItemToCart }) => {
               titleStyle={stylesDishPage.titleInputBtn}
               buttonStyle={stylesDishPage.inputButton}
               onPress={() => {
-                addItemToCart(dish);
-                showMessage({
-                  message: `${dish.name} добавлено в корзину`,
-                  style: {
-                    paddingLeft: 80,
-                  },
-                  titleStyle: {
-                    fontSize: 15,
-                    fontWeight: "bold",
-                    fontFamily: "Roboto",
-                  },
-                  icon: {
-                    icon: "success",
-                    position: "right",
-                  },
-                  type: "success",
-                });
+                addOneItemToCart(dish);
               }}
             />
           </View>
@@ -87,7 +70,7 @@ const DishPage = ({ route, addItemToCart }) => {
       </ScrollView>
       <ModalComponent
         modalVisible={modalVisible}
-        items={item}
+        item={item}
         setModalVisible={setModalVisible}
         sendNewData={getNewIng}
       />
@@ -98,7 +81,7 @@ const DishPage = ({ route, addItemToCart }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     // explicitly forwarding arguments
-    addItemToCart: (item) => dispatch(addToCart(item)),
+    addOneItemToCart: (item) => dispatch(addItemToCart(item)),
   };
 };
 

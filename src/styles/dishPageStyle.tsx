@@ -74,6 +74,7 @@ export const stylesDishPage = StyleSheet.create({
   },
   bynText: {
     paddingBottom: 5,
+    paddingLeft: 5,
     fontWeight: "500",
     fontSize: 20,
     color: "black",

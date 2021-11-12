@@ -5,7 +5,6 @@ import { ParamListBase } from "@react-navigation/routers";
 import { Button } from "react-native-elements";
 import { stylesDishes } from "../../styles/dishesStyle";
 import { getMenuButtons } from "../../mocks/getMenuBtns";
-import { UploadProgress } from "../../components/UploadProgress";
 import { AppLoader } from "../../components/AppLoader";
 
 interface Props extends BottomTabScreenProps<ParamListBase> {}
