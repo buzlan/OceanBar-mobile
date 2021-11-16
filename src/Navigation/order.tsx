@@ -6,6 +6,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 import basketScreen from "../screens/TabsScreens/basketScreen";
 import { reserveTableScreen } from "../screens/ReserveTableScreen/reserveTableScreen";
 import { confirmationScreen } from "../screens/ConfirmationScreen/confirmationPage";
+import { selectTableScreen } from "../screens/SelectTableScreen/selectTableScreen";
+import { selectTimeScreen } from "../screens/SelectTimeScreen/selectTimeScreen";
+import { orderTakeawayScreen } from "../screens/OrderTakeawayScreen/orderTakeawayScreen";
+import { paidTypeScreen } from "../screens/PaidType/paidTypeScreen";
 
 const Stack = createStackNavigator();
 
@@ -20,7 +24,7 @@ const setOptions = (title) => {
     headerTitleStyle: {
       fontSize: 20,
       fontFamily: "Roboto",
-      fontWeight: "600",
+      fontWeight: "700",
     },
   };
 };
@@ -49,6 +53,26 @@ export const CartNavigation = () => {
         name="Confirmation"
         component={confirmationScreen}
         options={() => setOptions("Подтверждение заказа")}
+      />
+      <Stack.Screen
+        name="SelectTable"
+        component={selectTableScreen}
+        options={() => setOptions("Выберите стол")}
+      />
+      <Stack.Screen
+        name="SelectTime"
+        component={selectTimeScreen}
+        options={() => setOptions("Выберите время")}
+      />
+      <Stack.Screen
+        name="OrderTakeaway"
+        component={orderTakeawayScreen}
+        options={() => setOptions("Навынос")}
+      />
+      <Stack.Screen
+        name="PaidType"
+        component={paidTypeScreen}
+        options={() => setOptions("Тип оплаты")}
       />
     </Stack.Navigator>
   );
