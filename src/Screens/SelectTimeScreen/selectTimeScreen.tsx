@@ -16,21 +16,21 @@ const Item = ({ value, onValueChange }) => (
     </TouchableOpacity>
   </View>
 );
+const data = [
+  "15:00",
+  "15:30",
+  "16:00",
+  "16:30",
+  "17:00",
+  "17:30",
+  "18:00",
+  "18:30",
+  "19:00",
+  "19:30",
+  "20:00",
+];
 
 export const selectTimeScreen = ({ navigation, route }) => {
-  const data = [
-    "15:00",
-    "15:30",
-    "16:00",
-    "16:30",
-    "17:00",
-    "17:30",
-    "18:00",
-    "18:30",
-    "19:00",
-    "19:30",
-    "20:00",
-  ];
   const [value, setValue] = useState(data[0]);
   const renderItem = ({ item }) => (
     <Item value={item} onValueChange={setValue} />
