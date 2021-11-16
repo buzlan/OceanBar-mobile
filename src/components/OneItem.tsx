@@ -3,9 +3,8 @@ import { Text, View } from "react-native";
 import IoIcon from "react-native-vector-icons/Ionicons";
 import Image from "react-native-elements/dist/image/Image";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
-import { cartItemStyle } from "../styles/cartItemStyle";
 import { connect } from "react-redux";
+
 import { updateItemsFromCart } from "../actions/cart";
 import { ModalComponent } from "./Modal";
 import {
@@ -13,6 +12,8 @@ import {
   updateIngredientsItem,
   updateQuantityItem,
 } from "../services/store/cartStore/thunks/thunks";
+import { AppLoader } from "./AppLoader";
+import { cartItemStyle } from "../styles/cartItemStyle";
 
 const OneItem = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -37,7 +38,9 @@ const OneItem = (props) => {
     setExcludedIngredients(excludedIngredients);
   }, [props.item]);
 
-  return (
+  return props.isLoading ? (
+    <AppLoader />
+  ) : (
     <>
       <View style={cartItemStyle.mainContainer}>
         <Image
@@ -89,29 +92,9 @@ const OneItem = (props) => {
             </View>
           </View>
           {excludedIngredients.length > 0 ? (
-            <View
-              style={{
-                flexDirection: "column",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 15,
-                  fontWeight: "400",
-                  color: "black",
-                  fontFamily: "Roboto",
-                }}
-              >
-                Без добавления:
-              </Text>
-              <Text
-                style={{
-                  fontSize: 13,
-                  fontWeight: "400",
-                  color: "black",
-                  fontFamily: "Roboto",
-                }}
-              >
+            <View style={cartItemStyle.excludedIngWrapper}>
+              <Text style={cartItemStyle.withoutIngText}>Без добавления:</Text>
+              <Text style={cartItemStyle.ingTextWrapper}>
                 {excludedIngredients.join(", ")}
               </Text>
             </View>
@@ -136,5 +119,10 @@ const mapDispatchToProps = (dispatch) => {
     updateIngredientsFromCart: (item) => dispatch(updateIngredientsItem(item)),
   };
 };
+const mapStateToProps = (state) => {
+  return {
+    isLoading: state.Cart.isLoading,
+  };
+};
 
-export default connect(null, mapDispatchToProps)(OneItem);
+export default connect(mapStateToProps, mapDispatchToProps)(OneItem);

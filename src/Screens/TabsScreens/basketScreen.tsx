@@ -3,6 +3,7 @@ import { ParamListBase } from "@react-navigation/routers";
 import React, { useEffect } from "react";
 import { View } from "react-native";
 import { connect } from "react-redux";
+import { AppLoader } from "../../components/AppLoader";
 
 import CartItemsScreen from "../../components/CartItemsScreen";
 import { EmptyCart } from "../../components/EmptyCart";
@@ -15,11 +16,14 @@ const BasketScreen: React.FC<Props> = ({
   totalSum,
   navigation,
   fetchAllCartItems,
+  isLoading,
 }) => {
   useEffect(() => {
     fetchAllCartItems();
   }, []);
-  return (
+  return isLoading ? (
+    <AppLoader />
+  ) : (
     <View style={{ flex: 1 }}>
       {cart.length > 0 ? (
         <CartItemsScreen
@@ -37,6 +41,7 @@ const mapStateToProps = (state) => {
   return {
     cart: state.Cart.cartItems,
     totalSum: state.Cart.totalSum,
+    isLoading: state.Cart.isLoading,
   };
 };
 const mapDispatchToProps = (dispatch) => {
