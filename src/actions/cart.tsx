@@ -3,6 +3,8 @@ import {
   ADD_ITEM_TO_CART,
   ADD_QUANTITY,
   ADD_TO_CART,
+  LOADING_FINISHED,
+  LOADING_STARTED,
   MINUS_QUANTITY,
   REMOVE_ALL_FROM_CART,
   REMOVE_ITEM_FROM_CART,
@@ -55,4 +57,10 @@ export const updateQuantity = (item) => ({
 export const updateIngredients = (item) => ({
   type: UPDATE_INGREDIENTS,
   data: item,
+});
+export const loadingStarted = () => ({
+  type: LOADING_STARTED,
+});
+export const loadingFinished = () => ({
+  type: LOADING_FINISHED,
 });

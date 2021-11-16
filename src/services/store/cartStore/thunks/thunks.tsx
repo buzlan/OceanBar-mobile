@@ -1,6 +1,8 @@
 import {
   addAllItemsToCart,
   addToCart,
+  loadingFinished,
+  loadingStarted,
   removeFromCart,
   removeItemFromCart,
   updateIngredients,
@@ -10,8 +12,11 @@ import {
 export const getAllCartItems = () => {
   return async (dispatch, getState, { cartService }) => {
     // do request to API
-
+    dispatch(loadingStarted());
     const response = await cartService.getCartItems();
+
+    dispatch(loadingFinished());
+
     dispatch(addAllItemsToCart(response.data.cart));
   };
 };
@@ -19,11 +24,13 @@ export const getAllCartItems = () => {
 export const addItemToCart = ({ ingredients, quantity, id }) => {
   return async (dispatch, getState, { cartService, flashMessageService }) => {
     try {
+      dispatch(loadingStarted());
       const response = await cartService.addOneItemToCart(
         ingredients,
         quantity,
         id
       );
+      dispatch(loadingFinished());
 
       if (response.data.error) {
         flashMessageService.showErrorMessage(`Блюдо уже есть в корзине`);
@@ -43,7 +50,9 @@ export const addItemToCart = ({ ingredients, quantity, id }) => {
 export const clearBasket = () => {
   return async (dispatch, getState, { cartService }) => {
     // do request to API
+    dispatch(loadingStarted());
     const response = await cartService.clearCart();
+    dispatch(loadingFinished());
 
     dispatch(removeFromCart());
   };
@@ -52,8 +61,9 @@ export const clearBasket = () => {
 export const deleteItem = (id) => {
   return async (dispatch, getState, { cartService }) => {
     try {
+      dispatch(loadingStarted());
       const response = await cartService.deleteItem(id);
-
+      dispatch(loadingFinished());
       dispatch(removeItemFromCart(id));
     } catch (err) {}
   };
@@ -62,8 +72,9 @@ export const deleteItem = (id) => {
 export const updateQuantityItem = ({ id, quantity }) => {
   return async (dispatch, getState, { cartService }) => {
     try {
+      dispatch(loadingStarted());
       const response = await cartService.updateItem(id, { quantity });
-
+      dispatch(loadingFinished());
       dispatch(updateQuantity(response.data.updatedPosition));
     } catch (err) {}
   };
@@ -72,8 +83,9 @@ export const updateQuantityItem = ({ id, quantity }) => {
 export const updateIngredientsItem = ({ id, ingredients }) => {
   return async (dispatch, getState, { cartService }) => {
     try {
+      dispatch(loadingStarted());
       const response = await cartService.updateItem(id, { ingredients });
-
+      dispatch(loadingFinished());
       dispatch(updateIngredients(response.data.updatedPosition));
     } catch (err) {}
   };

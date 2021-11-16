@@ -65,4 +65,19 @@ export const cartItemStyle = StyleSheet.create({
     color: "white",
     fontWeight: "500",
   },
+  excludedIngWrapper: {
+    flexDirection: "column",
+  },
+  withoutIngText: {
+    fontSize: 15,
+    fontWeight: "400",
+    color: "black",
+    fontFamily: "Roboto",
+  },
+  ingTextWrapper: {
+    fontSize: 13,
+    fontWeight: "400",
+    color: "black",
+    fontFamily: "Roboto",
+  },
 });

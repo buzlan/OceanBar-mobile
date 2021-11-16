@@ -8,6 +8,7 @@ import OneItem from "./OneItem";
 import { connect } from "react-redux";
 import { cartScreenStyle } from "../styles/cartScreenStyle";
 import { clearBasket } from "../services/store/cartStore/thunks/thunks";
+import { AppLoader } from "./AppLoader";
 
 export const deviceWidth = Dimensions.get("window").width;
 
@@ -16,9 +17,12 @@ const CartItemsScreen = ({
   cartItems,
   totalSum,
   navigation,
+  isLoading,
 }) => {
   const renderItem = ({ item }) => <OneItem item={item} />;
-  return (
+  return isLoading ? (
+    <AppLoader />
+  ) : (
     <View style={cartScreenStyle.mainContainer}>
       <View style={cartScreenStyle.headerWrapper}>
         <View style={cartScreenStyle.trashIconWrapper}>
@@ -58,5 +62,10 @@ const mapDispatchToProps = (dispatch) => {
     removeAllFromCart: () => dispatch(clearBasket()),
   };
 };
+const mapStateToProps = (state) => {
+  return {
+    isLoading: state.Cart.isLoading,
+  };
+};
 
-export default connect(null, mapDispatchToProps)(CartItemsScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(CartItemsScreen);

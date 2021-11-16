@@ -4,6 +4,8 @@ import produce from "immer";
 import {
   ADD_ALL_ITEMS_TO_CART,
   ADD_TO_CART,
+  LOADING_FINISHED,
+  LOADING_STARTED,
   REMOVE_ALL_FROM_CART,
   REMOVE_ITEM_FROM_CART,
   UPDATE_INGREDIENTS,
@@ -66,6 +68,7 @@ const totalSum = (cartItems) => {
 const InitialState = {
   cartItems: [],
   totalSum: 0,
+  isloading: false,
 };
 
 const addToCart = (state, action) => {
@@ -100,6 +103,10 @@ export const Cart = (state = InitialState, action) => {
       return removeItem(state, action);
     case REMOVE_ALL_FROM_CART:
       return InitialState;
+    case LOADING_STARTED:
+      return { ...state, isLoading: true };
+    case LOADING_FINISHED:
+      return { ...state, isLoading: false };
     case UPDATE_INGREDIENTS:
       const index = state.cartItems.findIndex(
         ({ id }) => id === action.data.id
