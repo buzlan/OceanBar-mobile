@@ -1,35 +1,23 @@
 import React from "react";
 import { View } from "react-native";
-import { Text } from "react-native-elements";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { OrderTypeBtn } from "../../components/orderTypeBtn";
+
+import { orderTypeScreenStyles } from "../../styles/orderTypeScreenStyles";
 
 export const orderTypeScreen = ({ navigation }) => {
   return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: "column",
-        backgroundColor: "white",
-        justifyContent: "space-between",
-        alignItems: "center",
-        paddingVertical: 130,
-      }}
-    >
+    <View style={orderTypeScreenStyles.mainWrapper}>
       <OrderTypeBtn
-        navigation={navigation}
         title={"Бронирование стола"}
-        navigationScreen={"ReserveTable"}
+        onPress={() => navigation.navigate("ReserveTable")}
       />
       <OrderTypeBtn
-        navigation={navigation}
         title={"Доставка заказа"}
-        navigationScreen={"ReserveTable"}
+        onPress={() => navigation.navigate("ReserveTable")}
       />
       <OrderTypeBtn
-        navigation={navigation}
-        title={"На вынос"}
-        navigationScreen={"ReserveTable"}
+        title={"Навынос"}
+        onPress={() => navigation.navigate("OrderTakeaway")}
       />
     </View>
   );
