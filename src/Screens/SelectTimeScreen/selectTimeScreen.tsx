@@ -18,7 +18,7 @@ const Item = ({ value, onValueChange }) => (
 );
 
 export const selectTimeScreen = ({ navigation, route }) => {
-  const [data, setData] = useState([
+  const data = [
     "15:00",
     "15:30",
     "16:00",
@@ -30,7 +30,7 @@ export const selectTimeScreen = ({ navigation, route }) => {
     "19:00",
     "19:30",
     "20:00",
-  ]);
+  ];
   const [value, setValue] = useState(data[0]);
   const renderItem = ({ item }) => (
     <Item value={item} onValueChange={setValue} />

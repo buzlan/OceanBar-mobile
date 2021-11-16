@@ -8,11 +8,11 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { paidTypeScreenStyles } from "../../styles/paidTypeScreenStyle";
 
 export const paidTypeScreen = ({ navigation, route }) => {
-  const [data, setData] = useState([
+  const data = [
     { name: "Онлайн" },
     { name: "На месте карточкой" },
     { name: "На месте наличными" },
-  ]);
+  ];
   const [checked, setChecked] = useState(
     route.params?.paidType || data[0].name
   );

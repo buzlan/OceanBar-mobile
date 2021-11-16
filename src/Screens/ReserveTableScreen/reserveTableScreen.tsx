@@ -26,8 +26,6 @@ export const reserveTableScreen = ({ navigation, route }) => {
     }
   }, [route.params]);
 
-  console.log("ROUTE", route.params);
-
   const canContinue = () => {
     if (data === "Выберете дату" || isChecked === false || !time || !table) {
       return false;

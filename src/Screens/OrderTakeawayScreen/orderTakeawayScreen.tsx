@@ -6,6 +6,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { NumberInCircle } from "../../components/NumberInCircle";
 import { orderTakeawayScreenStyles } from "../../styles/orderTakeawayScreenStyles";
+import { formatDate, formatTime } from "../../utils/dateUtils";
 
 export const orderTakeawayScreen = ({ navigation, route }) => {
   const [date, setDate] = useState(new Date());
@@ -31,16 +32,11 @@ export const orderTakeawayScreen = ({ navigation, route }) => {
     let tempDate = new Date(currentDate);
 
     if (mode === "date") {
-      let fDate =
-        tempDate.getDate() +
-        "/" +
-        (tempDate.getMonth() + 1) +
-        "/" +
-        tempDate.getFullYear();
+      let fDate = formatDate(tempDate);
 
       setData(fDate);
     } else {
-      let fTime = tempDate.getHours() + ":" + tempDate.getMinutes();
+      let fTime = formatTime(tempDate);
       setTime(fTime);
     }
   };
