@@ -10,6 +10,8 @@ import { selectTableScreen } from "../screens/SelectTableScreen/selectTableScree
 import { selectTimeScreen } from "../screens/SelectTimeScreen/selectTimeScreen";
 import { orderTakeawayScreen } from "../screens/OrderTakeawayScreen/orderTakeawayScreen";
 import { paidTypeScreen } from "../screens/PaidType/paidTypeScreen";
+import { orderDeliveryScreen } from "../screens/OrderDelivery/orderDeliveryScreen";
+import { adressDeliveryScreen } from "../screens/AdressDeliveryScreen/adressDeliveryScreen";
 
 const Stack = createStackNavigator();
 
@@ -73,6 +75,16 @@ export const CartNavigation = () => {
         name="PaidType"
         component={paidTypeScreen}
         options={() => setOptions("Тип оплаты")}
+      />
+      <Stack.Screen
+        name="OrderDelivery"
+        component={orderDeliveryScreen}
+        options={() => setOptions("Доставка заказа")}
+      />
+      <Stack.Screen
+        name="AdressDelivery"
+        component={adressDeliveryScreen}
+        options={() => setOptions("Адрес доставки")}
       />
     </Stack.Navigator>
   );
