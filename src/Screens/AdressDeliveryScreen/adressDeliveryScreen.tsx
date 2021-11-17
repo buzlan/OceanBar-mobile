@@ -32,7 +32,6 @@ export const adressDeliveryScreen = ({ navigation }) => {
   useEffect(() => {
     getData();
   }, [searchQuery]);
-  console.log(isStreetSetted.current);
   return (
     <SafeAreaView style={adressDeliveryScreenStyles.mainSafeAreaViewWrapper}>
       <ScrollView>
