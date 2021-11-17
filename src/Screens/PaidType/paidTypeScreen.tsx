@@ -17,7 +17,6 @@ export const paidTypeScreen = ({ navigation, route }) => {
   const [checked, setChecked] = useState(
     route.params?.paidType || data[0].name
   );
-
   return (
     <View style={paidTypeScreenStyles.mainWrapper}>
       {data.map((item) => (
@@ -41,7 +40,16 @@ export const paidTypeScreen = ({ navigation, route }) => {
           titleStyle={paidTypeScreenStyles.titleRegisterBtn}
           buttonStyle={paidTypeScreenStyles.registerButton}
           onPress={() => {
-            navigation.navigate("OrderTakeaway", { paidType: checked });
+            const obj = {
+              takeaway: () =>
+                navigation.navigate("OrderTakeaway", { paidType: checked }),
+              delivery: () =>
+                navigation.navigate("OrderDelivery", { paidType: checked }),
+              default: () => {},
+            };
+            const navFunc = obj[route.params?.orderType] || obj.default;
+            navFunc();
+            // navigation.navigate("OrderTakeaway", { paidType: checked });
           }}
         />
       </View>

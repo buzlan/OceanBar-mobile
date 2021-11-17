@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
-import { OrderTypeBtn } from "../../components/orderTypeBtn";
 
+import { OrderTypeBtn } from "../../components/orderTypeBtn";
 import { orderTypeScreenStyles } from "../../styles/orderTypeScreenStyles";
 
 export const orderTypeScreen = ({ navigation }) => {
@@ -13,7 +13,7 @@ export const orderTypeScreen = ({ navigation }) => {
       />
       <OrderTypeBtn
         title={"Доставка заказа"}
-        onPress={() => navigation.navigate("ReserveTable")}
+        onPress={() => navigation.navigate("OrderDelivery")}
       />
       <OrderTypeBtn
         title={"Навынос"}

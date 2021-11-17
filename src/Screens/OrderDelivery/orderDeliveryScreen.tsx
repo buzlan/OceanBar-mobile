@@ -5,25 +5,27 @@ import FAIcon from "react-native-vector-icons/FontAwesome";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { NumberInCircle } from "../../components/NumberInCircle";
-import { orderTakeawayScreenStyles } from "../../styles/orderTakeawayScreenStyles";
 import { formatDate, formatTime } from "../../utils/dateUtils";
+import { orderDeliveryScreenStyles } from "../../styles/orderDeliveryScreenStyles";
 
-export const orderTakeawayScreen = ({ navigation, route }) => {
+export const orderDeliveryScreen = ({ navigation, route }) => {
   const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
+  const [mode, setMode] = useState("date");
   const [data, setData] = useState("Выберете дату");
   const [time, setTime] = useState();
   const [paidType, setPaidType] = useState();
-
-  useEffect(() => {
-    if (route.params?.time) {
-      setTime(route.params?.time);
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+  const canContinue = () => {
+    if (data === "Выберете дату" || !time || !paidType) {
+      return false;
+    } else {
+      return true;
     }
-    if (route.params?.paidType) {
-      setPaidType(route.params?.paidType);
-    }
-  }, [route.params]);
+  };
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === "ios");
@@ -40,56 +42,67 @@ export const orderTakeawayScreen = ({ navigation, route }) => {
       setTime(fTime);
     }
   };
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
-  const canContinue = () => {
-    if (data === "Выберете дату" || !time || !paidType) {
-      return false;
-    } else {
-      return true;
+  useEffect(() => {
+    if (route.params?.time) {
+      setTime(route.params?.time);
     }
-  };
+    if (route.params?.paidType) {
+      setPaidType(route.params?.paidType);
+    }
+  }, [route.params]);
   return (
-    <View style={orderTakeawayScreenStyles.mainWrapper}>
-      <View style={orderTakeawayScreenStyles.wrapperWithoutDTPicker}>
-        <View style={orderTakeawayScreenStyles.selectDateWrapper}>
+    <View style={orderDeliveryScreenStyles.mainWrapper}>
+      <View style={orderDeliveryScreenStyles.wrapperWithoutDTPicker}>
+        <View style={orderDeliveryScreenStyles.selectDateWrapper}>
           <NumberInCircle number={1} />
           <TouchableOpacity
             onPress={() => showMode("date")}
-            style={orderTakeawayScreenStyles.dataElWrapper}
+            style={orderDeliveryScreenStyles.dataElWrapper}
           >
-            <Text style={orderTakeawayScreenStyles.dataText}>{data}</Text>
+            <Text style={orderDeliveryScreenStyles.dataText}>{data}</Text>
             <FAIcon name={"chevron-right"} size={30} color={"black"} />
           </TouchableOpacity>
         </View>
-        <View style={orderTakeawayScreenStyles.selectTimeWrapper}>
+        <View style={orderDeliveryScreenStyles.selectTimeWrapper}>
           <NumberInCircle number={2} />
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate("SelectTime", { orderType: "takeaway" })
+              navigation.navigate("SelectTime", { orderType: "delivery" })
             }
-            style={orderTakeawayScreenStyles.dataElWrapper}
+            style={orderDeliveryScreenStyles.dataElWrapper}
           >
-            <Text style={orderTakeawayScreenStyles.dataText}>
+            <Text style={orderDeliveryScreenStyles.dataText}>
               {time || "Выберите время"}
             </Text>
             <FAIcon name={"chevron-right"} size={30} color={"black"} />
           </TouchableOpacity>
         </View>
-        <View style={orderTakeawayScreenStyles.selectPaidTypeWrapper}>
+
+        <View style={orderDeliveryScreenStyles.selectPaidTypeWrapper}>
           <NumberInCircle number={3} />
+          <TouchableOpacity
+            onPress={() => navigation.navigate("AdressDelivery")}
+            style={orderDeliveryScreenStyles.dataElWrapper}
+          >
+            <Text style={orderDeliveryScreenStyles.dataText}>
+              Адрес доставки
+            </Text>
+            <FAIcon name={"chevron-right"} size={30} color={"black"} />
+          </TouchableOpacity>
+        </View>
+
+        <View style={orderDeliveryScreenStyles.selectPaidTypeWrapper}>
+          <NumberInCircle number={4} />
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("PaidType", {
                 paidType: paidType,
-                orderType: "takeaway",
+                orderType: "delivery",
               })
             }
-            style={orderTakeawayScreenStyles.dataElWrapper}
+            style={orderDeliveryScreenStyles.dataElWrapper}
           >
-            <Text style={orderTakeawayScreenStyles.dataText}>
+            <Text style={orderDeliveryScreenStyles.dataText}>
               {paidType
                 ? `Оплата ${paidType.toLowerCase()}`
                 : "Выберите тип оплаты"}
@@ -97,16 +110,16 @@ export const orderTakeawayScreen = ({ navigation, route }) => {
             <FAIcon name={"chevron-right"} size={30} color={"black"} />
           </TouchableOpacity>
         </View>
-        <View style={orderTakeawayScreenStyles.buttonWrapper}>
+        <View style={orderDeliveryScreenStyles.buttonWrapper}>
           <Button
             title="Далее"
-            titleStyle={orderTakeawayScreenStyles.titleRegisterBtn}
+            titleStyle={orderDeliveryScreenStyles.titleRegisterBtn}
             disabled={canContinue() ? false : true}
-            disabledStyle={orderTakeawayScreenStyles.disabledRegisterButton}
+            disabledStyle={orderDeliveryScreenStyles.disabledRegisterButton}
             disabledTitleStyle={
-              orderTakeawayScreenStyles.disabledTitleRegisterBtn
+              orderDeliveryScreenStyles.disabledTitleRegisterBtn
             }
-            buttonStyle={orderTakeawayScreenStyles.registerButton}
+            buttonStyle={orderDeliveryScreenStyles.registerButton}
             onPress={() => {
               navigation.navigate("Confirmation");
             }}
