@@ -82,7 +82,10 @@ export const orderTakeawayScreen = ({ navigation, route }) => {
           <NumberInCircle number={3} />
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate("PaidType", { paidType: paidType })
+              navigation.navigate("PaidType", {
+                paidType: paidType,
+                orderType: "takeaway",
+              })
             }
             style={orderTakeawayScreenStyles.dataElWrapper}
           >

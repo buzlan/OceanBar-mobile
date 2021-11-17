@@ -53,6 +53,8 @@ export const selectTimeScreen = ({ navigation, route }) => {
                 navigation.navigate("ReserveTable", { time: value }),
               takeaway: () =>
                 navigation.navigate("OrderTakeaway", { time: value }),
+              delivery: () =>
+                navigation.navigate("OrderDelivery", { time: value }),
               default: () => {},
             };
             const navFunc = obj[route.params?.orderType] || obj.default;
