@@ -1,14 +1,14 @@
 import * as yup from "yup";
 
 export const adressValidationSchema = yup.object().shape({
-  //   street: yup
+  street: yup
 
-  //     .string()
-  //     .required("Поле обязательно для заполнения")
-  //     .min(2, ({ min }) => `Минимальное количество символов ${min} `)
-  //     .max(30, ({ max }) => `Максимальное количество символов ${max} `)
+    .string()
+    .required("Поле обязательно для заполнения")
+    .min(2, ({ min }) => `Минимальное количество символов ${min} `)
+    .max(30, ({ max }) => `Максимальное количество символов ${max} `)
 
-  //     .matches(/^[a-zA-Z-]{2,30}$/, "Разрешён ввод букв"),
+    .matches(/^[а-яА-Я-\s]{2,30}$/, "Разрешён ввод букв"),
   house: yup
     .string()
     .required("Поле обязательно для заполнения")
