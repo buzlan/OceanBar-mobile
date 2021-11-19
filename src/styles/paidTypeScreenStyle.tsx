@@ -44,4 +44,8 @@ export const paidTypeScreenStyles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "700",
   },
+  paidTypeText: {
+    fontSize: 24,
+    fontFamily: "MacondoSwashCaps-Regular",
+  },
 });

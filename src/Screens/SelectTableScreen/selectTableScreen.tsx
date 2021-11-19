@@ -37,7 +37,7 @@ export const selectTableScreen = ({ navigation, route }) => {
       />
       <View style={selectTableStyles.buttonWrapper}>
         <Button
-          title="Далее"
+          title="Готово"
           titleStyle={selectTableStyles.titleRegisterBtn}
           buttonStyle={selectTableStyles.registerButton}
           onPress={() => navigation.navigate("ReserveTable", { value: value })}

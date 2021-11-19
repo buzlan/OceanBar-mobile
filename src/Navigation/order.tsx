@@ -12,6 +12,7 @@ import { orderTakeawayScreen } from "../screens/OrderTakeawayScreen/orderTakeawa
 import { paidTypeScreen } from "../screens/PaidType/paidTypeScreen";
 import { orderDeliveryScreen } from "../screens/OrderDelivery/orderDeliveryScreen";
 import { adressDeliveryScreen } from "../screens/AdressDeliveryScreen/adressDeliveryScreen";
+import { confirmationFinalScreen } from "../screens/ConfirmationResultScreen/confirmationFinalScreen";
 
 const Stack = createStackNavigator();
 
@@ -85,6 +86,11 @@ export const CartNavigation = () => {
         name="AdressDelivery"
         component={adressDeliveryScreen}
         options={() => setOptions("Адрес доставки")}
+      />
+      <Stack.Screen
+        name="ConfirmationFinal"
+        component={confirmationFinalScreen}
+        options={() => setOptions("Подтверждение заказа")}
       />
     </Stack.Navigator>
   );
