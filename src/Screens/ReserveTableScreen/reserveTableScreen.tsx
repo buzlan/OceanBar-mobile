@@ -116,7 +116,7 @@ export const reserveTableScreen = ({ navigation, route }) => {
         </View>
         <View style={reserveTableScreenStyles.buttonWrapper}>
           <Button
-            title="Готово"
+            title="Далее"
             titleStyle={reserveTableScreenStyles.titleRegisterBtn}
             disabled={canContinue() ? false : true}
             disabledStyle={reserveTableScreenStyles.disabledRegisterButton}
