@@ -73,4 +73,19 @@ export const adressDeliveryScreenStyles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "700",
   },
+  disabledRegisterButton: {
+    alignContent: "center",
+    backgroundColor: "transparent",
+    borderWidth: 1,
+    borderColor: "#FF4D00",
+    marginHorizontal: 20,
+    height: 50,
+  },
+  disabledTitleRegisterBtn: {
+    backgroundColor: "transparent",
+    color: "#FF4D00",
+    fontFamily: "Roboto",
+    fontSize: 18,
+    fontWeight: "700",
+  },
 });

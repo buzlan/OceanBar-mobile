@@ -17,8 +17,14 @@ import { stylesRegForm } from "../../styles/regFormStyle";
 import { adressValidationSchema } from "./adressValidationSchema";
 import { adressDeliveryScreenStyles } from "../../styles/adressDeliveryScreenStyles";
 
-export const adressDeliveryScreen = ({ navigation }) => {
-  const isStreetSetted = useRef(false);
+const mokeDefaultData = {
+  street: "Советская",
+  house: "11",
+  corpus: "21A",
+  flat: "44",
+};
+
+export const adressDeliveryScreen = ({ navigation, route }) => {
   const [data, setData] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const getData = async () => {
@@ -32,6 +38,7 @@ export const adressDeliveryScreen = ({ navigation }) => {
   useEffect(() => {
     getData();
   }, [searchQuery]);
+
   return (
     <SafeAreaView style={adressDeliveryScreenStyles.mainSafeAreaViewWrapper}>
       <ScrollView>
@@ -45,15 +52,23 @@ export const adressDeliveryScreen = ({ navigation }) => {
         </View>
         <View style={adressDeliveryScreenStyles.formikWrapper}>
           <Formik
-            initialValues={{ street: "", house: "", corpus: "", flat: "" }}
-            validateOnMount={true}
+            initialValues={
+              route.params?.adress || {
+                street: "",
+                house: "",
+                corpus: "",
+                flat: "",
+              }
+            }
             validationSchema={adressValidationSchema}
+            validateOnMount={true}
             onSubmit={() => {}}
           >
             {({
               handleChange,
               handleBlur,
               setFieldValue,
+              setValues,
               values,
               touched,
               errors,
@@ -65,10 +80,8 @@ export const adressDeliveryScreen = ({ navigation }) => {
                     <TextInput
                       style={adressDeliveryScreenStyles.textInputStyle}
                       onChangeText={(textV) => {
-                        isStreetSetted.current = false;
                         setFieldValue("street", textV);
                         setSearchQuery(textV);
-                        console.log(textV);
                       }}
                       onBlur={handleBlur("street")}
                       value={values.street}
@@ -88,7 +101,6 @@ export const adressDeliveryScreen = ({ navigation }) => {
                               }
                               key={uuid.v4()}
                               onPress={() => {
-                                isStreetSetted.current = true;
                                 setFieldValue("street", item);
                                 setData([]);
                               }}
@@ -147,7 +159,8 @@ export const adressDeliveryScreen = ({ navigation }) => {
                 <View style={adressDeliveryScreenStyles.checkboxWrapper}>
                   <Checkbox
                     onClick={() => {
-                      setIsChecked(!isChecked);
+                      setIsChecked((prev) => !prev);
+                      setValues(mokeDefaultData);
                     }}
                     isChecked={isChecked}
                     style={{ transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }}
@@ -158,12 +171,21 @@ export const adressDeliveryScreen = ({ navigation }) => {
                 </View>
                 <View style={adressDeliveryScreenStyles.buttonWrapper}>
                   <Button
-                    title="Далее"
+                    title="Готово"
                     titleStyle={adressDeliveryScreenStyles.titleRegisterBtn}
                     buttonStyle={adressDeliveryScreenStyles.registerButton}
-                    disabled={!(isStreetSetted.current && isValid)}
+                    disabledStyle={
+                      adressDeliveryScreenStyles.disabledRegisterButton
+                    }
+                    disabledTitleStyle={
+                      adressDeliveryScreenStyles.disabledTitleRegisterBtn
+                    }
+                    disabled={!isValid}
                     onPress={() => {
-                      navigation.navigate("Confirmation");
+                      setValues(values);
+                      navigation.navigate("OrderDelivery", {
+                        adress: values,
+                      });
                     }}
                   />
                 </View>
