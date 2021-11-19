@@ -49,6 +49,7 @@ export const reserveTableScreenStyles = StyleSheet.create({
   },
   buttonWrapper: {
     paddingTop: 60,
+    paddingBottom: 20,
   },
   titleRegisterBtn: {
     backgroundColor: "transparent",

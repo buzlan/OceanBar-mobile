@@ -93,7 +93,7 @@ export const orderDeliveryScreen = ({ navigation, route }) => {
             >
               <Text style={orderDeliveryScreenStyles.dataText}>
                 {adress
-                  ? ` Адрес: ${adress.street}, дом :${adress.house}, корпус: ${adress.corpus}, квартира: ${adress.flat} `
+                  ? ` Адрес: ${adress.street}/${adress.house}/${adress.corpus}/${adress.flat} `
                   : "Адрес доставки"}
               </Text>
               <FAIcon name={"chevron-right"} size={30} color={"black"} />
@@ -130,7 +130,13 @@ export const orderDeliveryScreen = ({ navigation, route }) => {
               }
               buttonStyle={orderDeliveryScreenStyles.registerButton}
               onPress={() => {
-                navigation.navigate("Confirmation");
+                navigation.navigate("Confirmation", {
+                  orderType: "Доставка",
+                  date: data,
+                  time: time,
+                  adress: adress,
+                  paidType: paidType.toLowerCase(),
+                });
               }}
             />
           </View>

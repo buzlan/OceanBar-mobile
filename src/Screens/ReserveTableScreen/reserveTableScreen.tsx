@@ -116,7 +116,7 @@ export const reserveTableScreen = ({ navigation, route }) => {
         </View>
         <View style={reserveTableScreenStyles.buttonWrapper}>
           <Button
-            title="Далее"
+            title="Готово"
             titleStyle={reserveTableScreenStyles.titleRegisterBtn}
             disabled={canContinue() ? false : true}
             disabledStyle={reserveTableScreenStyles.disabledRegisterButton}
@@ -125,7 +125,13 @@ export const reserveTableScreen = ({ navigation, route }) => {
             }
             buttonStyle={reserveTableScreenStyles.registerButton}
             onPress={() => {
-              navigation.navigate("Confirmation");
+              navigation.navigate("Confirmation", {
+                orderType: "Бронирование стола",
+                date: data,
+                table: table,
+                time: time,
+                paidType: "онлайн",
+              });
             }}
           />
         </View>
