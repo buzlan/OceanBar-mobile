@@ -10,6 +10,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { confirmationPageStyles } from "../../styles/confirmationPageStyles";
 import { reserveTableScreenStyles } from "../../styles/reserveTableScreenStyles";
 import { formatAdress } from "../../utils/adressUtils";
+import { InfoItem } from "../../components/infoItem";
 
 const CARDS = [
   { label: "card1", value: "card1" },
@@ -18,7 +19,7 @@ const CARDS = [
   { label: "Новая карта", value: "Привязать новую карту" },
 ];
 
-const confirmationScreen = ({ cart, totalSum, route }) => {
+const confirmationScreen = ({ cart, totalSum, route, navigation }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [orderData, setOrderData] = useState(route.params);
@@ -66,95 +67,96 @@ const confirmationScreen = ({ cart, totalSum, route }) => {
                   </Text>
                 </View>
                 {excludedIngredients[index]?.length > 0 ? (
-                  <View style={confirmationPageStyles.excludedIngWrapper}>
-                    <Text style={confirmationPageStyles.withoutIngText}>
-                      Без добавления:
-                    </Text>
-                    <Text style={confirmationPageStyles.ingTextWrapper}>
-                      {excludedIngredients[index]?.join(", ")}
-                    </Text>
-                  </View>
+                  <InfoItem
+                    title={"Без добавления:"}
+                    item={excludedIngredients[index]?.join(", ")}
+                    styleWrapper={confirmationPageStyles.excludedIngWrapper}
+                    stylesFirstPartText={confirmationPageStyles.withoutIngText}
+                    stylesSecondPartText={confirmationPageStyles.ingTextWrapper}
+                  />
                 ) : null}
-                <View style={confirmationPageStyles.priceAndIconsContainer}>
-                  <Text style={confirmationPageStyles.priceItem}>
-                    {item.dish.price} BYN
-                  </Text>
-                  <Text style={confirmationPageStyles.priceItem2}>
-                    за 1 позицию
-                  </Text>
-                </View>
+                <InfoItem
+                  title={`${item.dish.price} BYN`}
+                  item={"за 1 позицию"}
+                  styleWrapper={confirmationPageStyles.priceAndIconsContainer}
+                  stylesFirstPartText={confirmationPageStyles.priceItem}
+                  stylesSecondPartText={confirmationPageStyles.priceItem2}
+                />
               </View>
             </View>
           ))}
           <View style={confirmationPageStyles.lineView}></View>
           <View style={confirmationPageStyles.itemsWrapperContainer}>
-            <View style={confirmationPageStyles.itemWrapperStyle}>
-              <Text style={confirmationPageStyles.firstPartTextStyle}>
-                Тип заказа:
-              </Text>
-              <Text style={confirmationPageStyles.secondPartTextStyle}>
-                {orderData.orderType}
-              </Text>
-            </View>
+            <InfoItem
+              title={"Тип заказа:"}
+              item={orderData.orderType}
+              styleWrapper={confirmationPageStyles.itemWrapperStyle}
+              stylesFirstPartText={confirmationPageStyles.firstPartTextStyle}
+              stylesSecondPartText={confirmationPageStyles.secondPartTextStyle}
+            />
             {orderData.adress ? (
-              <View style={confirmationPageStyles.itemWrapperStyle}>
-                <Text style={confirmationPageStyles.firstPartTextStyle}>
-                  Адрес:
-                </Text>
-                <Text
-                  style={confirmationPageStyles.secondPartTextStyle}
-                  key={uuid.v4()}
-                >
-                  {formatAdress(orderData.adress)}
-                </Text>
-              </View>
+              <InfoItem
+                title={" Адрес:"}
+                item={formatAdress(orderData.adress)}
+                styleWrapper={confirmationPageStyles.itemWrapperStyle}
+                stylesFirstPartText={confirmationPageStyles.firstPartTextStyle}
+                stylesSecondPartText={
+                  confirmationPageStyles.secondPartTextStyle
+                }
+              />
             ) : null}
-            <View style={confirmationPageStyles.itemWrapperStyle}>
-              <Text style={confirmationPageStyles.firstPartTextStyle}>
-                Дата:
-              </Text>
-              <Text style={confirmationPageStyles.secondPartTextStyle}>
-                {orderData.date}
-              </Text>
-            </View>
-            <View style={confirmationPageStyles.itemWrapperStyle}>
-              <Text style={confirmationPageStyles.firstPartTextStyle}>
-                Время:
-              </Text>
-              <Text style={confirmationPageStyles.secondPartTextStyle}>
-                {orderData.time}
-              </Text>
-            </View>
-            <View style={confirmationPageStyles.contactInformationStyleWrapper}>
-              <Text style={confirmationPageStyles.firstPartTextContactStyle}>
-                Контактная информация:
-              </Text>
-
-              <Text style={confirmationPageStyles.secondPartTextContactStyle}>
-                Кристина, +375296457721
-              </Text>
-            </View>
+            <InfoItem
+              title={"Дата:"}
+              item={orderData.date}
+              styleWrapper={confirmationPageStyles.itemWrapperStyle}
+              stylesFirstPartText={confirmationPageStyles.firstPartTextStyle}
+              stylesSecondPartText={confirmationPageStyles.secondPartTextStyle}
+            />
+            <InfoItem
+              title={"Время:"}
+              item={orderData.time}
+              styleWrapper={confirmationPageStyles.itemWrapperStyle}
+              stylesFirstPartText={confirmationPageStyles.firstPartTextStyle}
+              stylesSecondPartText={confirmationPageStyles.secondPartTextStyle}
+            />
+            <InfoItem
+              title={"Контактная информация:"}
+              item={"Кристина, +375296457721"}
+              styleWrapper={
+                confirmationPageStyles.contactInformationStyleWrapper
+              }
+              stylesFirstPartText={
+                confirmationPageStyles.firstPartTextContactStyle
+              }
+              stylesSecondPartText={
+                confirmationPageStyles.secondPartTextContactStyle
+              }
+            />
             {orderData.table ? (
-              <View style={confirmationPageStyles.itemWrapperStyle}>
-                <Text style={confirmationPageStyles.firstPartTextStyle}>
-                  Стол на
-                </Text>
-                <Text style={confirmationPageStyles.secondPartTextStyle}>
-                  {orderData.table}
-                </Text>
-              </View>
+              <InfoItem
+                title={"Стол на"}
+                item={orderData.table}
+                styleWrapper={confirmationPageStyles.itemWrapperStyle}
+                stylesFirstPartText={confirmationPageStyles.firstPartTextStyle}
+                stylesSecondPartText={
+                  confirmationPageStyles.secondPartTextStyle
+                }
+              />
             ) : null}
           </View>
           <View style={confirmationPageStyles.lineView}></View>
           <View style={{ paddingTop: 30, alignItems: "center" }}>
-            <View style={confirmationPageStyles.itemWrapperStyle}>
-              <Text style={confirmationPageStyles.firstPartTextStyleResult}>
-                Итого:
-              </Text>
-              <Text style={confirmationPageStyles.secondPartTextStyleResult}>
-                {totalSum} BYN
-              </Text>
-            </View>
+            <InfoItem
+              title={"Итого:"}
+              item={`${totalSum} BYN`}
+              styleWrapper={confirmationPageStyles.itemWrapperStyle}
+              stylesFirstPartText={
+                confirmationPageStyles.firstPartTextStyleResult
+              }
+              stylesSecondPartText={
+                confirmationPageStyles.secondPartTextStyleResult
+              }
+            />
           </View>
           <View
             style={[
@@ -213,7 +215,9 @@ const confirmationScreen = ({ cart, totalSum, route }) => {
                 reserveTableScreenStyles.disabledTitleRegisterBtn
               }
               buttonStyle={reserveTableScreenStyles.registerButton}
-              onPress={() => {}}
+              onPress={() => {
+                navigation.navigate("ConfirmationFinal");
+              }}
             />
           </View>
         </View>
