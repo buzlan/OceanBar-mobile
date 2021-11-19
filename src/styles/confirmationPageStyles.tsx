@@ -104,6 +104,12 @@ export const confirmationPageStyles = StyleSheet.create({
     fontWeight: "800",
     paddingTop: 10,
   },
+  firstPartTextContactStyle: {
+    fontSize: 20,
+    fontFamily: "MacondoSwashCaps-Regular",
+    fontWeight: "800",
+    paddingTop: 10,
+  },
   firstPartTextStyleResult: {
     fontSize: 25,
     fontFamily: "MacondoSwashCaps-Regular",
@@ -114,7 +120,14 @@ export const confirmationPageStyles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "MacondoSwashCaps-Regular",
     fontWeight: "600",
-    paddingTop: 10,
+    paddingTop: 15,
+    paddingLeft: 5,
+  },
+  secondPartTextContactStyle: {
+    fontSize: 18,
+    fontFamily: "MacondoSwashCaps-Regular",
+    fontWeight: "600",
+    paddingTop: 15,
     paddingLeft: 5,
   },
   secondPartTextStyleResult: {
@@ -131,6 +144,12 @@ export const confirmationPageStyles = StyleSheet.create({
   itemWrapperStyle: {
     flexDirection: "row",
     alignItems: "center",
+  },
+  contactInformationStyleWrapper: {
+    flexDirection: "column",
+    alignItems: "center",
+
+    justifyContent: "center",
   },
   lineView: {
     borderBottomWidth: 0.5,
@@ -156,6 +175,17 @@ export const confirmationPageStyles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "MacondoSwashCaps-Regular",
     fontWeight: "700",
+  },
+  paidSecondTextNotOnline: {
+    fontSize: 20,
+    fontFamily: "MacondoSwashCaps-Regular",
+    fontWeight: "700",
+    paddingTop: 10,
+    paddingLeft: 7,
+  },
+  paidTypeNotOnlineWrapper: {
+    flexDirection: "row",
+    left: 50,
   },
   dropDownWrapper: {
     paddingLeft: 20,

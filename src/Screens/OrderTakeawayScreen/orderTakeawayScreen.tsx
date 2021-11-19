@@ -108,7 +108,12 @@ export const orderTakeawayScreen = ({ navigation, route }) => {
             }
             buttonStyle={orderTakeawayScreenStyles.registerButton}
             onPress={() => {
-              navigation.navigate("Confirmation");
+              navigation.navigate("Confirmation", {
+                orderType: "Навынос",
+                date: data,
+                time: time,
+                paidType: paidType.toLowerCase(),
+              });
             }}
           />
         </View>

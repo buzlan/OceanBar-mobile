@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
+import { Button } from "react-native-elements";
 import Image from "react-native-elements/dist/image/Image";
 import uuid from "uuid";
+
 import DropDownPicker from "react-native-dropdown-picker";
 import { confirmationPageStyles } from "../../styles/confirmationPageStyles";
-import { Button } from "react-native-elements";
 import { reserveTableScreenStyles } from "../../styles/reserveTableScreenStyles";
+import { formatAdress } from "../../utils/adressUtils";
+
 const CARDS = [
   { label: "card1", value: "card1" },
   { label: "card2", value: "card2" },
@@ -20,7 +23,7 @@ const confirmationScreen = ({ cart, totalSum, route }) => {
   const [value, setValue] = useState("");
   const [orderData, setOrderData] = useState(route.params);
   const [excludedIngredients, setExcludedIngredients] = useState([]);
-  console.log("CARTTTTTTTTTTT", cart);
+
   useEffect(() => {
     const excludedIng = cart.map((cartElement) => {
       const selectedIngredients = cartElement.ingredients.split(";");
@@ -33,7 +36,6 @@ const confirmationScreen = ({ cart, totalSum, route }) => {
 
     setExcludedIngredients(excludedIng);
   }, [cart]);
-  console.log("EXCLUDED", excludedIngredients);
 
   return (
     <View style={confirmationPageStyles.mainWrapper}>
@@ -94,6 +96,19 @@ const confirmationScreen = ({ cart, totalSum, route }) => {
                 {orderData.orderType}
               </Text>
             </View>
+            {orderData.adress ? (
+              <View style={confirmationPageStyles.itemWrapperStyle}>
+                <Text style={confirmationPageStyles.firstPartTextStyle}>
+                  Адрес:
+                </Text>
+                <Text
+                  style={confirmationPageStyles.secondPartTextStyle}
+                  key={uuid.v4()}
+                >
+                  {formatAdress(orderData.adress)}
+                </Text>
+              </View>
+            ) : null}
             <View style={confirmationPageStyles.itemWrapperStyle}>
               <Text style={confirmationPageStyles.firstPartTextStyle}>
                 Дата:
@@ -110,14 +125,25 @@ const confirmationScreen = ({ cart, totalSum, route }) => {
                 {orderData.time}
               </Text>
             </View>
-            <View style={confirmationPageStyles.itemWrapperStyle}>
-              <Text style={confirmationPageStyles.firstPartTextStyle}>
-                Стол на
+            <View style={confirmationPageStyles.contactInformationStyleWrapper}>
+              <Text style={confirmationPageStyles.firstPartTextContactStyle}>
+                Контактная информация:
               </Text>
-              <Text style={confirmationPageStyles.secondPartTextStyle}>
-                {orderData.table}
+
+              <Text style={confirmationPageStyles.secondPartTextContactStyle}>
+                Кристина, +375296457721
               </Text>
             </View>
+            {orderData.table ? (
+              <View style={confirmationPageStyles.itemWrapperStyle}>
+                <Text style={confirmationPageStyles.firstPartTextStyle}>
+                  Стол на
+                </Text>
+                <Text style={confirmationPageStyles.secondPartTextStyle}>
+                  {orderData.table}
+                </Text>
+              </View>
+            ) : null}
           </View>
           <View style={confirmationPageStyles.lineView}></View>
           <View style={{ paddingTop: 30, alignItems: "center" }}>
@@ -136,39 +162,52 @@ const confirmationScreen = ({ cart, totalSum, route }) => {
               { height: open ? 230 : "auto" },
             ]}
           >
-            <View>
-              <Text style={confirmationPageStyles.paidFirstText}>Оплата</Text>
-              <Text style={confirmationPageStyles.paidSecondText}>
-                {orderData.paidType}
-              </Text>
-            </View>
-            <View style={confirmationPageStyles.dropDownWrapper}>
-              <DropDownPicker
-                listMode="SCROLLVIEW"
-                open={open}
-                value={value}
-                items={CARDS}
-                setOpen={setOpen}
-                setValue={setValue}
-                style={confirmationPageStyles.dropDownPickerStyle}
-                textStyle={confirmationPageStyles.dropDownTextStyle}
-                labelStyle={confirmationPageStyles.dropDownLabelStyle}
-                dropDownDirection="BOTTOM"
-                dropDownContainerStyle={
-                  confirmationPageStyles.dropDownContainerStyle
-                }
-                placeholder="Выберите карту"
-                placeholderStyle={
-                  confirmationPageStyles.dropDownPlaceholderStyle
-                }
-              />
-            </View>
+            {orderData.paidType === "онлайн" ? (
+              <>
+                <View>
+                  <Text style={confirmationPageStyles.paidFirstText}>
+                    Оплата
+                  </Text>
+                  <Text style={confirmationPageStyles.paidSecondText}>
+                    {orderData.paidType}
+                  </Text>
+                </View>
+                <View style={confirmationPageStyles.dropDownWrapper}>
+                  <DropDownPicker
+                    listMode="SCROLLVIEW"
+                    open={open}
+                    value={value}
+                    items={CARDS}
+                    setOpen={setOpen}
+                    setValue={setValue}
+                    style={confirmationPageStyles.dropDownPickerStyle}
+                    textStyle={confirmationPageStyles.dropDownTextStyle}
+                    labelStyle={confirmationPageStyles.dropDownLabelStyle}
+                    dropDownDirection="BOTTOM"
+                    dropDownContainerStyle={
+                      confirmationPageStyles.dropDownContainerStyle
+                    }
+                    placeholder="Выберите карту"
+                    placeholderStyle={
+                      confirmationPageStyles.dropDownPlaceholderStyle
+                    }
+                  />
+                </View>
+              </>
+            ) : (
+              <View style={confirmationPageStyles.paidTypeNotOnlineWrapper}>
+                <Text style={confirmationPageStyles.paidFirstText}>Оплата</Text>
+                <Text style={confirmationPageStyles.paidSecondTextNotOnline}>
+                  {orderData.paidType}
+                </Text>
+              </View>
+            )}
           </View>
           <View style={reserveTableScreenStyles.buttonWrapper}>
             <Button
               title="Подтвердить"
               titleStyle={reserveTableScreenStyles.titleRegisterBtn}
-              disabled={value ? false : true}
+              disabled={value || orderData.paidType !== "онлайн" ? false : true}
               disabledStyle={reserveTableScreenStyles.disabledRegisterButton}
               disabledTitleStyle={
                 reserveTableScreenStyles.disabledTitleRegisterBtn
