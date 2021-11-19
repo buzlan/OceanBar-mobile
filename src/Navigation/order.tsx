@@ -5,7 +5,7 @@ import { orderTypeScreen } from "../screens/OrderType/orderTypeScreen";
 import { createStackNavigator } from "@react-navigation/stack";
 import basketScreen from "../screens/TabsScreens/basketScreen";
 import { reserveTableScreen } from "../screens/ReserveTableScreen/reserveTableScreen";
-import { confirmationScreen } from "../screens/ConfirmationScreen/confirmationPage";
+import confirmationScreen from "../screens/ConfirmationScreen/confirmationPage";
 import { selectTableScreen } from "../screens/SelectTableScreen/selectTableScreen";
 import { selectTimeScreen } from "../screens/SelectTimeScreen/selectTimeScreen";
 import { orderTakeawayScreen } from "../screens/OrderTakeawayScreen/orderTakeawayScreen";
