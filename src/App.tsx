@@ -13,7 +13,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { ThemeProvider } from "react-native-elements";
 import { stylesApp } from "./styles/appStyle";
-import { MainNavigator } from "./navigation/main";
+import { MainNavigator } from "./Navigation/main";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 import { store } from "./services/store/store";

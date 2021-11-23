@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { RegistrationForm } from "../screens/RegistrationScreens/regForm";
-import { LoginScreen } from "../screens/RegistrationScreens/loginScreen";
+import { RegistrationForm } from "../Screens/RegistrationScreens/regForm";
+import { LoginScreen } from "../Screens/RegistrationScreens/loginScreen";
 import { Image } from "react-native";
 
 const Stack = createStackNavigator();

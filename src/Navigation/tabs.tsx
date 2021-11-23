@@ -4,13 +4,13 @@ import FAIcon from "react-native-vector-icons/FontAwesome";
 import MIcon from "react-native-vector-icons/MaterialIcons";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { MenuDetailsScreen } from "../screens/MenuScreens/MenuDetailsScreen";
-import { ProfileScreen } from "../screens/TabsScreens/profileScreen";
-import DishPage from "../screens/DishScreen/DishPage";
+import { MenuDetailsScreen } from "../Screens/MenuScreens/MenuDetailsScreen";
+import { ProfileScreen } from "../Screens/TabsScreens/profileScreen";
+import DishPage from "../Screens/DishScreen/DishPage";
 import { connect } from "react-redux";
-import { SearchScreen } from "../screens/SearchScreen/SearchScreen";
-import { DishesScreen } from "../screens/TabsScreens/dishesScreen";
-import BasketScreen from "../screens/TabsScreens/basketScreen";
+import { SearchScreen } from "../Screens/SearchScreen/SearchScreen";
+import { DishesScreen } from "../Screens/TabsScreens/dishesScreen";
+import BasketScreen from "../Screens/TabsScreens/basketScreen";
 import { SearchClick } from "../components/SearchClick";
 import { CartNavigation } from "./order";
 
