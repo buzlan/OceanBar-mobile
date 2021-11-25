@@ -6,8 +6,11 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 import { useTheme } from "react-native-paper";
 import { View } from "react-native-animatable";
-import { ProfileScreen } from "../Screens/TabsScreens/profileScreen";
+import ProfileScreen from "../Screens/TabsScreens/profileScreen";
 import { EditProfileScreen } from "../Screens/EditProfileScreen/editProfileScreen";
+import { newAdressScreen } from "../Screens/ProfileOptionsScreens/newAdressScreen";
+import setProfileAdressScreen from "../Screens/ProfileOptionsScreens/setProfileAdressScreen";
+import MyAdressScreen from "../Screens/ProfileOptionsScreens/MyAdressScreen";
 
 const ProfileStack = createStackNavigator();
 
@@ -19,7 +22,6 @@ export const ProfileStackScreen = ({ navigation }) => {
       screenOptions={{
         headerStyle: {
           backgroundColor: colors.background,
-          // shadowColor: colors.background, // iOS
           elevation: 0, // Android
         },
         headerTintColor: colors.text,
@@ -49,8 +51,33 @@ export const ProfileStackScreen = ({ navigation }) => {
         name="EditProfile"
         options={{
           title: "Редактировать профиль",
+          headerStyle: { height: 70, backgroundColor: "transparent" },
         }}
         component={EditProfileScreen}
+      />
+      <ProfileStack.Screen
+        name="NewAdress"
+        options={{
+          title: "Адрес доставки",
+          headerStyle: { height: 70, backgroundColor: "transparent" },
+        }}
+        component={newAdressScreen}
+      />
+      <ProfileStack.Screen
+        name="SetAdress"
+        options={{
+          title: "Новый адрес доставки",
+          headerStyle: { height: 70, backgroundColor: "transparent" },
+        }}
+        component={setProfileAdressScreen}
+      />
+      <ProfileStack.Screen
+        name="MyAdress"
+        options={{
+          title: "Новый адрес доставки",
+          headerStyle: { height: 70, backgroundColor: "transparent" },
+        }}
+        component={MyAdressScreen}
       />
     </ProfileStack.Navigator>
   );
