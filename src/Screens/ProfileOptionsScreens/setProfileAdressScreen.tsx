@@ -51,7 +51,6 @@ const setProfileAdressScreen = ({ navigation, setAdressData, adress }) => {
                   }
             }
             validationSchema={adressValidationSchema}
-            validateOnMount={true}
             onSubmit={() => {}}
           >
             {({
