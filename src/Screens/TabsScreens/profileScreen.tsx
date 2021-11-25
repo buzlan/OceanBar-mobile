@@ -9,9 +9,10 @@ import {
 } from "react-native-paper";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { connect } from "react-redux";
 import { stylesProfile } from "../../styles/profileStyle";
 
-export const ProfileScreen = () => {
+const ProfileScreen = ({ navigation, adress }) => {
   return (
     <SafeAreaView style={stylesProfile.container}>
       <View style={stylesProfile.userInfoSection}>
@@ -59,7 +60,13 @@ export const ProfileScreen = () => {
       </View>
 
       <View style={stylesProfile.menuWrapper}>
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple
+          onPress={() => {
+            Object.values(adress).length > 1
+              ? navigation.navigate("MyAdress")
+              : navigation.navigate("NewAdress");
+          }}
+        >
           <View style={stylesProfile.menuItem}>
             <Icon name="map-marker-circle" color="#FF6347" size={25} />
             <Text style={stylesProfile.menuItemText}>Адрес доставки</Text>
@@ -98,3 +105,10 @@ export const ProfileScreen = () => {
     </SafeAreaView>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    adress: state.Adress,
+  };
+};
+
+export default connect(mapStateToProps, null)(ProfileScreen);
