@@ -32,7 +32,7 @@ export const LoginScreen = ({ navigation }) => {
                 values.password
               );
               console.log(response.data, "login");
-              await AsyncStorage.setItem("token", response.data.token);
+              await AsyncStorage.setItem("token", response.data.accessToken);
               navigation.navigate("tabs", { screen: "Меню" });
               resetForm({});
             } catch (err) {
