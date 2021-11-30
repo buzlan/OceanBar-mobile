@@ -1,18 +1,18 @@
 import React from "react";
 
-import { orderTypeScreen } from "../screens/OrderType/orderTypeScreen";
+import { orderTypeScreen } from "../Screens/OrderType/orderTypeScreen";
 
 import { createStackNavigator } from "@react-navigation/stack";
-import basketScreen from "../screens/TabsScreens/basketScreen";
-import { reserveTableScreen } from "../screens/ReserveTableScreen/reserveTableScreen";
-import confirmationScreen from "../screens/ConfirmationScreen/confirmationPage";
-import { selectTableScreen } from "../screens/SelectTableScreen/selectTableScreen";
-import { selectTimeScreen } from "../screens/SelectTimeScreen/selectTimeScreen";
-import { orderTakeawayScreen } from "../screens/OrderTakeawayScreen/orderTakeawayScreen";
-import { paidTypeScreen } from "../screens/PaidType/paidTypeScreen";
-import { orderDeliveryScreen } from "../screens/OrderDelivery/orderDeliveryScreen";
-import { adressDeliveryScreen } from "../screens/AdressDeliveryScreen/adressDeliveryScreen";
-import { confirmationFinalScreen } from "../screens/ConfirmationResultScreen/confirmationFinalScreen";
+import basketScreen from "../Screens/TabsScreens/basketScreen";
+import { reserveTableScreen } from "../Screens/ReserveTableScreen/reserveTableScreen";
+import confirmationScreen from "../Screens/ConfirmationScreen/confirmationPage";
+import { selectTableScreen } from "../Screens/SelectTableScreen/selectTableScreen";
+import { selectTimeScreen } from "../Screens/SelectTimeScreen/selectTimeScreen";
+import { orderTakeawayScreen } from "../Screens/OrderTakeawayScreen/orderTakeawayScreen";
+import { paidTypeScreen } from "../Screens/PaidType/paidTypeScreen";
+import { orderDeliveryScreen } from "../Screens/OrderDelivery/orderDeliveryScreen";
+import { adressDeliveryScreen } from "../Screens/AdressDeliveryScreen/adressDeliveryScreen";
+import { confirmationFinalScreen } from "../Screens/ConfirmationResultScreen/confirmationFinalScreen";
 
 const Stack = createStackNavigator();
 
