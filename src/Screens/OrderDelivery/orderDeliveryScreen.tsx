@@ -7,6 +7,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { NumberInCircle } from "../../components/NumberInCircle";
 import { formatDate, formatTime } from "../../utils/dateUtils";
 import { orderDeliveryScreenStyles } from "../../styles/orderDeliveryScreenStyles";
+import { formatAdress } from "../../utils/adressUtils";
 
 export const orderDeliveryScreen = ({ navigation, route }) => {
   const [date, setDate] = useState(new Date());
@@ -134,7 +135,7 @@ export const orderDeliveryScreen = ({ navigation, route }) => {
                   orderType: "Доставка",
                   date: data,
                   time: time,
-                  adress: adress,
+                  adress: formatAdress(adress),
                   paidType: paidType.toLowerCase(),
                 });
               }}

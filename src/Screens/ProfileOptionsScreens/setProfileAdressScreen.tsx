@@ -13,10 +13,17 @@ import { stylesRegForm } from "../../styles/regFormStyle";
 import { setProfileAdressScreenStyles } from "../../styles/setProfileAdressScreenStyles";
 import { adressValidationSchema } from "../AdressDeliveryScreen/adressValidationSchema";
 import { connect } from "react-redux";
-import { setAdress } from "../../actions/adress";
+import { AuthService } from "../../services/http/AuthService";
+import { setUserData } from "../../actions/user";
 
-const setProfileAdressScreen = ({ navigation, setAdressData, adress }) => {
+const setProfileAdressScreen = ({
+  navigation,
+  setUserData,
+
+  userInfo,
+}) => {
   const [data, setData] = useState([]);
+  // console.log("USERID", userInfo);
 
   const getData = async () => {
     const response = await ApiDelivery.getDelivery(searchQuery);
@@ -41,8 +48,13 @@ const setProfileAdressScreen = ({ navigation, setAdressData, adress }) => {
         <View style={setProfileAdressScreenStyles.formikWrapper}>
           <Formik
             initialValues={
-              Object.values(adress).length > 1
-                ? adress
+              userInfo.street !== null
+                ? {
+                    street: userInfo.street,
+                    house: userInfo.homeNumber,
+                    corpus: userInfo.homePart,
+                    flat: userInfo.flat,
+                  }
                 : {
                     street: "",
                     house: "",
@@ -158,9 +170,21 @@ const setProfileAdressScreen = ({ navigation, setAdressData, adress }) => {
                       setProfileAdressScreenStyles.disabledTitleRegisterBtn
                     }
                     disabled={!isValid}
-                    onPress={() => {
+                    onPress={async () => {
                       setValues(values);
-                      setAdressData(values);
+                      //QUERY POST TO UPDATE USERADRESS(USERINFO)
+                      try {
+                        const response = await AuthService.updateAdress(
+                          values.street,
+                          values.house,
+                          values.corpus,
+                          values.flat,
+                          userInfo.id
+                        );
+                        await setUserData(response.data.data.user);
+                      } catch (err) {
+                        console.log(err);
+                      }
                       navigation.navigate("MyAdress");
                     }}
                   />
@@ -176,11 +200,12 @@ const setProfileAdressScreen = ({ navigation, setAdressData, adress }) => {
 const mapStateToProps = (state) => {
   return {
     adress: state.Adress,
+    userInfo: state.UserData,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    setAdressData: (item) => dispatch(setAdress(item)),
+    setUserData: (item) => dispatch(setUserData(item)),
   };
 };
 

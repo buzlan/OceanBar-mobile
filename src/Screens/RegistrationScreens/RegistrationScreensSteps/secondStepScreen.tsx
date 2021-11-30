@@ -17,7 +17,6 @@ export const SecondStepScreen = (props) => {
         validateOnMount={true}
         onSubmit={(values) => {
           props.sendStep();
-          console.log(JSON.stringify(values));
           props.onChange((prevValues) => ({
             ...prevValues,
             phoneNumber: values.phoneNumber,
