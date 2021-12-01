@@ -1,6 +1,7 @@
 import { Formik } from "formik";
 import React, { useEffect, useRef, useState } from "react";
 import {
+  Alert,
   SafeAreaView,
   Text,
   TextInput,
@@ -16,9 +17,9 @@ import { ApiDelivery } from "../../services/http/apiDelivery";
 import { stylesRegForm } from "../../styles/regFormStyle";
 import { adressValidationSchema } from "./adressValidationSchema";
 import { adressDeliveryScreenStyles } from "../../styles/adressDeliveryScreenStyles";
+import { connect } from "react-redux";
 
-export const adressDeliveryScreen = ({ navigation }) => {
-  const isStreetSetted = useRef(false);
+const adressDeliveryScreen = ({ navigation, route, userInfo }) => {
   const [data, setData] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const getData = async () => {
@@ -32,6 +33,18 @@ export const adressDeliveryScreen = ({ navigation }) => {
   useEffect(() => {
     getData();
   }, [searchQuery]);
+
+  const showAlert = () => {
+    Alert.alert("Упс....", "У вас нет адреса доставки!", [
+      {
+        text: "ОК",
+        style: "cancel",
+      },
+    ]);
+    setIsChecked((prev) => !prev);
+  };
+  console.log("USERINFOFROMADRESS", userInfo);
+
   return (
     <SafeAreaView style={adressDeliveryScreenStyles.mainSafeAreaViewWrapper}>
       <ScrollView>
@@ -45,15 +58,23 @@ export const adressDeliveryScreen = ({ navigation }) => {
         </View>
         <View style={adressDeliveryScreenStyles.formikWrapper}>
           <Formik
-            initialValues={{ street: "", house: "", corpus: "", flat: "" }}
-            validateOnMount={true}
+            initialValues={
+              route.params?.adress || {
+                street: "",
+                house: "",
+                corpus: "",
+                flat: "",
+              }
+            }
             validationSchema={adressValidationSchema}
+            validateOnMount={true}
             onSubmit={() => {}}
           >
             {({
               handleChange,
               handleBlur,
               setFieldValue,
+              setValues,
               values,
               touched,
               errors,
@@ -65,10 +86,8 @@ export const adressDeliveryScreen = ({ navigation }) => {
                     <TextInput
                       style={adressDeliveryScreenStyles.textInputStyle}
                       onChangeText={(textV) => {
-                        isStreetSetted.current = false;
                         setFieldValue("street", textV);
                         setSearchQuery(textV);
-                        console.log(textV);
                       }}
                       onBlur={handleBlur("street")}
                       value={values.street}
@@ -88,7 +107,6 @@ export const adressDeliveryScreen = ({ navigation }) => {
                               }
                               key={uuid.v4()}
                               onPress={() => {
-                                isStreetSetted.current = true;
                                 setFieldValue("street", item);
                                 setData([]);
                               }}
@@ -147,7 +165,15 @@ export const adressDeliveryScreen = ({ navigation }) => {
                 <View style={adressDeliveryScreenStyles.checkboxWrapper}>
                   <Checkbox
                     onClick={() => {
-                      setIsChecked(!isChecked);
+                      setIsChecked((prev) => !prev);
+                      userInfo.street === ""
+                        ? showAlert()
+                        : setValues({
+                            street: userInfo.street,
+                            house: userInfo.homeNumber,
+                            corpus: userInfo.homePart,
+                            flat: userInfo.flat,
+                          });
                     }}
                     isChecked={isChecked}
                     style={{ transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }}
@@ -158,12 +184,21 @@ export const adressDeliveryScreen = ({ navigation }) => {
                 </View>
                 <View style={adressDeliveryScreenStyles.buttonWrapper}>
                   <Button
-                    title="Далее"
+                    title="Готово"
                     titleStyle={adressDeliveryScreenStyles.titleRegisterBtn}
                     buttonStyle={adressDeliveryScreenStyles.registerButton}
-                    disabled={!(isStreetSetted.current && isValid)}
+                    disabledStyle={
+                      adressDeliveryScreenStyles.disabledRegisterButton
+                    }
+                    disabledTitleStyle={
+                      adressDeliveryScreenStyles.disabledTitleRegisterBtn
+                    }
+                    disabled={!isValid}
                     onPress={() => {
-                      navigation.navigate("Confirmation");
+                      setValues(values);
+                      navigation.navigate("OrderDelivery", {
+                        adress: values,
+                      });
                     }}
                   />
                 </View>
@@ -175,3 +210,10 @@ export const adressDeliveryScreen = ({ navigation }) => {
     </SafeAreaView>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    userInfo: state.UserData,
+  };
+};
+
+export default connect(mapStateToProps, null)(adressDeliveryScreen);

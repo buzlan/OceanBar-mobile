@@ -19,6 +19,11 @@ export const paidTypeScreen = ({ navigation, route }) => {
   );
   return (
     <View style={paidTypeScreenStyles.mainWrapper}>
+      <View>
+        <Text style={paidTypeScreenStyles.paidTypeText}>
+          Выберите способ оплаты:
+        </Text>
+      </View>
       {data.map((item) => (
         <View style={paidTypeScreenStyles.radioButtonWrapper} key={uuid.v4()}>
           <TouchableOpacity
@@ -36,7 +41,7 @@ export const paidTypeScreen = ({ navigation, route }) => {
       ))}
       <View style={paidTypeScreenStyles.buttonWrapper}>
         <Button
-          title="Далее"
+          title="Готово"
           titleStyle={paidTypeScreenStyles.titleRegisterBtn}
           buttonStyle={paidTypeScreenStyles.registerButton}
           onPress={() => {
@@ -49,7 +54,6 @@ export const paidTypeScreen = ({ navigation, route }) => {
             };
             const navFunc = obj[route.params?.orderType] || obj.default;
             navFunc();
-            // navigation.navigate("OrderTakeaway", { paidType: checked });
           }}
         />
       </View>

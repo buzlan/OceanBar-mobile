@@ -31,6 +31,9 @@
 		409BCC8D18D5488EB12760E3 /* RegattiaStencil-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA156CDA29FF4C0AA090AF5B /* RegattiaStencil-Bold.otf */; };
 		136914C73E5F4130ABDCA061 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD12312E69284E4B88FB467D /* Ionicons.ttf */; };
 		9FD4E8FFB64441B18ACC38D7 /* MacondoSwashCaps-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A1C0E25FA0D400087FBB33B /* MacondoSwashCaps-Regular.ttf */; };
+		6EC2504D9FED474FB5EE7E7A /* MacondoSwashCaps.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B8073BFDD504221A4C6E450 /* MacondoSwashCaps.ttf */; };
+		8A85B130D97949FFBC95A8E9 /* Overlock-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41E47BAEE3404D69B81A0D69 /* Overlock-Italic.ttf */; };
+		F16E734BAF4241C384AD0FD7 /* Overlock-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDD118548E84A9F8C7FD0E5 /* Overlock-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +77,9 @@
 		EA156CDA29FF4C0AA090AF5B /* RegattiaStencil-Bold.otf */ = {isa = PBXFileReference; name = "RegattiaStencil-Bold.otf"; path = "../src/assets/fonts/RegattiaStencil-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		FD12312E69284E4B88FB467D /* Ionicons.ttf */ = {isa = PBXFileReference; name = "Ionicons.ttf"; path = "../node_modules/react-native-ionicons/fonts/Ionicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		6A1C0E25FA0D400087FBB33B /* MacondoSwashCaps-Regular.ttf */ = {isa = PBXFileReference; name = "MacondoSwashCaps-Regular.ttf"; path = "../src/assets/fonts/MacondoSwashCaps-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4B8073BFDD504221A4C6E450 /* MacondoSwashCaps.ttf */ = {isa = PBXFileReference; name = "MacondoSwashCaps.ttf"; path = "../src/assets/fonts/MacondoSwashCaps.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		41E47BAEE3404D69B81A0D69 /* Overlock-Italic.ttf */ = {isa = PBXFileReference; name = "Overlock-Italic.ttf"; path = "../src/assets/fonts/Overlock-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4EDD118548E84A9F8C7FD0E5 /* Overlock-Regular.ttf */ = {isa = PBXFileReference; name = "Overlock-Regular.ttf"; path = "../src/assets/fonts/Overlock-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +191,9 @@
 				EA156CDA29FF4C0AA090AF5B /* RegattiaStencil-Bold.otf */,
 				FD12312E69284E4B88FB467D /* Ionicons.ttf */,
 				6A1C0E25FA0D400087FBB33B /* MacondoSwashCaps-Regular.ttf */,
+				4B8073BFDD504221A4C6E450 /* MacondoSwashCaps.ttf */,
+				41E47BAEE3404D69B81A0D69 /* Overlock-Italic.ttf */,
+				4EDD118548E84A9F8C7FD0E5 /* Overlock-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -299,6 +308,9 @@
 				409BCC8D18D5488EB12760E3 /* RegattiaStencil-Bold.otf in Resources */,
 				136914C73E5F4130ABDCA061 /* Ionicons.ttf in Resources */,
 				9FD4E8FFB64441B18ACC38D7 /* MacondoSwashCaps-Regular.ttf in Resources */,
+				6EC2504D9FED474FB5EE7E7A /* MacondoSwashCaps.ttf in Resources */,
+				8A85B130D97949FFBC95A8E9 /* Overlock-Italic.ttf in Resources */,
+				F16E734BAF4241C384AD0FD7 /* Overlock-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,11 @@ import {
   updateIngredients,
   updateQuantity,
 } from "../../../../actions/cart";
+import {
+  loadingFinish,
+  loadingStart,
+  setOrdersData,
+} from "../../../../actions/order";
 
 export const getAllCartItems = () => {
   return async (dispatch, getState, { cartService }) => {
@@ -18,6 +23,17 @@ export const getAllCartItems = () => {
     dispatch(loadingFinished());
 
     dispatch(addAllItemsToCart(response.data.cart));
+  };
+};
+export const getAllOrders = () => {
+  return async (dispatch, getState, { orderService }) => {
+    // do request to API
+    dispatch(loadingStart());
+    const response = await orderService.getOrders();
+
+    dispatch(loadingFinish());
+
+    dispatch(setOrdersData(response.data));
   };
 };
 
