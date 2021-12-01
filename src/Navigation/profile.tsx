@@ -13,6 +13,7 @@ import MyAdressScreen from "../Screens/ProfileOptionsScreens/MyAdressScreen";
 import changePasswordScreen from "../Screens/ChangePasswordScreen/changePasswordScreen";
 import myOrdersScreen from "../Screens/MyOrdersScreen/myOrdersScreen";
 import orderDetailsScreen from "../Screens/OrderScreenWithDetails/orderDetailsScreen";
+import { creditCardScreen } from "../Screens/CreditCardScreen/creditCardScreen";
 import { View } from "react-native";
 
 const ProfileStack = createStackNavigator();
@@ -105,6 +106,14 @@ export const ProfileStackScreen = ({ navigation }) => {
           headerStyle: { height: 70, backgroundColor: "transparent" },
         }}
         component={orderDetailsScreen}
+      />
+      <ProfileStack.Screen
+        name="CreditCards"
+        options={{
+          title: "Кредитные карты",
+          headerStyle: { height: 70, backgroundColor: "transparent" },
+        }}
+        component={creditCardScreen}
       />
     </ProfileStack.Navigator>
   );
