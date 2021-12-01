@@ -1,6 +1,7 @@
 import { Formik } from "formik";
 import React, { useEffect, useRef, useState } from "react";
 import {
+  Alert,
   SafeAreaView,
   Text,
   TextInput,
@@ -16,15 +17,9 @@ import { ApiDelivery } from "../../services/http/apiDelivery";
 import { stylesRegForm } from "../../styles/regFormStyle";
 import { adressValidationSchema } from "./adressValidationSchema";
 import { adressDeliveryScreenStyles } from "../../styles/adressDeliveryScreenStyles";
+import { connect } from "react-redux";
 
-const mokeDefaultData = {
-  street: "Советская",
-  house: "11",
-  corpus: "21A",
-  flat: "44",
-};
-
-export const adressDeliveryScreen = ({ navigation, route }) => {
+const adressDeliveryScreen = ({ navigation, route, userInfo }) => {
   const [data, setData] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const getData = async () => {
@@ -38,6 +33,17 @@ export const adressDeliveryScreen = ({ navigation, route }) => {
   useEffect(() => {
     getData();
   }, [searchQuery]);
+
+  const showAlert = () => {
+    Alert.alert("Упс....", "У вас нет адреса доставки!", [
+      {
+        text: "ОК",
+        style: "cancel",
+      },
+    ]);
+    setIsChecked((prev) => !prev);
+  };
+  console.log("USERINFOFROMADRESS", userInfo);
 
   return (
     <SafeAreaView style={adressDeliveryScreenStyles.mainSafeAreaViewWrapper}>
@@ -160,7 +166,14 @@ export const adressDeliveryScreen = ({ navigation, route }) => {
                   <Checkbox
                     onClick={() => {
                       setIsChecked((prev) => !prev);
-                      setValues(mokeDefaultData);
+                      userInfo.street === ""
+                        ? showAlert()
+                        : setValues({
+                            street: userInfo.street,
+                            house: userInfo.homeNumber,
+                            corpus: userInfo.homePart,
+                            flat: userInfo.flat,
+                          });
                     }}
                     isChecked={isChecked}
                     style={{ transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }}
@@ -197,3 +210,10 @@ export const adressDeliveryScreen = ({ navigation, route }) => {
     </SafeAreaView>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    userInfo: state.UserData,
+  };
+};
+
+export default connect(mapStateToProps, null)(adressDeliveryScreen);

@@ -13,3 +13,5 @@ export const LOADING_FINISHED = "LOADING_FINISHED";
 export const GET_ADRESS = "GET_ADRESS";
 export const SET_ADRESS = "SET_ADRESS";
 export const REMOVE_ADRESS = "REMOVE_ADRESS";
+export const SET_USER_DATA = "SET_USER_DATA";
+export const SET_ORDERS = "SET_ORDERS";

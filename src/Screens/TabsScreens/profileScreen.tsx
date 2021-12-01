@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, SafeAreaView } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 import {
   Avatar,
   Title,
@@ -10,9 +11,12 @@ import {
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { connect } from "react-redux";
+import { AuthService } from "../../services/http/AuthService";
 import { stylesProfile } from "../../styles/profileStyle";
+import { getAllOrders } from "../../services/store/cartStore/thunks/thunks";
 
-const ProfileScreen = ({ navigation, adress }) => {
+const ProfileScreen = ({ navigation, userInfo, fetchAllOrders }) => {
+  console.log("USERINFRO", userInfo);
   return (
     <SafeAreaView style={stylesProfile.container}>
       <View style={stylesProfile.userInfoSection}>
@@ -31,7 +35,7 @@ const ProfileScreen = ({ navigation, adress }) => {
                 },
               ]}
             >
-              Игорь Бузланов
+              {`${userInfo.name} ${userInfo.secondname}`}
             </Title>
             <Caption style={stylesProfile.caption}>@buzlik</Caption>
           </View>
@@ -48,13 +52,13 @@ const ProfileScreen = ({ navigation, adress }) => {
         <View style={stylesProfile.row}>
           <Icon name="phone" color="#777777" size={20} />
           <Text style={{ color: "#777777", marginLeft: 20 }}>
-            +375(44)546-06-93
+            {userInfo.phone}
           </Text>
         </View>
         <View style={stylesProfile.row}>
           <Icon name="email" color="#777777" size={20} />
           <Text style={{ color: "#777777", marginLeft: 20 }}>
-            igorbuzlanov44@gmail.com
+            {userInfo.email}
           </Text>
         </View>
       </View>
@@ -62,7 +66,7 @@ const ProfileScreen = ({ navigation, adress }) => {
       <View style={stylesProfile.menuWrapper}>
         <TouchableRipple
           onPress={() => {
-            Object.values(adress).length > 1
+            userInfo.street !== null
               ? navigation.navigate("MyAdress")
               : navigation.navigate("NewAdress");
           }}
@@ -78,19 +82,28 @@ const ProfileScreen = ({ navigation, adress }) => {
             <Text style={stylesProfile.menuItemText}>Банковские карты</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple
+          onPress={() => {
+            navigation.navigate("MyOrders");
+          }}
+        >
           <View style={stylesProfile.menuItem}>
             <Icon name="cart" color="#FF6347" size={25} />
             <Text style={stylesProfile.menuItemText}>Мои заказы</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
-          <View style={stylesProfile.menuItem}>
-            <Icon name="cog" color="#FF6347" size={25} />
-            <Text style={stylesProfile.menuItemText}>Настройки</Text>
-          </View>
-        </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple
+          onPress={async () => {
+            try {
+              // const response = await AuthService.logout();
+              // console.log("RESPONSELOGOUT", response.data);
+              await AsyncStorage.removeItem("token"); //IF I REMOVE TOKEN NOTHING HAPPEN
+              navigation.navigate("LoginScreen"); //its temp fix
+            } catch (err) {
+              console.log("ERROR", err);
+            }
+          }}
+        >
           <View style={stylesProfile.menuItem}>
             <Icon
               name="logout"
@@ -107,7 +120,7 @@ const ProfileScreen = ({ navigation, adress }) => {
 };
 const mapStateToProps = (state) => {
   return {
-    adress: state.Adress,
+    userInfo: state.UserData,
   };
 };
 

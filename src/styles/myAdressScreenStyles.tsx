@@ -24,6 +24,7 @@ export const myAdressScreenStyles = StyleSheet.create({
     paddingTop: 30,
   },
   cityNameStyle: {
+    paddingTop: 10,
     fontSize: 18,
     fontFamily: "MacondoSwashCaps",
   },

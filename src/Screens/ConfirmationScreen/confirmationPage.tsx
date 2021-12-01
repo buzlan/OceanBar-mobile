@@ -9,8 +9,14 @@ import uuid from "uuid";
 import DropDownPicker from "react-native-dropdown-picker";
 import { confirmationPageStyles } from "../../styles/confirmationPageStyles";
 import { reserveTableScreenStyles } from "../../styles/reserveTableScreenStyles";
-import { formatAdress } from "../../utils/adressUtils";
 import { InfoItem } from "../../components/infoItem";
+import { OrderService } from "../../services/http/OrderService";
+import {
+  loadingFinish,
+  loadingStart,
+  setOrdersData,
+} from "../../actions/order";
+import { AppLoader } from "../../components/AppLoader";
 
 const CARDS = [
   { label: "card1", value: "card1" },
@@ -18,13 +24,24 @@ const CARDS = [
   { label: "card3", value: "card3" },
   { label: "Новая карта", value: "Привязать новую карту" },
 ];
+const fakeState = "В процессе";
 
-const confirmationScreen = ({ cart, totalSum, route, navigation }) => {
+const confirmationScreen = ({
+  cart,
+  totalSum,
+  route,
+  navigation,
+  orders,
+  setOrders,
+  loadingStarted,
+  loadingFinished,
+  isLoading,
+}) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [orderData, setOrderData] = useState(route.params);
   const [excludedIngredients, setExcludedIngredients] = useState([]);
-
+  console.log("ORDERSSTATE", orders);
   useEffect(() => {
     const excludedIng = cart.map((cartElement) => {
       const selectedIngredients = cartElement.ingredients.split(";");
@@ -38,7 +55,21 @@ const confirmationScreen = ({ cart, totalSum, route, navigation }) => {
     setExcludedIngredients(excludedIng);
   }, [cart]);
 
-  return (
+  console.log(
+    "DATAFORREQUEST",
+    fakeState,
+    orderData.orderType,
+    orderData.date,
+    orderData.time,
+    totalSum,
+    orderData.paidType,
+    orderData.table,
+    orderData.adress
+  );
+
+  return isLoading ? (
+    <AppLoader />
+  ) : (
     <View style={confirmationPageStyles.mainWrapper}>
       <ScrollView
         style={confirmationPageStyles.scrollViewStyle}
@@ -97,7 +128,7 @@ const confirmationScreen = ({ cart, totalSum, route, navigation }) => {
             {orderData.adress ? (
               <InfoItem
                 title={" Адрес:"}
-                item={formatAdress(orderData.adress)}
+                item={orderData.adress}
                 styleWrapper={confirmationPageStyles.itemWrapperStyle}
                 stylesFirstPartText={confirmationPageStyles.firstPartTextStyle}
                 stylesSecondPartText={
@@ -215,8 +246,30 @@ const confirmationScreen = ({ cart, totalSum, route, navigation }) => {
                 reserveTableScreenStyles.disabledTitleRegisterBtn
               }
               buttonStyle={reserveTableScreenStyles.registerButton}
-              onPress={() => {
-                navigation.navigate("ConfirmationFinal");
+              onPress={async () => {
+                try {
+                  loadingStarted();
+                  const response = await OrderService.createOrder(
+                    fakeState,
+                    orderData.orderType,
+                    orderData.date,
+                    orderData.time,
+                    totalSum,
+                    orderData.paidType,
+                    orderData.table,
+                    orderData.adress
+                  );
+                  const ordersData = await OrderService.getOrders();
+                  setOrders(ordersData.data);
+
+                  console.log("RESP", ordersData.data);
+                  navigation.navigate("ConfirmationFinal", {
+                    order: response.data,
+                  });
+                  loadingFinished();
+                } catch (error) {
+                  console.log("ERROR", error);
+                }
               }}
             />
           </View>
@@ -230,8 +283,16 @@ const mapStateToProps = (state) => {
   return {
     cart: state.Cart.cartItems,
     totalSum: state.Cart.totalSum,
-    isLoading: state.Cart.isLoading,
+    isLoading: state.Orders.isLoading,
+    orders: state.Orders,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setOrders: (item) => dispatch(setOrdersData(item)),
+    loadingStarted: () => dispatch(loadingStart()),
+    loadingFinished: () => dispatch(loadingFinish()),
   };
 };
 
-export default connect(mapStateToProps, null)(confirmationScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(confirmationScreen);

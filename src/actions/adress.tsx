@@ -7,6 +7,3 @@ export const setAdress = (item) => ({
 export const getAdress = () => ({
   type: GET_ADRESS,
 });
-export const removeAdress = () => ({
-  type: REMOVE_ADRESS,
-});

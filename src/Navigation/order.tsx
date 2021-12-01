@@ -11,8 +11,10 @@ import { selectTimeScreen } from "../Screens/SelectTimeScreen/selectTimeScreen";
 import { orderTakeawayScreen } from "../Screens/OrderTakeawayScreen/orderTakeawayScreen";
 import { paidTypeScreen } from "../Screens/PaidType/paidTypeScreen";
 import { orderDeliveryScreen } from "../Screens/OrderDelivery/orderDeliveryScreen";
-import { adressDeliveryScreen } from "../Screens/AdressDeliveryScreen/adressDeliveryScreen";
+import adressDeliveryScreen from "../Screens/AdressDeliveryScreen/adressDeliveryScreen";
 import { confirmationFinalScreen } from "../Screens/ConfirmationResultScreen/confirmationFinalScreen";
+import myOrdersScreen from "../Screens/MyOrdersScreen/myOrdersScreen";
+import orderDetailsScreen from "../Screens/OrderScreenWithDetails/orderDetailsScreen";
 
 const Stack = createStackNavigator();
 
@@ -91,6 +93,16 @@ export const CartNavigation = () => {
         name="ConfirmationFinal"
         component={confirmationFinalScreen}
         options={() => setOptions("Подтверждение заказа")}
+      />
+      <Stack.Screen
+        name="MyOrders"
+        component={myOrdersScreen}
+        options={() => setOptions("Мои заказы")}
+      />
+      <Stack.Screen
+        name="OrderDetails"
+        component={orderDetailsScreen}
+        options={() => setOptions("Заказ")}
       />
     </Stack.Navigator>
   );

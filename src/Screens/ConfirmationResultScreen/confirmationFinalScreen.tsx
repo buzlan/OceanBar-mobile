@@ -6,7 +6,8 @@ import { confirmationFinalScreenStyles } from "../../styles/confirmationFinalScr
 import { formatDate } from "../../utils/dateUtils";
 
 const currentDate = new Date();
-export const confirmationFinalScreen = () => {
+export const confirmationFinalScreen = ({ navigation, route }) => {
+  const orderNumber = route.params.order.order.id;
   return (
     <View style={confirmationFinalScreenStyles.mainWrapper}>
       <View style={confirmationFinalScreenStyles.thanksForm}>
@@ -17,7 +18,7 @@ export const confirmationFinalScreen = () => {
           Номер вашего заказа:
         </Text>
         <Text style={confirmationFinalScreenStyles.textStyleLastString}>
-          ХХХХХХ от {formatDate(currentDate)}
+          №{orderNumber} от {formatDate(currentDate)}
         </Text>
       </View>
       <View style={confirmationFinalScreenStyles.buttonWrapper}>
@@ -26,7 +27,9 @@ export const confirmationFinalScreen = () => {
           titleStyle={confirmationFinalScreenStyles.titleRegisterBtn}
           disabled={false}
           buttonStyle={confirmationFinalScreenStyles.registerButton}
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate("MyOrders");
+          }}
         />
       </View>
     </View>

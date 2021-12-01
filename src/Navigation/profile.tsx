@@ -7,10 +7,13 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { useTheme } from "react-native-paper";
 import { View } from "react-native-animatable";
 import ProfileScreen from "../Screens/TabsScreens/profileScreen";
-import { EditProfileScreen } from "../Screens/EditProfileScreen/editProfileScreen";
+import EditProfileScreen from "../Screens/EditProfileScreen/editProfileScreen";
 import { newAdressScreen } from "../Screens/ProfileOptionsScreens/newAdressScreen";
 import setProfileAdressScreen from "../Screens/ProfileOptionsScreens/setProfileAdressScreen";
 import MyAdressScreen from "../Screens/ProfileOptionsScreens/MyAdressScreen";
+import changePasswordScreen from "../Screens/ChangePasswordScreen/changePasswordScreen";
+import myOrdersScreen from "../Screens/MyOrdersScreen/myOrdersScreen";
+import orderDetailsScreen from "../Screens/OrderScreenWithDetails/orderDetailsScreen";
 
 const ProfileStack = createStackNavigator();
 
@@ -74,10 +77,34 @@ export const ProfileStackScreen = ({ navigation }) => {
       <ProfileStack.Screen
         name="MyAdress"
         options={{
-          title: "Новый адрес доставки",
+          title: "Адрес доставки",
           headerStyle: { height: 70, backgroundColor: "transparent" },
         }}
         component={MyAdressScreen}
+      />
+      <ProfileStack.Screen
+        name="ChangePassword"
+        options={{
+          title: "Изменение пароля",
+          headerStyle: { height: 70, backgroundColor: "transparent" },
+        }}
+        component={changePasswordScreen}
+      />
+      <ProfileStack.Screen
+        name="MyOrders"
+        options={{
+          title: "Мои заказы",
+          headerStyle: { height: 70, backgroundColor: "transparent" },
+        }}
+        component={myOrdersScreen}
+      />
+      <ProfileStack.Screen
+        name="OrderDetails"
+        options={{
+          title: "Заказ",
+          headerStyle: { height: 70, backgroundColor: "transparent" },
+        }}
+        component={orderDetailsScreen}
       />
     </ProfileStack.Navigator>
   );
