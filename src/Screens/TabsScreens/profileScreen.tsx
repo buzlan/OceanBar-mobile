@@ -76,7 +76,11 @@ const ProfileScreen = ({ navigation, userInfo, fetchAllOrders }) => {
             <Text style={stylesProfile.menuItemText}>Адрес доставки</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple
+          onPress={() => {
+            navigation.navigate("CreditCards");
+          }}
+        >
           <View style={stylesProfile.menuItem}>
             <Icon name="credit-card" color="#FF6347" size={25} />
             <Text style={stylesProfile.menuItemText}>Банковские карты</Text>
