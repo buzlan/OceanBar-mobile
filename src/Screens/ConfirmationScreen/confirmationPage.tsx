@@ -17,6 +17,7 @@ import {
   setOrdersData,
 } from "../../actions/order";
 import { AppLoader } from "../../components/AppLoader";
+import { clearBasket } from "../../services/store/cartStore/thunks/thunks";
 
 const CARDS = [
   { label: "card1", value: "card1" },
@@ -259,10 +260,6 @@ const confirmationScreen = ({
                     orderData.table,
                     orderData.adress
                   );
-                  const ordersData = await OrderService.getOrders();
-                  setOrders(ordersData.data);
-
-                  console.log("RESP", ordersData.data);
                   navigation.navigate("ConfirmationFinal", {
                     order: response.data,
                   });
