@@ -32,6 +32,7 @@ const LoginScreen = ({ navigation, setUserInfo }) => {
                 values.email,
                 values.password
               );
+
               setUserInfo(response.data.data);
               console.log(response.data, "login");
               await AsyncStorage.setItem("token", response.data.accessToken);
