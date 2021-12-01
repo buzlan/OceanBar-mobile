@@ -21,8 +21,6 @@ export const adressValidationSchema = yup.object().shape({
 
   corpus: yup
     .string()
-    .min(2, "Пароль не может содержать менее 2 символов")
-    .max(5, "Пароль не может содержать более 5 символов")
     .required("Поле обязательно к заполнению")
     .matches(
       /^(?=.*[a-zA-Zа-яА-Я]{1,2})(?=.*[0-9]{1,3})[a-zA-Zа-яА-Я\d]{2,5}$/,

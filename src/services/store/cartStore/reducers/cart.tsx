@@ -98,6 +98,8 @@ export const Cart = (state = InitialState, action) => {
     case ADD_ALL_ITEMS_TO_CART:
       return { cartItems: action.data, totalSum: totalSum(action.data) };
     case ADD_TO_CART:
+      console.log("STATECART", state);
+      console.log("ACTIONCART", action.data);
       return addToCart(state, action);
     case REMOVE_ITEM_FROM_CART:
       return removeItem(state, action);

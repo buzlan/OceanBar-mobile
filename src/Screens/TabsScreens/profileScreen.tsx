@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { View, SafeAreaView } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import {
@@ -11,11 +11,9 @@ import {
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { connect } from "react-redux";
-import { AuthService } from "../../services/http/AuthService";
 import { stylesProfile } from "../../styles/profileStyle";
-import { getAllOrders } from "../../services/store/cartStore/thunks/thunks";
 
-const ProfileScreen = ({ navigation, userInfo, fetchAllOrders }) => {
+const ProfileScreen = ({ navigation, userInfo, creditCards }) => {
   console.log("USERINFRO", userInfo);
   return (
     <SafeAreaView style={stylesProfile.container}>
@@ -78,7 +76,9 @@ const ProfileScreen = ({ navigation, userInfo, fetchAllOrders }) => {
         </TouchableRipple>
         <TouchableRipple
           onPress={() => {
-            navigation.navigate("CreditCards");
+            creditCards.length > 0
+              ? navigation.navigate("MyCards")
+              : navigation.navigate("EmptyCard");
           }}
         >
           <View style={stylesProfile.menuItem}>
@@ -125,6 +125,7 @@ const ProfileScreen = ({ navigation, userInfo, fetchAllOrders }) => {
 const mapStateToProps = (state) => {
   return {
     userInfo: state.UserData,
+    creditCards: state.CardStore.creditCards,
   };
 };
 

@@ -13,8 +13,10 @@ import MyAdressScreen from "../Screens/ProfileOptionsScreens/MyAdressScreen";
 import changePasswordScreen from "../Screens/ChangePasswordScreen/changePasswordScreen";
 import myOrdersScreen from "../Screens/MyOrdersScreen/myOrdersScreen";
 import orderDetailsScreen from "../Screens/OrderScreenWithDetails/orderDetailsScreen";
-import { creditCardScreen } from "../Screens/CreditCardScreen/creditCardScreen";
 import { View } from "react-native";
+import { emptyCardScreen } from "../Screens/CreditCardScreen/emptyCardScreen";
+import setCreditCard from "../Screens/CreditCardScreen/creditCardScreen";
+import myCardsScreen from "../Screens/CreditCardScreen/myCardsScreen";
 
 const ProfileStack = createStackNavigator();
 
@@ -108,12 +110,28 @@ export const ProfileStackScreen = ({ navigation }) => {
         component={orderDetailsScreen}
       />
       <ProfileStack.Screen
-        name="CreditCards"
+        name="EmptyCard"
         options={{
           title: "Кредитные карты",
           headerStyle: { height: 70, backgroundColor: "transparent" },
         }}
-        component={creditCardScreen}
+        component={emptyCardScreen}
+      />
+      <ProfileStack.Screen
+        name="SetCard"
+        options={{
+          title: "Добавить карту",
+          headerStyle: { height: 70, backgroundColor: "transparent" },
+        }}
+        component={setCreditCard}
+      />
+      <ProfileStack.Screen
+        name="MyCards"
+        options={{
+          title: "Карты",
+          headerStyle: { height: 70, backgroundColor: "transparent" },
+        }}
+        component={myCardsScreen}
       />
     </ProfileStack.Navigator>
   );

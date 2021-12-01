@@ -15,3 +15,6 @@ export const SET_ADRESS = "SET_ADRESS";
 export const REMOVE_ADRESS = "REMOVE_ADRESS";
 export const SET_USER_DATA = "SET_USER_DATA";
 export const SET_ORDERS = "SET_ORDERS";
+export const SET_CARD_DATA = "SET_CARD_DATA";
+export const REMOVE_CARD = "REMOVE_CARD";
+export const REMOVE_CARD_ITEM = "REMOVE_CARD_ITEM";
