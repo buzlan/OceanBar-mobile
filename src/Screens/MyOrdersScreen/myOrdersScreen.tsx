@@ -15,7 +15,7 @@ const myOrdersScreen = ({ fetchAllOrders, orders, isLoading, navigation }) => {
   const [selectedButton, setSelectedButton] = useState(1);
   useEffect(() => {
     fetchAllOrders();
-  }, [navigation]);
+  }, []);
   console.log("ORDERA", orders);
   return isLoading ? (
     <AppLoader />

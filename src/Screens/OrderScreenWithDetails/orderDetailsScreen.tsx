@@ -8,20 +8,31 @@ import { confirmationPageStyles } from "../../styles/confirmationPageStyles";
 import { InfoItem } from "../../components/infoItem";
 import { Button } from "react-native-elements";
 import { OrderService } from "../../services/http/OrderService";
-import { getAllOrders } from "../../services/store/cartStore/thunks/thunks";
+import {
+  getAllDishesForOrder,
+  getAllOrders,
+} from "../../services/store/cartStore/thunks/thunks";
 import { reserveTableScreenStyles } from "../../styles/reserveTableScreenStyles";
 
-const orderDetailsScreen = ({ orders, route, navigation, fetchAllOrders }) => {
-  console.log("ORDERSSTATE", orders.orders);
-  console.log("ID", route?.params?.orderId);
-  const currentOrder = orders.orders.filter(
-    (item) => item.id === route?.params?.orderId
-  );
+const orderDetailsScreen = ({
+  orders,
+  route,
+  navigation,
+  fetchAllOrders,
+  fetchDishesForOrder,
+}) => {
+  // const currentOrder = orders.orders.filter(
+  //   (item) => item.id === route?.params?.orderId
+  // );
+
+  useEffect(() => {
+    fetchDishesForOrder(route?.params?.orderId);
+  }, [route?.params?.orderId]);
+  console.log("ORDERSSTATE", JSON.stringify(orders.dishesForOrder[0]));
   console.log("ORDERSFROMDETAILS", orders.orders);
   console.log("ID", route?.params?.orderId);
-  console.log("MYORDER", currentOrder[0]);
-  console.log("DISHES", currentOrder[0]?.dishes);
-
+  // console.log("MYORDER", currentOrder);
+  // console.log("DISHES", currentOrder[0]?.dishes);
   return (
     <View style={confirmationPageStyles.mainWrapper}>
       <ScrollView
@@ -29,36 +40,38 @@ const orderDetailsScreen = ({ orders, route, navigation, fetchAllOrders }) => {
         nestedScrollEnabled={true}
       >
         <View>
-          {currentOrder[0]?.dishes.map((item) => (
+          {orders.dishesForOrder.map((item) => (
             <View style={confirmationPageStyles.mainContainer} key={uuid.v4()}>
               <View style={confirmationPageStyles.imageWithCountStyles}>
                 <Image
                   source={{
-                    uri: item.imageURL,
+                    uri: item.dish.imageURL,
                   }}
                   style={confirmationPageStyles.imageStyle}
                 />
                 <View style={confirmationPageStyles.quantityContainer}>
-                  <Text style={confirmationPageStyles.quantityItem}>X</Text>
+                  <Text style={confirmationPageStyles.quantityItem}>
+                    X {item.quantity}
+                  </Text>
                 </View>
               </View>
               <View style={confirmationPageStyles.textItemsContainer}>
                 <View>
                   <Text style={confirmationPageStyles.itemTitle}>
-                    {item.name}
+                    {item.dish.name}
                   </Text>
                 </View>
                 {/* {excludedIngredients[index]?.length > 0 ? (
-                  <InfoItem
-                    title={"Без добавления:"}
-                    item={excludedIngredients[index]?.join(", ")}
-                    styleWrapper={confirmationPageStyles.excludedIngWrapper}
-                    stylesFirstPartText={confirmationPageStyles.withoutIngText}
-                    stylesSecondPartText={confirmationPageStyles.ingTextWrapper}
-                  />
-                ) : null} */}
                 <InfoItem
-                  title={`${item.price} BYN`}
+                  title={"Без добавления:"}
+                  item={excludedIngredients[index]?.join(", ")}
+                  styleWrapper={confirmationPageStyles.excludedIngWrapper}
+                  stylesFirstPartText={confirmationPageStyles.withoutIngText}
+                  stylesSecondPartText={confirmationPageStyles.ingTextWrapper}
+                />
+              ) : null} */}
+                <InfoItem
+                  title={`${item.dish.price} BYN`}
                   item={"за 1 позицию"}
                   styleWrapper={confirmationPageStyles.priceAndIconsContainer}
                   stylesFirstPartText={confirmationPageStyles.priceItem}
@@ -71,15 +84,15 @@ const orderDetailsScreen = ({ orders, route, navigation, fetchAllOrders }) => {
           <View style={confirmationPageStyles.itemsWrapperContainer}>
             <InfoItem
               title={"Тип заказа:"}
-              item={currentOrder[0]?.type}
+              item={orders?.dishesForOrder[0]?.order?.type}
               styleWrapper={confirmationPageStyles.itemWrapperStyle}
               stylesFirstPartText={confirmationPageStyles.firstPartTextStyle}
               stylesSecondPartText={confirmationPageStyles.secondPartTextStyle}
             />
-            {currentOrder[0]?.adress ? (
+            {orders.dishesForOrder[0]?.order?.adress ? (
               <InfoItem
                 title={" Адрес:"}
-                item={currentOrder[0].adress}
+                item={orders.dishesForOrder[0]?.order?.adress}
                 styleWrapper={confirmationPageStyles.itemWrapperStyle}
                 stylesFirstPartText={confirmationPageStyles.firstPartTextStyle}
                 stylesSecondPartText={
@@ -89,14 +102,14 @@ const orderDetailsScreen = ({ orders, route, navigation, fetchAllOrders }) => {
             ) : null}
             <InfoItem
               title={"Дата:"}
-              item={currentOrder[0]?.date}
+              item={orders.dishesForOrder[0]?.order?.date}
               styleWrapper={confirmationPageStyles.itemWrapperStyle}
               stylesFirstPartText={confirmationPageStyles.firstPartTextStyle}
               stylesSecondPartText={confirmationPageStyles.secondPartTextStyle}
             />
             <InfoItem
               title={"Время:"}
-              item={currentOrder[0]?.time}
+              item={orders.dishesForOrder[0]?.order?.time}
               styleWrapper={confirmationPageStyles.itemWrapperStyle}
               stylesFirstPartText={confirmationPageStyles.firstPartTextStyle}
               stylesSecondPartText={confirmationPageStyles.secondPartTextStyle}
@@ -114,10 +127,10 @@ const orderDetailsScreen = ({ orders, route, navigation, fetchAllOrders }) => {
                 confirmationPageStyles.secondPartTextContactStyle
               }
             />
-            {currentOrder[0]?.tableSize ? (
+            {orders.dishesForOrder[0]?.order?.tableSize ? (
               <InfoItem
                 title={"Стол на"}
-                item={currentOrder[0].tableSize}
+                item={orders.dishesForOrder[0]?.order?.tableSize}
                 styleWrapper={confirmationPageStyles.itemWrapperStyle}
                 stylesFirstPartText={confirmationPageStyles.firstPartTextStyle}
                 stylesSecondPartText={
@@ -130,7 +143,7 @@ const orderDetailsScreen = ({ orders, route, navigation, fetchAllOrders }) => {
           <View style={{ paddingTop: 30, alignItems: "center" }}>
             <InfoItem
               title={"Итого:"}
-              item={`${currentOrder[0]?.price} BYN`}
+              item={`${orders.dishesForOrder[0]?.order?.price} BYN`}
               styleWrapper={confirmationPageStyles.itemWrapperStyle}
               stylesFirstPartText={
                 confirmationPageStyles.firstPartTextStyleResult
@@ -144,7 +157,7 @@ const orderDetailsScreen = ({ orders, route, navigation, fetchAllOrders }) => {
           <View style={confirmationPageStyles.paidTypeNotOnlineWrapper}>
             <Text style={confirmationPageStyles.paidFirstText}>Оплата</Text>
             <Text style={confirmationPageStyles.paidSecondTextNotOnline}>
-              {currentOrder[0]?.paymentType}
+              {orders.dishesForOrder[0]?.order?.paymentType}
             </Text>
           </View>
           <View style={reserveTableScreenStyles.buttonWrapper}>
@@ -179,6 +192,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchAllOrders: () => dispatch(getAllOrders()),
+    fetchDishesForOrder: (id) => dispatch(getAllDishesForOrder(id)),
   };
 };
 

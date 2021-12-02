@@ -18,3 +18,4 @@ export const SET_ORDERS = "SET_ORDERS";
 export const SET_CARD_DATA = "SET_CARD_DATA";
 export const REMOVE_CARD = "REMOVE_CARD";
 export const REMOVE_CARD_ITEM = "REMOVE_CARD_ITEM";
+export const SET_DISHES = "SET_DISHES";
