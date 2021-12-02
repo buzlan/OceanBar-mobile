@@ -28,6 +28,9 @@ export class OrderService {
   static async getOrders(): Promise<AxiosResponse<any>> {
     return api.get("/order");
   }
+  static async getDishesForOrder(id: number): Promise<AxiosResponse<any>> {
+    return api.get(`/order/dishes/${id}`);
+  }
   static async deleteOrderById(id: number): Promise<AxiosResponse<any>> {
     return api.delete(`/order/${id}`);
   }

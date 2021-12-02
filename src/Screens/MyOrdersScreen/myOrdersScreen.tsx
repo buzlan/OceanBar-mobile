@@ -11,16 +11,11 @@ import { orderDeliveryScreenStyles } from "../../styles/orderDeliveryScreenStyle
 import { formatDate } from "../../utils/dateUtils";
 //LAYOUT PAGE + QUERY
 const currentDate = new Date();
-export const myOrdersScreen = ({
-  fetchAllOrders,
-  orders,
-  isLoading,
-  navigation,
-}) => {
+const myOrdersScreen = ({ fetchAllOrders, orders, isLoading, navigation }) => {
   const [selectedButton, setSelectedButton] = useState(1);
   useEffect(() => {
     fetchAllOrders();
-  }, [navigation]);
+  }, []);
   console.log("ORDERA", orders);
   return isLoading ? (
     <AppLoader />
@@ -64,35 +59,31 @@ export const myOrdersScreen = ({
           />
         </View>
       </View>
-      {selectedButton === 1 ? (
-        orders?.orders?.map((item) => (
-          <View
-            style={orderDeliveryScreenStyles.selectPaidTypeWrapper}
-            key={item.id}
-          >
-            <TouchableOpacity
-              onPress={() => {}}
-              style={orderDeliveryScreenStyles.dataElWrapper}
+      {selectedButton === 1
+        ? orders?.orders?.map((item) => (
+            <View
+              style={orderDeliveryScreenStyles.selectPaidTypeWrapper}
+              key={item.id}
             >
-              <Text
-                style={orderDeliveryScreenStyles.dataText}
-                onPress={() => {
-                  navigation.navigate("OrderDetails", {
-                    orderId: item.id,
-                  });
-                }}
+              <TouchableOpacity
+                onPress={() => {}}
+                style={orderDeliveryScreenStyles.dataElWrapper}
               >
-                Заказ №{item.id} от {formatDate(currentDate)}
-              </Text>
-              <FAIcon name={"chevron-right"} size={30} color={"black"} />
-            </TouchableOpacity>
-          </View>
-        ))
-      ) : (
-        <View>
-          <Text>История заказов</Text>
-        </View>
-      )}
+                <Text
+                  style={orderDeliveryScreenStyles.dataText}
+                  onPress={() => {
+                    navigation.navigate("OrderDetails", {
+                      orderId: item.id,
+                    });
+                  }}
+                >
+                  Заказ №{item.id} от {formatDate(currentDate)}
+                </Text>
+                <FAIcon name={"chevron-right"} size={30} color={"black"} />
+              </TouchableOpacity>
+            </View>
+          ))
+        : null}
     </View>
   );
 };

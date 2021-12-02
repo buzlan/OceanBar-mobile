@@ -4,6 +4,7 @@ import { FlashMessageService } from "../flashMassage";
 import { CartService } from "../http/CartService";
 import { OrderService } from "../http/OrderService";
 import { Adress } from "./adressStore/reducers/adress";
+import { CardStore } from "./cardStore/creditCard";
 
 import { Cart } from "./cartStore/reducers/cart";
 import { menuItems } from "./menuStore/reducers/menuItems";
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   Adress,
   UserData,
   Orders,
+  CardStore,
 });
 
 const services = {

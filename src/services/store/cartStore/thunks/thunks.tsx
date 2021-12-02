@@ -11,6 +11,7 @@ import {
 import {
   loadingFinish,
   loadingStart,
+  setDishesForOrders,
   setOrdersData,
 } from "../../../../actions/order";
 
@@ -34,6 +35,22 @@ export const getAllOrders = () => {
     dispatch(loadingFinish());
 
     dispatch(setOrdersData(response.data));
+  };
+};
+export const getAllDishesForOrder = (id: number) => {
+  return async (dispatch, getState, { orderService }) => {
+    // do request to API
+
+    try {
+      dispatch(loadingStart());
+      const response = await orderService.getDishesForOrder(id);
+
+      console.log("RESPONSEFORDISHES", response.data);
+      dispatch(setDishesForOrders(response.data.dishes));
+    } catch (err) {
+    } finally {
+      dispatch(loadingFinish());
+    }
   };
 };
 
