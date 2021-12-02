@@ -160,7 +160,8 @@ export const confirmationPageStyles = StyleSheet.create({
     justifyContent: "center",
   },
   paidWrapper: {
-    alignItems: "flex-start",
+    alignItems: "center",
+    justifyContent: "center",
     paddingLeft: 20,
     flexDirection: "row",
     paddingTop: 40,
@@ -185,7 +186,9 @@ export const confirmationPageStyles = StyleSheet.create({
   },
   paidTypeNotOnlineWrapper: {
     flexDirection: "row",
-    left: 50,
+    alignItems: "center",
+
+    justifyContent: "center",
   },
   dropDownWrapper: {
     paddingLeft: 20,

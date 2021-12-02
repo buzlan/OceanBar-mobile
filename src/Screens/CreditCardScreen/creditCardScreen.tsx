@@ -9,11 +9,10 @@ import { Button } from "react-native-elements";
 import { stylesRegForm } from "../../styles/regFormStyle";
 import { setProfileAdressScreenStyles } from "../../styles/setProfileAdressScreenStyles";
 import { connect } from "react-redux";
-import { setUserData } from "../../actions/user";
 import { creditCardSchema } from "./cardValidSchema";
 import { setCreditCardData } from "../../actions/creditCard";
 
-const setCreditCard = ({ navigation, creditCardInfo, setCardInfo }) => {
+const setCreditCard = ({ navigation, creditCardInfo, setCardInfo, route }) => {
   console.log("CREDITCARDSTATE", creditCardInfo);
   return (
     <SafeAreaView style={setProfileAdressScreenStyles.mainSafeAreaViewWrapper}>
@@ -121,7 +120,9 @@ const setCreditCard = ({ navigation, creditCardInfo, setCardInfo }) => {
                       } catch (err) {
                         console.log("ERROR", err);
                       }
-                      navigation.navigate("MyCards");
+                      route.params?.from
+                        ? navigation.navigate("Confirmation")
+                        : navigation.navigate("MyCards");
                     }}
                   />
                 </View>

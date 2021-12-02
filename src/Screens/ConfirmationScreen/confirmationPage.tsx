@@ -18,13 +18,10 @@ import {
 } from "../../actions/order";
 import { AppLoader } from "../../components/AppLoader";
 import { clearBasket } from "../../services/store/cartStore/thunks/thunks";
+import { newAdressScreenStyles } from "../../styles/newAdressScreenStyles";
+import { adressDeliveryScreenStyles } from "../../styles/adressDeliveryScreenStyles";
 
-const CARDS = [
-  { label: "card1", value: "card1" },
-  { label: "card2", value: "card2" },
-  { label: "card3", value: "card3" },
-  { label: "Новая карта", value: "Привязать новую карту" },
-];
+const CARDS = [{ label: "Нет карт", value: "" }];
 const fakeState = "В процессе";
 
 const confirmationScreen = ({
@@ -32,17 +29,25 @@ const confirmationScreen = ({
   totalSum,
   route,
   navigation,
-  orders,
-  setOrders,
   loadingStarted,
   loadingFinished,
   isLoading,
+  removeAllFromCart,
+  creditCards,
 }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [orderData, setOrderData] = useState(route.params);
+  const CardsItems = [];
+  creditCards.forEach((v) =>
+    CardsItems.push({
+      label: v.cardNumber.substring(12, 16),
+      value: v.cardNumber,
+    })
+  );
+  console.log("MyCards", CardsItems);
   const [excludedIngredients, setExcludedIngredients] = useState([]);
-  console.log("ORDERSSTATE", orders);
+  console.log("CREDITCARDS FROM CONFIRMPAGE", creditCards);
   useEffect(() => {
     const excludedIng = cart.map((cartElement) => {
       const selectedIngredients = cartElement.ingredients.split(";");
@@ -55,18 +60,6 @@ const confirmationScreen = ({
 
     setExcludedIngredients(excludedIng);
   }, [cart]);
-
-  console.log(
-    "DATAFORREQUEST",
-    fakeState,
-    orderData.orderType,
-    orderData.date,
-    orderData.time,
-    totalSum,
-    orderData.paidType,
-    orderData.table,
-    orderData.adress
-  );
 
   return isLoading ? (
     <AppLoader />
@@ -197,46 +190,59 @@ const confirmationScreen = ({
             ]}
           >
             {orderData.paidType === "онлайн" ? (
-              <>
-                <View>
-                  <Text style={confirmationPageStyles.paidFirstText}>
-                    Оплата
-                  </Text>
-                  <Text style={confirmationPageStyles.paidSecondText}>
-                    {orderData.paidType}
-                  </Text>
+              <View>
+                <View style={{ flexDirection: "row" }}>
+                  <View>
+                    <Text style={confirmationPageStyles.paidFirstText}>
+                      Оплата
+                    </Text>
+                    <Text style={confirmationPageStyles.paidSecondText}>
+                      {orderData.paidType}
+                    </Text>
+                  </View>
+                  <View style={confirmationPageStyles.dropDownWrapper}>
+                    <DropDownPicker
+                      key={uuid.v4()}
+                      listMode="SCROLLVIEW"
+                      open={open}
+                      value={value}
+                      items={creditCards.length > 0 ? CardsItems : CARDS}
+                      setOpen={setOpen}
+                      setValue={setValue}
+                      style={confirmationPageStyles.dropDownPickerStyle}
+                      textStyle={confirmationPageStyles.dropDownTextStyle}
+                      labelStyle={confirmationPageStyles.dropDownLabelStyle}
+                      dropDownDirection="BOTTOM"
+                      dropDownContainerStyle={
+                        confirmationPageStyles.dropDownContainerStyle
+                      }
+                      placeholder="Выберите карту"
+                      placeholderStyle={
+                        confirmationPageStyles.dropDownPlaceholderStyle
+                      }
+                    />
+                  </View>
                 </View>
-                <View style={confirmationPageStyles.dropDownWrapper}>
-                  <DropDownPicker
-                    listMode="SCROLLVIEW"
-                    open={open}
-                    value={value}
-                    items={CARDS}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    style={confirmationPageStyles.dropDownPickerStyle}
-                    textStyle={confirmationPageStyles.dropDownTextStyle}
-                    labelStyle={confirmationPageStyles.dropDownLabelStyle}
-                    dropDownDirection="BOTTOM"
-                    dropDownContainerStyle={
-                      confirmationPageStyles.dropDownContainerStyle
-                    }
-                    placeholder="Выберите карту"
-                    placeholderStyle={
-                      confirmationPageStyles.dropDownPlaceholderStyle
-                    }
+                <View style={{ paddingTop: 40 }}>
+                  <Button
+                    title="Добавить карту"
+                    titleStyle={newAdressScreenStyles.titleRegisterBtn}
+                    buttonStyle={newAdressScreenStyles.registerButton}
+                    onPress={() => {
+                      navigation.navigate("SetCard", { from: "Confirm" });
+                    }}
                   />
                 </View>
-              </>
+              </View>
             ) : (
               <View style={confirmationPageStyles.paidTypeNotOnlineWrapper}>
-                <Text style={confirmationPageStyles.paidFirstText}>Оплата</Text>
-                <Text style={confirmationPageStyles.paidSecondTextNotOnline}>
-                  {orderData.paidType}
+                <Text style={confirmationPageStyles.paidFirstText}>
+                  Оплата {orderData.paidType}
                 </Text>
               </View>
             )}
           </View>
+
           <View style={reserveTableScreenStyles.buttonWrapper}>
             <Button
               title="Подтвердить"
@@ -263,6 +269,7 @@ const confirmationScreen = ({
                   navigation.navigate("ConfirmationFinal", {
                     order: response.data,
                   });
+                  removeAllFromCart();
                   loadingFinished();
                 } catch (error) {
                   console.log("ERROR", error);
@@ -282,6 +289,7 @@ const mapStateToProps = (state) => {
     totalSum: state.Cart.totalSum,
     isLoading: state.Orders.isLoading,
     orders: state.Orders,
+    creditCards: state.CardStore.creditCards,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -289,6 +297,7 @@ const mapDispatchToProps = (dispatch) => {
     setOrders: (item) => dispatch(setOrdersData(item)),
     loadingStarted: () => dispatch(loadingStart()),
     loadingFinished: () => dispatch(loadingFinish()),
+    removeAllFromCart: () => dispatch(clearBasket()),
   };
 };
 

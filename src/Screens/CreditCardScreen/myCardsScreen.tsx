@@ -51,10 +51,8 @@ const myCardsScreen = ({ creditCards, navigation, removeCard }) => {
               </Text>
             </View>
           </TouchableOpacity>
-          <View style={{ paddingLeft: 30 }}>
-            <FAIcon name={"chevron-right"} size={30} color={"black"} />
-          </View>
-          <View style={{ paddingLeft: 90 }}>
+
+          <View style={{ paddingLeft: 120 }}>
             <TouchableOpacity
               onPress={() => {
                 removeCard(item.cardNumber);

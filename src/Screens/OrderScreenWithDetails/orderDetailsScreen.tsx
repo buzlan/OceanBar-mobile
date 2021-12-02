@@ -20,6 +20,7 @@ const orderDetailsScreen = ({
   navigation,
   fetchAllOrders,
   fetchDishesForOrder,
+  userInfo,
 }) => {
   // const currentOrder = orders.orders.filter(
   //   (item) => item.id === route?.params?.orderId
@@ -31,8 +32,7 @@ const orderDetailsScreen = ({
   console.log("ORDERSSTATE", JSON.stringify(orders.dishesForOrder[0]));
   console.log("ORDERSFROMDETAILS", orders.orders);
   console.log("ID", route?.params?.orderId);
-  // console.log("MYORDER", currentOrder);
-  // console.log("DISHES", currentOrder[0]?.dishes);
+
   return (
     <View style={confirmationPageStyles.mainWrapper}>
       <ScrollView
@@ -116,7 +116,7 @@ const orderDetailsScreen = ({
             />
             <InfoItem
               title={"Контактная информация:"}
-              item={"Кристина, +375296457721"}
+              item={`${userInfo.name} , ${userInfo.email}`}
               styleWrapper={
                 confirmationPageStyles.contactInformationStyleWrapper
               }
@@ -155,9 +155,8 @@ const orderDetailsScreen = ({
           </View>
 
           <View style={confirmationPageStyles.paidTypeNotOnlineWrapper}>
-            <Text style={confirmationPageStyles.paidFirstText}>Оплата</Text>
-            <Text style={confirmationPageStyles.paidSecondTextNotOnline}>
-              {orders.dishesForOrder[0]?.order?.paymentType}
+            <Text style={confirmationPageStyles.paidFirstText}>
+              Оплата {orders.dishesForOrder[0]?.order?.paymentType}
             </Text>
           </View>
           <View style={reserveTableScreenStyles.buttonWrapper}>
@@ -187,6 +186,7 @@ const orderDetailsScreen = ({
 const mapStateToProps = (state) => {
   return {
     orders: state.Orders,
+    userInfo: state.UserData,
   };
 };
 const mapDispatchToProps = (dispatch) => {

@@ -79,7 +79,12 @@ const myOrdersScreen = ({ fetchAllOrders, orders, isLoading, navigation }) => {
                 >
                   Заказ №{item.id} от {formatDate(currentDate)}
                 </Text>
-                <FAIcon name={"chevron-right"} size={30} color={"black"} />
+                <FAIcon
+                  name={"chevron-right"}
+                  size={30}
+                  color={"black"}
+                  style={{ paddingLeft: 50 }}
+                />
               </TouchableOpacity>
             </View>
           ))

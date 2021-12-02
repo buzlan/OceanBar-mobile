@@ -15,6 +15,7 @@ import adressDeliveryScreen from "../Screens/AdressDeliveryScreen/adressDelivery
 import { confirmationFinalScreen } from "../Screens/ConfirmationResultScreen/confirmationFinalScreen";
 import myOrdersScreen from "../Screens/MyOrdersScreen/myOrdersScreen";
 import orderDetailsScreen from "../Screens/OrderScreenWithDetails/orderDetailsScreen";
+import setCreditCard from "../Screens/CreditCardScreen/creditCardScreen";
 
 const Stack = createStackNavigator();
 
@@ -103,6 +104,11 @@ export const CartNavigation = () => {
         name="OrderDetails"
         component={orderDetailsScreen}
         options={() => setOptions("Заказ")}
+      />
+      <Stack.Screen
+        name="SetCard"
+        component={setCreditCard}
+        options={() => setOptions("Добавить карту")}
       />
     </Stack.Navigator>
   );
